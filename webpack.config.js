@@ -116,6 +116,11 @@ let config = {
             cache: true
           }
         },
+        // icons
+        {
+          from: './icons',
+          to: './icons'
+        },
         // options
         {
           from: './options/index.html',

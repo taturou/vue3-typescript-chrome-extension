@@ -4,6 +4,11 @@
   "name": "Vue3 + Typescript",
   "description": "Chrome extension template with Vue3 + Typescript + SCSS + Webpack5.",
   "version": "0.0.0",
+  "icons": {
+    "16": "icons/icon-16x16.png",
+    "48": "icons/icon-48x48.png",
+    "128": "icons/icon-128x128.png"
+  },
   // background
   "background": {
     "service_worker": "service_worker.js"
