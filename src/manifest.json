@@ -1,0 +1,20 @@
+{
+  // Required
+  "manifest_version": 3,
+  "name": "Vue3 + Typescript",
+  "description": "Chrome extension template with Vue3 + Typescript + SCSS + Webpack5.",
+  "version": "0.0.0",
+  // background
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  // option
+  "options_ui": {
+    "page": "options/index.html",
+    "open_in_tab": false
+  },
+  // Popup
+  "action": {
+    "default_popup": "popup/index.html"
+  }
+}
