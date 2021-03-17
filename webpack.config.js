@@ -20,7 +20,8 @@ const commonConfig = {
   entry: {
     'service_worker': './service_worker/index.ts', // It needs to put a worker script to the folder as same as manifest.json
     'options/index': './options/index.ts',
-    'popup/index': './popup/index.ts'
+    'popup/index': './popup/index.ts',
+    'store/index': './store/index.ts'
   },
   output: {
     path: path.resolve(__dirname, './dist'),

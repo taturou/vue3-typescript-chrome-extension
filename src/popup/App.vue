@@ -1,13 +1,17 @@
 <template lang="pug">
 div.container
   h1 {{ title }}
+
   div.button(
     @click="onOpenOptions"
   ) Options
+
+  Counter
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
+import Counter from './components/Counter.vue'
 
 export default defineComponent({
   setup () {
@@ -23,6 +27,9 @@ export default defineComponent({
       title,
       onOpenOptions
     }
+  },
+  components: {
+    Counter
   }
 })
 </script>
@@ -46,9 +53,10 @@ div.container {
   div.button {
     white-space: nowrap;
     font-size: 1em;
-    padding: 5px 20px;
     font-weight: lighter;
+    padding: 5px 20px;
     margin: 0px;
+    border-bottom: 1px solid gray;
     cursor: pointer;
 
     &:hover {
