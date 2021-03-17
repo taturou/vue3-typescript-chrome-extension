@@ -1,5 +1,5 @@
 import { Store as baseStore, CommitOptions, DispatchOptions, ActionContext } from 'vuex'
-import { RootState } from '@/store/types'
+import { RootState } from '@/lib/store/types'
 
 export interface StateType {
   count: number

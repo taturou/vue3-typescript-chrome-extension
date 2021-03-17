@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex'
-import { RootState } from '@/store/types'
+import { RootState } from '@/lib/store/types'
 import { StateType, ActionsType } from './types'
 
 const actions: ActionTree<StateType, RootState> & ActionsType = {

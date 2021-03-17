@@ -1,5 +1,5 @@
 import { Module } from 'vuex'
-import { RootState } from '@/store/types'
+import { RootState } from '@/lib/store/types'
 import { StateType } from './types'
 import getters from './getters'
 import actions from './actions'

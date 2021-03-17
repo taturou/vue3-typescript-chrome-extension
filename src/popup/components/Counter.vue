@@ -13,7 +13,7 @@ div.container
 
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
-import { useStore } from '@/store'
+import { useStore } from '@/lib/store'
 
 export default defineComponent({
   setup () {
