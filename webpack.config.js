@@ -1,8 +1,10 @@
 const webpack = require('webpack')
+const { merge } = require('webpack-merge')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const EslintWebpackPlugin = require('eslint-webpack-plugin')
 const CommentJson = require('comment-json')
 const path = require('path')
 const package_json = require('./package.json')
@@ -11,8 +13,8 @@ const manifest_json = (function () {
   return CommentJson.parse(fs.readFileSync('./src/manifest.json').toString(), null, true)
 })()
 
-// common
-let config = {
+// webpack config for common
+const commonConfig = {
   mode: process.env.NODE_ENV,
   context: path.resolve(__dirname, './src'),
   entry: {
@@ -91,16 +93,15 @@ let config = {
     new webpack.DefinePlugin({
       'process.env': {
         APP_NAME: JSON.stringify(manifest_json.name)
-      }
+      },
+      __VUE_OPTIONS_API__: 'true',
+      __VUE_PROD_DEVTOOLS__: 'false'
     }),
     new VueLoaderPlugin(), // for Vue3
     new MiniCssExtractPlugin({
       filename: '[name].css'
     }),
-    new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: 'true',
-      __VUE_PROD_DEVTOOLS__: 'false'
-    }),
+    new EslintWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         // manifest.json
@@ -144,25 +145,18 @@ let config = {
   ]
 }
 
-// production
-if (config.mode === 'production') {
-  const production = {
-  }
-  config = {...config, ...production}
-}
+// webpack config for production
+const productionConfig = {}
 
-// development
-if (config.mode === 'development') {
-  const development = {
-    devtool: 'inline-source-map',
-    optimization: {
-      minimize: true,
-      minimizer: [
-        new CssMinimizerPlugin()
-      ],
-    }
+// webpack config for development
+const developmentConfig = {
+  devtool: 'inline-source-map',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin()
+    ],
   }
-  config = {...config, ...development}
 }
 
 // transform content
@@ -175,4 +169,13 @@ function transformHtml (content, _path) {
   return content.toString()
 }
 
-module.exports = config
+module.exports = (() => {
+  switch(process.env.NODE_ENV) {
+    case 'development':
+      return merge(commonConfig, developmentConfig);
+    case 'production':
+      return merge(commonConfig, productionConfig);
+    default:
+      throw new Error('No matching configuration was found!');
+  }
+})()
