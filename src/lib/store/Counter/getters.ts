@@ -3,7 +3,10 @@ import { RootState } from '@/lib/store/types'
 import { StateType, GettersType } from './types'
 
 const getters: GetterTree<StateType, RootState> & GettersType = {
-  counterCountValue: (state): number => {
+  counterObject (state: StateType): StateType {
+    return state
+  },
+  counterCountValue (state: StateType): number {
     return state.count
   }
 }

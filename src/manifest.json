@@ -1,6 +1,6 @@
 {
   // Required
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Vue3 + Typescript",
   "description": "Chrome extension template with Vue3 + Typescript + SCSS + Webpack5.",
   "version": "0.0.0",
@@ -11,15 +11,29 @@
   },
   // background
   "background": {
+    // for MV2
+    "persistent": false,
+    "scripts": [
+      "service_worker.js"
+    ]
+    // for MV3
+    /*
     "service_worker": "service_worker.js"
+    */
   },
   // option
   "options_ui": {
     "page": "options/index.html",
     "open_in_tab": false
   },
-  // Popup
+  // Popup for MV2
+  "browser_action": {
+    "default_popup": "popup/index.html"
+  }
+  // Popup for MV3
+  /*
   "action": {
     "default_popup": "popup/index.html"
   }
+  */
 }

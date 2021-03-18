@@ -12,7 +12,7 @@ div.container
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from '@/lib/store'
 
 export default defineComponent({
@@ -27,6 +27,10 @@ export default defineComponent({
     const onDecrement = () => {
       store.dispatch('counterDecrement')
     }
+
+    onMounted(() => {
+      store.dispatch('counterFetch')
+    })
 
     return {
       store,

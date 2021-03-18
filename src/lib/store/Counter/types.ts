@@ -6,12 +6,12 @@ export interface StateType {
 }
 
 export interface GettersType {
+  counterObject (state: StateType): StateType,
   counterCountValue (state: StateType): number
 }
 
 export interface MutationsType {
-  counterIncrement (state: StateType): void,
-  counterDecrement (state: StateType): void
+  counterSetCountValue (state: StateType, count: number): void
 }
 
 type ActionsInjecteeType = {
@@ -23,8 +23,9 @@ type ActionsInjecteeType = {
   Omit<ActionContext<StateType, RootState>, "commit">;
 
 export interface ActionsType {
-  counterIncrement (injectee: ActionsInjecteeType): void,
-  counterDecrement (injectee: ActionsInjecteeType): void
+  counterFetch (injectee: ActionsInjecteeType): Promise<void>,
+  counterIncrement (injectee: ActionsInjecteeType): Promise<void>,
+  counterDecrement (injectee: ActionsInjecteeType): Promise<void>
 }
 
 export type StoreModuleType<S = StateType> = {

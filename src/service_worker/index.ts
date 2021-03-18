@@ -1,3 +1,3 @@
-chrome.runtime.onInstalled.addListener(() => {
-  console.log('background is installed')
-})
+import * as message from './message'
+
+message.addListener()

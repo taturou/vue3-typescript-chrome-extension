@@ -5,7 +5,9 @@
   "scripts": {
     "build": "cross-env NODE_ENV=\"production\" webpack",
     "build:dev": "cross-env NODE_ENV=\"development\" webpack",
+    "build:dev:mock": "cross-env NODE_ENV=\"development\" REPO_ENV=\"mock\" webpack",
     "watch": "cross-env NODE_ENV=\"development\" webpack --watch",
+    "watch:mock": "cross-env NODE_ENV=\"development\" REPO_ENV=\"mock\" webpack --watch",
     "clean": "rimraf dist"
   },
   "repository": {

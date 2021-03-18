@@ -20,8 +20,7 @@ const commonConfig = {
   entry: {
     'service_worker': './service_worker/index.ts', // It needs to put a worker script to the folder as same as manifest.json
     'options/index': './options/index.ts',
-    'popup/index': './popup/index.ts',
-    'lib/store/index': './lib/store/index.ts'
+    'popup/index': './popup/index.ts'
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -93,7 +92,8 @@ const commonConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        APP_NAME: JSON.stringify(manifest_json.name)
+        APP_NAME: JSON.stringify(manifest_json.name),
+        REPO_ENV: JSON.stringify(process.env.REPO_ENV)
       },
       __VUE_OPTIONS_API__: 'true',
       __VUE_PROD_DEVTOOLS__: 'false'
