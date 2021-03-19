@@ -52,4 +52,4 @@ module.exports = {
     'vue/no-deprecated-v-on-native-modifier': 2,
     'vue/no-deprecated-dollar-scopedslots-api': 2
   }
-};
+}
