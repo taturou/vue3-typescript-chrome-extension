@@ -19,7 +19,7 @@
   // option
   "options_ui": {
     "page": "options/index.html",
-    "open_in_tab": false
+    "open_in_tab": true
   },
   // Popup
   "browser_action": {

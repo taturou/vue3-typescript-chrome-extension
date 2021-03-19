@@ -11,11 +11,16 @@ div.container
   hr
 
   Counter
+
+  hr
+
+  Memos
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
 import Counter from './components/Counter.vue'
+import Memos from './components/Memos.vue'
 
 export default defineComponent({
   setup () {
@@ -33,7 +38,8 @@ export default defineComponent({
     }
   },
   components: {
-    Counter
+    Counter,
+    Memos
   }
 })
 </script>

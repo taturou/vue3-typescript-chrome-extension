@@ -5,7 +5,7 @@ div.container
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, onMounted } from 'vue'
+import { defineComponent, computed, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 
 export default defineComponent({
@@ -15,12 +15,11 @@ export default defineComponent({
       return store.getters['counter/count']
     })
 
-    onMounted(() => {
+    onBeforeMount(() => {
       store.dispatch('counter/fetch')
     })
 
     return {
-      store,
       counter
     }
   }

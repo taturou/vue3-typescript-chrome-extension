@@ -1,16 +1,21 @@
 import { messageLocalStorageDataType } from './types'
-import counterDespatcher from './Counter'
+import CounterDespatcher from './Counter'
+import MemosDespatcher from './Memos'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function (localStorage: messageLocalStorageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(localStorage.type) {
   case 'counter': {
-    counterDespatcher(localStorage.counter, sender, sendResponse)
+    CounterDespatcher(localStorage.counter, sender, sendResponse)
+    break
+  }
+  case 'memos': {
+    MemosDespatcher(localStorage.counter, sender, sendResponse)
     break
   }
   default: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dummy: never = localStorage.type
+    const dummy: never = localStorage
     throw new Error('Invalid store.')
   }}
 }

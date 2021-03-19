@@ -1,23 +1,24 @@
 import { messageType } from '@/background/message/types'
-import { StateType } from '@/lib/store/Counter/types'
-import { RepositoryType, ReposotySetCountParam } from './types'
+import { StateType } from '@/lib/store/Memos/types'
+import { RepositoryType, RepositoryAddParams, RepositoryDeleteByIdParams } from './types'
 
-class LocalStorageRepository implements RepositoryType {
+class MockRepository implements RepositoryType {
   private state: StateType
 
   constructor() {
     this.state = {
-      count: 0
+      maxId: 0,
+      memos: []
     }
   }
 
-  fetch (): Promise<StateType> {
+  fetch(): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
           type: 'localStorage',
           localStorage: {
-            type: 'counter',
+            type: 'memos',
             counter: {
               type: 'fetch',
               response: {
@@ -34,54 +35,57 @@ class LocalStorageRepository implements RepositoryType {
     })
   }
 
-  count (): Promise<number> {
+  add (payload: RepositoryAddParams): Promise<[StateType, number]> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
           type: 'localStorage',
           localStorage: {
-            type: 'counter',
+            type: 'memos',
             counter: {
-              type: 'count',
+              type: 'add',
+              params: {
+                content: payload.content
+              },
               response: {
-                count: 0
+                state: {} as StateType
               }
             }
           }
         } as messageType,
-        (count: number) => {
-          this.state.count = count
-          resolve(this.state.count)
+        (state: StateType) => {
+          this.state = state
+          resolve([this.state, this.state.memos.length - 1])
         }
       )
     })
   }
 
-  setCount (payload: ReposotySetCountParam): Promise<number> {
+  deleteById (payload: RepositoryDeleteByIdParams): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
           type: 'localStorage',
           localStorage: {
-            type: 'counter',
+            type: 'memos',
             counter: {
-              type: 'setCount',
+              type: 'deleteById',
               params: {
-                count: payload.count
+                id: payload.id
               },
               response: {
-                count: 0
+                state: {} as StateType
               }
             }
           }
         } as messageType,
-        (count: number) => {
-          this.state.count = count
-          resolve(this.state.count)
+        (state: StateType) => {
+          this.state = state
+          resolve(this.state)
         }
       )
     })
   }
 }
 
-export default LocalStorageRepository
+export default MockRepository
