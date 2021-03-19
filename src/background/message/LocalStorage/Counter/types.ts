@@ -17,7 +17,7 @@ export type messageCounterCountType = {
 export type messageCounterSetCountType = {
   type: 'setCount'
   params: {
-    value: number
+    count: number
   },
   response: {
     count: number

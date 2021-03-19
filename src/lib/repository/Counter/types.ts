@@ -1,7 +1,9 @@
 import { StateType } from '@/lib/store/Counter/types'
 
-export interface CounterRepositoryType {
+export type ReposotySetCountParam = Pick<StateType, 'count'>
+
+export interface RepositoryType {
   fetch (): Promise<StateType>,
   count (): Promise<number>,
-  setCount (value: number): Promise<number>
+  setCount (payload: ReposotySetCountParam): Promise<number>
 }

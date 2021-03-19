@@ -12,12 +12,12 @@ const actions: ActionTree<StateType, RootState> & ActionsType = {
   },
   async increment ({ commit, state }): Promise<void> {
     state.count += 1
-    await repo.setCount(state.count)
+    await repo.setCount({ count: state.count })
     commit('setCount', { count: state.count })
   },
   async decrement ({ commit, state }): Promise<void> {
     state.count -= 1
-    await repo.setCount(state.count)
+    await repo.setCount({ count: state.count })
     commit('setCount', { count: state.count })
   }
 }

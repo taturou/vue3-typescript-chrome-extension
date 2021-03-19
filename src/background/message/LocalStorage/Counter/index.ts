@@ -47,7 +47,7 @@ export default function (counter: messageCounterDataType, sender: chrome.runtime
     break
   }
   case 'setCount': {
-    counter.response.count = setCount(counter.params.value)
+    counter.response.count = setCount(counter.params.count)
     sendResponse(counter.response.count)
     break
   }

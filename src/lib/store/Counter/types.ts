@@ -10,10 +10,10 @@ export interface GettersType {
   count (state: StateType): number
 }
 
-export type MutationSetCountParamsType = Pick<StateType, 'count'>
+export type MutationSetCountParams = Pick<StateType, 'count'>
 
 export interface MutationsType {
-  setCount (state: StateType, payload: MutationSetCountParamsType): void
+  setCount (state: StateType, payload: MutationSetCountParams): void
 }
 
 type ActionsInjecteeType = {

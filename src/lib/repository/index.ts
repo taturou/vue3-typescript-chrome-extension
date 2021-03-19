@@ -1,4 +1,4 @@
-import { CounterRepositoryType } from './Counter/types'
+import { RepositoryType as CounterRepositoryType } from './Counter/types'
 import CounterLocalStorageRepository from './Counter/LocalStorageRepository'
 import CounterMockRepository from './Counter/MockRepository'
 

@@ -1,7 +1,7 @@
 import { StateType } from '@/lib/store/Counter/types'
-import { CounterRepositoryType } from './types'
+import { RepositoryType, ReposotySetCountParam } from './types'
 
-class CounterMockRepository implements CounterRepositoryType {
+class MockRepository implements RepositoryType {
   private state: StateType
 
   constructor() {
@@ -10,24 +10,24 @@ class CounterMockRepository implements CounterRepositoryType {
     }
   }
 
-  fetch(): Promise<StateType> {
+  fetch (): Promise<StateType> {
     return new Promise((resolve) => {
       resolve(this.state)
     })
   }
 
-  count(): Promise<number> {
+  count (): Promise<number> {
     return new Promise((resolve) => {
       resolve(this.state.count)
     })
   }
 
-  setCount(value: number): Promise<number> {
+  setCount (payload: ReposotySetCountParam): Promise<number> {
     return new Promise((resolve) => {
-      this.state.count = value
+      this.state.count = payload.count
       resolve(this.state.count)
     })
   }
 }
 
-export default CounterMockRepository
+export default MockRepository
