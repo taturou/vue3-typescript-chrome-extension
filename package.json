@@ -4,10 +4,10 @@
   "description": "Chrome extension template with Vue3 + Typescript + SCSS + Webpack5.",
   "scripts": {
     "build": "cross-env NODE_ENV=\"production\" webpack",
-    "build:dev": "cross-env NODE_ENV=\"development\" webpack",
-    "build:dev:mock": "cross-env NODE_ENV=\"development\" REPO_ENV=\"mock\" webpack",
+    "debug": "cross-env NODE_ENV=\"development\" webpack",
+    "debug:mock": "cross-env REPO_ENV=\"mock\" npm run debug",
     "watch": "cross-env NODE_ENV=\"development\" webpack --watch",
-    "watch:mock": "cross-env NODE_ENV=\"development\" REPO_ENV=\"mock\" webpack --watch",
+    "watch:mock": "cross-env REPO_ENV=\"mock\" npm run watch",
     "clean": "rimraf dist"
   },
   "repository": {
