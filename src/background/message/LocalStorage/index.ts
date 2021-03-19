@@ -1,4 +1,4 @@
-import { messageLocalStorageDataType } from '@/lib/message/LocalStorage/types'
+import { messageLocalStorageDataType } from './types'
 import counterDespatcher from './Counter'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

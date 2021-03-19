@@ -1,4 +1,4 @@
-import { messageType } from '@/lib/message/types'
+import { messageType } from './types'
 import localStorageDespatcher from './LocalStorage'
 
 export function addListener(): void {

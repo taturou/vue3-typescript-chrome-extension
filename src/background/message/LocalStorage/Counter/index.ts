@@ -1,4 +1,4 @@
-import { messageCounterDataType } from '@/lib/message/LocalStorage/Counter/types'
+import { messageCounterDataType } from './types'
 import { StateType } from '@/lib/store/Counter/types'
 import { migrate as objectMigrate } from '@/lib/object'
 

@@ -1,4 +1,4 @@
-import { messageType } from '@/lib/message/types'
+import { messageType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Counter/types'
 import { CounterRepositoryType } from './types'
 
