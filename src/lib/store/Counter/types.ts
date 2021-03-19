@@ -10,17 +10,19 @@ export interface GettersType {
   count (state: StateType): number
 }
 
+export type MutationSetCountParamsType = Pick<StateType, 'count'>
+
 export interface MutationsType {
-  setCount (state: StateType, count: number): void
+  setCount (state: StateType, payload: MutationSetCountParamsType): void
 }
 
 type ActionsInjecteeType = {
   commit<K extends keyof MutationsType>(
-      key: K,
-      payload?: Parameters<MutationsType[K]>[1]
-    ): ReturnType<MutationsType[K]>;
-  } &
-  Omit<ActionContext<StateType, RootState>, "commit">;
+    key: K,
+    payload?: Parameters<MutationsType[K]>[1]
+  ): ReturnType<MutationsType[K]>;
+}
+& Omit<ActionContext<StateType, RootState>, "commit">;
 
 export interface ActionsType {
   fetch (injectee: ActionsInjecteeType): Promise<void>,

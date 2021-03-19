@@ -1,9 +1,9 @@
 import { MutationTree } from 'vuex'
-import { StateType, MutationsType } from './types'
+import { StateType, MutationsType, MutationSetCountParamsType } from './types'
 
 const mutations: MutationTree<StateType> & MutationsType = {
-  setCount (state: StateType, count: number): void {
-    state.count = count
+  setCount (state: StateType, payload: MutationSetCountParamsType): void {
+    state.count = payload.count
   }
 }
 
