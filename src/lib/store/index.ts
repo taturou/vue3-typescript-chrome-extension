@@ -14,7 +14,8 @@ export const store = createStore<RootState>({
   modules: modules
 })
 
-export type Store = CounterStoreModuleType
+// 'counter' is as same as the module name of CounterModule that is registered to the 'modules' object.
+export type Store = CounterStoreModuleType<'counter'>
 
 export const useStore = (): Store => {
   return baseUseStore() as Store

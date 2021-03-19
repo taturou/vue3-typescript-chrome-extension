@@ -12,11 +12,11 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const counter = computed(() => {
-      return store.getters.counterCountValue
+      return store.getters['counter/count']
     })
 
     onMounted(() => {
-      store.dispatch('counterFetch')
+      store.dispatch('counter/fetch')
     })
 
     return {

@@ -19,17 +19,17 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const counter = computed(() => {
-      return store.getters.counterCountValue
+      return store.getters['counter/count']
     })
     const onIncrement = () => {
-      store.dispatch('counterIncrement')
+      store.dispatch('counter/increment')
     }
     const onDecrement = () => {
-      store.dispatch('counterDecrement')
+      store.dispatch('counter/decrement')
     }
 
     onMounted(() => {
-      store.dispatch('counterFetch')
+      store.dispatch('counter/fetch')
     })
 
     return {

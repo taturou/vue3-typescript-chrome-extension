@@ -6,19 +6,19 @@ import Repositories from '@/lib/repository'
 const repo = Repositories.counter()
 
 const actions: ActionTree<StateType, RootState> & ActionsType = {
-  async counterFetch ({ commit }): Promise<void> {
+  async fetch ({ commit }): Promise<void> {
     const state = await repo.fetch()
-    commit('counterSetCountValue', state.count)
+    commit('setCount', state.count)
   },
-  async counterIncrement ({ commit, state }): Promise<void> {
+  async increment ({ commit, state }): Promise<void> {
     state.count += 1
     await repo.setCount(state.count)
-    commit('counterSetCountValue', state.count)
+    commit('setCount', state.count)
   },
-  async counterDecrement ({ commit, state }): Promise<void> {
+  async decrement ({ commit, state }): Promise<void> {
     state.count -= 1
     await repo.setCount(state.count)
-    commit('counterSetCountValue', state.count)
+    commit('setCount', state.count)
   }
 }
 

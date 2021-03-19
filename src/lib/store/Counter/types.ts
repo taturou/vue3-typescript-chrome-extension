@@ -6,12 +6,12 @@ export interface StateType {
 }
 
 export interface GettersType {
-  counterObject (state: StateType): StateType,
-  counterCountValue (state: StateType): number
+  object (state: StateType): StateType,
+  count (state: StateType): number
 }
 
 export interface MutationsType {
-  counterSetCountValue (state: StateType, count: number): void
+  setCount (state: StateType, count: number): void
 }
 
 type ActionsInjecteeType = {
@@ -23,21 +23,21 @@ type ActionsInjecteeType = {
   Omit<ActionContext<StateType, RootState>, "commit">;
 
 export interface ActionsType {
-  counterFetch (injectee: ActionsInjecteeType): Promise<void>,
-  counterIncrement (injectee: ActionsInjecteeType): Promise<void>,
-  counterDecrement (injectee: ActionsInjecteeType): Promise<void>
+  fetch (injectee: ActionsInjecteeType): Promise<void>,
+  increment (injectee: ActionsInjecteeType): Promise<void>,
+  decrement (injectee: ActionsInjecteeType): Promise<void>
 }
 
-export type StoreModuleType<S = StateType> = {
+export type StoreModuleType<M extends string> = {
   getters: {
-    [K in keyof GettersType]: ReturnType<GettersType[K]>
+    [K in keyof GettersType as `${M}/${K}`]: ReturnType<GettersType[K]>
   }
 }
 & {
   commit<
     K extends keyof MutationsType
   >(
-    key: K,
+    key: `${M}/${K}`,
     payload?: Parameters<MutationsType[K]>[1],
     options?: CommitOptions
   ): ReturnType<MutationsType[K]>
@@ -46,9 +46,9 @@ export type StoreModuleType<S = StateType> = {
   dispatch<
     K extends keyof ActionsType
   >(
-    key: K,
+    key: `${M}/${K}`,
     payload?: Parameters<ActionsType[K]>[1],
     options?: DispatchOptions
   ): ReturnType<ActionsType[K]>,
 }
-& Omit<baseStore<S>, 'getters' | 'commit' | 'dispatch'>
+& Omit<baseStore<StateType>, 'getters' | 'commit' | 'dispatch'>
