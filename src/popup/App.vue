@@ -2,9 +2,13 @@
 div.container
   h1 {{ title }}
 
+  hr
+
   div.button(
     @click="onOpenOptions"
   ) Options
+
+  hr
 
   Counter
 </template>
@@ -47,7 +51,13 @@ div.container {
     font-size: 1.5em;
     font-weight: lighter;
     white-space: nowrap;
-    border-bottom: 1px solid gray;
+  }
+
+  hr {
+    size: 1px;
+    width: 100%;
+    color: gray;
+    margin: 0px;
   }
 
   div.button {
@@ -56,7 +66,6 @@ div.container {
     font-weight: lighter;
     padding: 5px 20px;
     margin: 0px;
-    border-bottom: 1px solid gray;
     cursor: pointer;
 
     &:hover {
