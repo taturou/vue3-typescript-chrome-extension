@@ -18,7 +18,7 @@ const commonConfig = {
   mode: process.env.NODE_ENV,
   context: path.resolve(__dirname, './src'),
   entry: {
-    'service_worker': './service_worker/index.ts', // It needs to put a worker script to the folder as same as manifest.json
+    'background/index': './background/index.ts',
     'options/index': './options/index.ts',
     'popup/index': './popup/index.ts'
   },
