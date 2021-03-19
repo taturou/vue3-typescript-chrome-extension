@@ -36,6 +36,9 @@ const commonConfig = {
       'vue': '@vue/runtime-dom'
     }
   },
+  target: [
+    'web'
+  ],
   module: {
     rules: [
       {
