@@ -16,12 +16,6 @@ class MockRepository implements RepositoryType {
     })
   }
 
-  count (): Promise<number> {
-    return new Promise((resolve) => {
-      resolve(this.state.count)
-    })
-  }
-
   setCount (payload: { count: number }): Promise<number> {
     return new Promise((resolve) => {
       this.state.count = payload.count

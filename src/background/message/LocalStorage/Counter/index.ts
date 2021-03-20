@@ -21,11 +21,6 @@ function fetch (): StateType {
   return state as StateType
 }
 
-function count (): number {
-  const state = fetch()
-  return state.count
-}
-
 function setCount (payload: { count: number }): number {
   const state = fetch()
   state.count = payload.count
@@ -38,11 +33,6 @@ export default function (counter: messageCounterDataType, sender: chrome.runtime
   switch(counter.type) {
   case 'fetch': {
     counter.response = fetch()
-    sendResponse(counter.response)
-    break
-  }
-  case 'count': {
-    counter.response = count()
     sendResponse(counter.response)
     break
   }
