@@ -1,32 +1,5 @@
-import { StateType } from '@/lib/store/Counter/types'
+import { messageType, messageDataType } from '@/background/message/_types'
+import { RepositoryType } from '@/lib/repository/Counter/types'
 
-export type messageCounterFetchType = {
-  type: 'fetch'
-  response: {
-    state: StateType
-  }
-}
-
-export type messageCounterCountType = {
-  type: 'count'
-  response: {
-    count: number
-  }
-}
-
-export type messageCounterSetCountType = {
-  type: 'setCount'
-  params: {
-    count: number
-  },
-  response: {
-    count: number
-  }
-}
-
-export type messageCounterDataType = messageCounterFetchType | messageCounterCountType | messageCounterSetCountType
-
-export type messageCounterType = {
-  type: 'counter',
-  counter: messageCounterDataType
-}
+export type messageCounterDataType = messageDataType<RepositoryType>
+export type messageCounterType = messageType<'counter', RepositoryType>

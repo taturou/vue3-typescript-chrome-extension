@@ -1,5 +1,5 @@
 import { MemoType, StateType } from '@/lib/store/Memos/types'
-import { RepositoryType, RepositoryAddParams, RepositoryDeleteByIdParams } from './types'
+import { RepositoryType } from './types'
 
 class MockRepository implements RepositoryType {
   private state: StateType
@@ -28,7 +28,8 @@ class MockRepository implements RepositoryType {
     })
   }
 
-  add (payload: RepositoryAddParams): Promise<[StateType, number]> {
+  // 2nd return value is the index of the MemoType.memo[] that was added.
+  add (payload: { content: string }): Promise<[StateType, number]> {
     return new Promise((resolve) => {
       this.state.maxId += 1
       const memo: MemoType = {
@@ -41,7 +42,7 @@ class MockRepository implements RepositoryType {
     })
   }
 
-  deleteById (payload: RepositoryDeleteByIdParams): Promise<StateType> {
+  deleteById (payload: { id: number }): Promise<StateType> {
     return new Promise((resolve) => {
       this.state.memos = this.state.memos.filter((memo) => {
         return memo.id !== payload.id

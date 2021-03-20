@@ -1,5 +1,5 @@
 import { StateType } from '@/lib/store/Counter/types'
-import { RepositoryType, ReposotySetCountParam } from './types'
+import { RepositoryType } from './types'
 
 class MockRepository implements RepositoryType {
   private state: StateType
@@ -22,7 +22,7 @@ class MockRepository implements RepositoryType {
     })
   }
 
-  setCount (payload: ReposotySetCountParam): Promise<number> {
+  setCount (payload: { count: number }): Promise<number> {
     return new Promise((resolve) => {
       this.state.count = payload.count
       resolve(this.state.count)

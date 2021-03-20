@@ -22,23 +22,24 @@ function fetch (): StateType {
   return state as StateType
 }
 
-function add (content: string): StateType {
+// 2nd return value is the index of the MemoType.memo[] that was added.
+function add (payload: { content: string }): [StateType, number] {
   const state = fetch()
   state.maxId += 1
   const memo: MemoType = {
     id: state.maxId,
-    content: content,
+    content: payload.content,
     createdAt: new Date().toISOString()
   }
   state.memos.push(memo)
   localStorage.setItem(KEY, JSON.stringify(state))
-  return state
+  return [state, state.memos.length - 1]
 }
 
-function deleteById (id: number): StateType {
+function deleteById (payload: { id: number }): StateType {
   const state = fetch()
   state.memos = state.memos.filter((memo) => {
-    return memo.id !== id
+    return memo.id !== payload.id
   })
   localStorage.setItem(KEY, JSON.stringify(state))
   return state
@@ -48,18 +49,18 @@ function deleteById (id: number): StateType {
 export default function (memos: messageMemosDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(memos.type) {
   case 'fetch': {
-    memos.response.state = fetch()
-    sendResponse(memos.response.state)
+    memos.response = fetch()
+    sendResponse(memos.response)
     break
   }
   case 'add': {
-    memos.response.state = add(memos.params.content)
-    sendResponse(memos.response.state)
+    memos.response = add(memos.params)
+    sendResponse({ state: memos.response[0], index: memos.response[1] })
     break
   }
   case 'deleteById': {
-    memos.response.state = deleteById(memos.params.id)
-    sendResponse(memos.response.state)
+    memos.response = deleteById(memos.params)
+    sendResponse(memos.response)
     break
   }
   default: {

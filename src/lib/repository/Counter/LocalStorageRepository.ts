@@ -1,6 +1,6 @@
 import { messageType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Counter/types'
-import { RepositoryType, ReposotySetCountParam } from './types'
+import { RepositoryType } from './types'
 
 class LocalStorageRepository implements RepositoryType {
   private state: StateType
@@ -20,9 +20,7 @@ class LocalStorageRepository implements RepositoryType {
             type: 'counter',
             counter: {
               type: 'fetch',
-              response: {
-                state: {} as StateType
-              }
+              response: {} as StateType
             }
           }
         } as messageType,
@@ -43,9 +41,7 @@ class LocalStorageRepository implements RepositoryType {
             type: 'counter',
             counter: {
               type: 'count',
-              response: {
-                count: 0
-              }
+              response: 0
             }
           }
         } as messageType,
@@ -57,7 +53,7 @@ class LocalStorageRepository implements RepositoryType {
     })
   }
 
-  setCount (payload: ReposotySetCountParam): Promise<number> {
+  setCount (payload: { count: number }): Promise<number> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -69,9 +65,7 @@ class LocalStorageRepository implements RepositoryType {
               params: {
                 count: payload.count
               },
-              response: {
-                count: 0
-              }
+              response: 0
             }
           }
         } as messageType,

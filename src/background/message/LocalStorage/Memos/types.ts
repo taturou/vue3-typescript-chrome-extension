@@ -1,35 +1,5 @@
-import { StateType } from '@/lib/store/Memos/types'
+import { messageType, messageDataType } from '@/background/message/_types'
+import { RepositoryType } from '@/lib/repository/Memos/types'
 
-export type messageMemosFetchType = {
-  type: 'fetch'
-  response: {
-    state: StateType
-  }
-}
-
-export type messageMemosAddType = {
-  type: 'add'
-  params: {
-    content: string
-  },
-  response: {
-    state: StateType
-  }
-}
-
-export type messageMemosDeleteByIdType = {
-  type: 'deleteById'
-  params: {
-    id: number
-  },
-  response: {
-    state: StateType
-  }
-}
-
-export type messageMemosDataType = messageMemosFetchType | messageMemosAddType | messageMemosDeleteByIdType
-
-export type messageMemosType = {
-  type: 'memos',
-  counter: messageMemosDataType
-}
+export type messageMemosDataType = messageDataType<RepositoryType>
+export type messageMemosType = messageType<'memos', RepositoryType>

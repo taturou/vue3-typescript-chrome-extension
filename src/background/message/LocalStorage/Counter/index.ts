@@ -26,29 +26,29 @@ function count (): number {
   return state.count
 }
 
-function setCount (value: number): number {
+function setCount (payload: { count: number }): number {
   const state = fetch()
-  state.count = value
+  state.count = payload.count
   localStorage.setItem(KEY, JSON.stringify(state))
-  return value
+  return state.count
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function (counter: messageCounterDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(counter.type) {
   case 'fetch': {
-    counter.response.state = fetch()
-    sendResponse(counter.response.state)
+    counter.response = fetch()
+    sendResponse(counter.response)
     break
   }
   case 'count': {
-    counter.response.count = count()
-    sendResponse(counter.response.count)
+    counter.response = count()
+    sendResponse(counter.response)
     break
   }
   case 'setCount': {
-    counter.response.count = setCount(counter.params.count)
-    sendResponse(counter.response.count)
+    counter.response = setCount(counter.params)
+    sendResponse(counter.response)
     break
   }
   default: {

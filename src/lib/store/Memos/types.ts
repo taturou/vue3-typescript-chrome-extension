@@ -1,4 +1,4 @@
-import { Store as baseStore, CommitOptions, DispatchOptions, ActionContext } from 'vuex'
+import { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
 import { RootState } from '@/lib/store/types'
 
 export interface MemoType {
@@ -22,16 +22,10 @@ export interface MutationsType {
   commit (state: StateType, payload: StateType): void
 }
 
-type ActionsInjecteeType = {
-  commit<K extends keyof MutationsType>(
-    key: K,
-    payload?: Parameters<MutationsType[K]>[1]
-  ): ReturnType<MutationsType[K]>;
-}
-& Omit<ActionContext<StateType, RootState>, "commit">;
-
 export type ActionAddParams = Pick<MemoType, 'content'>
 export type ActionDeleteByIdParams = Pick<MemoType, 'id'>
+
+export type ActionsInjecteeType = StoreActionsInjecteeType<RootState, StateType, MutationsType>
 
 export interface ActionsType {
   fetch (injectee: ActionsInjecteeType): Promise<void>,
@@ -39,27 +33,4 @@ export interface ActionsType {
   deleteById (injectee: ActionsInjecteeType, payload: ActionDeleteByIdParams): Promise<void>
 }
 
-export type StoreModuleType<M extends string> = {
-  getters: {
-    [K in keyof GettersType as `${M}/${K}`]: ReturnType<GettersType[K]>
-  }
-}
-& {
-  commit<
-    K extends keyof MutationsType
-  >(
-    key: `${M}/${K}`,
-    payload?: Parameters<MutationsType[K]>[1],
-    options?: CommitOptions
-  ): ReturnType<MutationsType[K]>
-}
-& {
-  dispatch<
-    K extends keyof ActionsType
-  >(
-    key: `${M}/${K}`,
-    payload?: Parameters<ActionsType[K]>[1],
-    options?: DispatchOptions
-  ): ReturnType<ActionsType[K]>,
-}
-& Omit<baseStore<StateType>, 'getters' | 'commit' | 'dispatch'>
+export type MemosStoreModuleType<M extends string> = StoreModuleType<M, StateType, GettersType, MutationsType, ActionsType>

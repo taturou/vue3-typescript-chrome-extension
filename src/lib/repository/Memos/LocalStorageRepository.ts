@@ -1,6 +1,6 @@
 import { messageType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Memos/types'
-import { RepositoryType, RepositoryAddParams, RepositoryDeleteByIdParams } from './types'
+import { RepositoryType } from './types'
 
 class MockRepository implements RepositoryType {
   private state: StateType
@@ -19,11 +19,9 @@ class MockRepository implements RepositoryType {
           type: 'localStorage',
           localStorage: {
             type: 'memos',
-            counter: {
+            memos: {
               type: 'fetch',
-              response: {
-                state: {} as StateType
-              }
+              response: {} as StateType
             }
           }
         } as messageType,
@@ -35,47 +33,44 @@ class MockRepository implements RepositoryType {
     })
   }
 
-  add (payload: RepositoryAddParams): Promise<[StateType, number]> {
+  // 2nd return value is the index of the MemoType.memo[] that was added.
+  add (payload: { content: string }): Promise<[StateType, number]> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
           type: 'localStorage',
           localStorage: {
             type: 'memos',
-            counter: {
+            memos: {
               type: 'add',
               params: {
                 content: payload.content
               },
-              response: {
-                state: {} as StateType
-              }
+              response: [{} as StateType, 0]
             }
           }
         } as messageType,
-        (state: StateType) => {
-          this.state = state
-          resolve([this.state, this.state.memos.length - 1])
+        (response: { state: StateType, index: number }) => {
+          this.state = response.state
+          resolve([this.state, response.index])
         }
       )
     })
   }
 
-  deleteById (payload: RepositoryDeleteByIdParams): Promise<StateType> {
+  deleteById (payload: { id: number }): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
           type: 'localStorage',
           localStorage: {
             type: 'memos',
-            counter: {
+            memos: {
               type: 'deleteById',
               params: {
                 id: payload.id
               },
-              response: {
-                state: {} as StateType
-              }
+              response: {} as StateType
             }
           }
         } as messageType,

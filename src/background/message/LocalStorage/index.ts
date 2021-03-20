@@ -10,7 +10,7 @@ export default function (localStorage: messageLocalStorageDataType, sender: chro
     break
   }
   case 'memos': {
-    MemosDespatcher(localStorage.counter, sender, sendResponse)
+    MemosDespatcher(localStorage.memos, sender, sendResponse)
     break
   }
   default: {
