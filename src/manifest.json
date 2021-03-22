@@ -2,7 +2,7 @@
   // Required
   "manifest_version": 2,
   "name": "Vue3 + Typescript",
-  "description": "Chrome extension template with Vue3 + Typescript + SCSS + Webpack5.",
+  "description": "Chrome extension template with Vue 3 + Vuex 4 + Vue Router 4 + Typescript + SCSS + Webpack 5.",
   "version": "0.0.0",
   "icons": {
     "16": "icons/icon-16x16.png",
