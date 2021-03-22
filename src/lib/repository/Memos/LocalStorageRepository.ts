@@ -58,6 +58,31 @@ class MockRepository implements RepositoryType {
     })
   }
 
+  updateById (payload: { id: number, content: string }): Promise<StateType> {
+    return new Promise((resolve) => {
+      chrome.runtime.sendMessage(
+        {
+          type: 'localStorage',
+          localStorage: {
+            type: 'memos',
+            memos: {
+              type: 'updateById',
+              params: {
+                id: payload.id,
+                content: payload.content
+              },
+              response: {} as StateType
+            }
+          }
+        } as messageType,
+        (state: StateType) => {
+          this.state = state
+          resolve(this.state)
+        }
+      )
+    })
+  }
+
   deleteById (payload: { id: number }): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(

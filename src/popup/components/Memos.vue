@@ -3,7 +3,7 @@ div.container
   div.title Memo
   textarea.content(
     rows="3"
-    v-model="memo.content"
+    v-model="content"
   )
   div.buttons
     button(
@@ -12,20 +12,17 @@ div.container
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, onBeforeMount } from 'vue'
+import { defineComponent, ref, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
-import { ActionAddParams } from '@/lib/store/Memos/types'
 
 export default defineComponent({
   setup () {
-    const memo = reactive<ActionAddParams>({
-      content: ''
-    })
+    const content = ref<string>('')
     const store = useStore()
 
     const onAdd = () => {
-      store.dispatch('memos/add', { content: memo.content })
-      memo.content = ''
+      store.dispatch('memos/add', { content: content.value })
+      content.value = ''
     }
 
     onBeforeMount(() => {
@@ -33,7 +30,7 @@ export default defineComponent({
     })
 
     return {
-      memo,
+      content,
       onAdd
     }
   }
@@ -60,7 +57,8 @@ div.container {
 
   div.buttons {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: flex-end;
 
     button {
       margin: 5px;

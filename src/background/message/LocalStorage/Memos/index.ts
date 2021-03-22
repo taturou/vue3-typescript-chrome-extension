@@ -26,14 +26,28 @@ function fetch (): StateType {
 function add (payload: { content: string }): [StateType, number] {
   const state = fetch()
   state.maxId += 1
+  const now = new Date().toISOString()
   const memo: MemoType = {
     id: state.maxId,
     content: payload.content,
-    createdAt: new Date().toISOString()
+    createdAt: now,
+    modifiedAt: now
   }
   state.memos.push(memo)
   localStorage.setItem(KEY, JSON.stringify(state))
   return [state, state.memos.length - 1]
+}
+
+function updateById (payload: { id: number, content: string }): StateType {
+  const state = fetch()
+  state.memos
+    .filter((memo) => { return memo.id === payload.id })
+    .map((memo) => {
+      memo.content = payload.content
+      memo.modifiedAt = new Date().toISOString()
+    })
+  localStorage.setItem(KEY, JSON.stringify(state))
+  return state
 }
 
 function deleteById (payload: { id: number }): StateType {
@@ -56,6 +70,11 @@ export default function (memos: messageMemosDataType, sender: chrome.runtime.Mes
   case 'add': {
     memos.response = add(memos.params)
     sendResponse({ state: memos.response[0], index: memos.response[1] })
+    break
+  }
+  case 'updateById': {
+    memos.response = updateById(memos.params)
+    sendResponse(memos.response)
     break
   }
   case 'deleteById': {

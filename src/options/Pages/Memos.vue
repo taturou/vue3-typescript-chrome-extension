@@ -12,6 +12,7 @@ div(
         th ID
         th Content
         th Created at
+        th Modified at
         th Command
     tbody
       tr(
@@ -21,19 +22,22 @@ div(
         td.id {{ memo.id }}
         td.content(v-html="crlf2br(memo.content)")
         td.createdAt {{ printDate(memo.createdAt) }}
+        td.modifiedAt {{ printDate(memo.modifiedAt) }}
         td.command
           button(
-            @click="onDelete(memo.id)"
-          ) Delete
+            @click="onEdit(memo.id)"
+          ) Edit
 </template>
 
 <script lang='ts'>
 import { defineComponent, computed, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup () {
     const store = useStore()
+    const router = useRouter()
 
     const total = computed(() => {
       return store.getters['memos/total']
@@ -42,8 +46,8 @@ export default defineComponent({
       return store.getters['memos/memos']
     })
 
-    const onDelete = (id: number) => {
-      store.dispatch('memos/deleteById', { id: id })
+    const onEdit = (id: number) => {
+      router.push({ name: 'Memo', params: { id: id }})
     }
 
     const crlf2br = (text: string): string => {
@@ -72,7 +76,7 @@ export default defineComponent({
       memos,
       crlf2br,
       printDate,
-      onDelete
+      onEdit
     }
   }
 })

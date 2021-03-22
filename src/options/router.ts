@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Counter from './Pages/Counter.vue'
 import Memos from './Pages/Memos.vue'
+import Memo from './Pages/Memo.vue'
 
 export const router = createRouter({
   history: createWebHistory('/options/'),
@@ -19,6 +20,11 @@ export const router = createRouter({
       path: '/memos',
       name: 'Memos',
       component: Memos
+    },
+    {
+      path: '/memo/:id',
+      name: 'Memo',
+      component: Memo
     }
   ]
 })
