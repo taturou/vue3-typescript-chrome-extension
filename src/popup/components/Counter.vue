@@ -3,10 +3,10 @@ div.container
   div.title Counter
   div.count {{ counter }}
   div.buttons
-    div.button(
+    button(
       @click="onIncrement"
     ) +
-    div.button(
+    button(
       @click="onDecrement"
     ) -
 </template>
@@ -64,17 +64,9 @@ div.container {
     display: flex;
     flex-direction: row;
 
-    div.button {
+    button {
       flex-grow: 1;
       margin: 5px;
-      border: 1px solid gray;
-      font-size: large;
-      text-align: center;
-      cursor: pointer;
-
-      &:hover {
-        background: lightgray;
-      }
     }
   }
 }

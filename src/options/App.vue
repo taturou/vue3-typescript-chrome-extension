@@ -1,5 +1,7 @@
 <template lang="pug">
-div.container
+div(
+  id="app"
+)
   Header
   router-view
 </template>
@@ -20,7 +22,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+#app {
   margin: 0;
   padding: 0px 20px;
   display: flex;

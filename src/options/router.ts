@@ -8,7 +8,7 @@ export const router = createRouter({
     {
       path: '/index.html',
       name: 'Home',
-      redirect: { name: 'Counter' }
+      redirect: { name: "Counter" }
     },
     {
       path: '/counter',

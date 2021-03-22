@@ -1,6 +1,7 @@
 <template lang="pug">
-div.container
-  h1 Counter
+div(
+  id="counter"
+)
   p Count: {{ counter }}
 </template>
 
@@ -27,7 +28,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+#counter {
   margin: 0;
   padding: 0;
   display: flex;

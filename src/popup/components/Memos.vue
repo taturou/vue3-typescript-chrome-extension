@@ -6,7 +6,7 @@ div.container
     v-model="memo.content"
   )
   div.buttons
-    div.button(
+    button(
       @click="onAdd"
     ) Add
 </template>
@@ -62,17 +62,8 @@ div.container {
     display: flex;
     flex-direction: row-reverse;
 
-    div.button {
-      width: 50px;
+    button {
       margin: 5px;
-      border: 1px solid gray;
-      font-size: small;
-      text-align: center;
-      cursor: pointer;
-
-      &:hover {
-        background: lightgray;
-      }
     }
   }
 }

@@ -1,6 +1,7 @@
 <template lang="pug">
-div.container
-  h1 Memos
+div(
+  id="memos"
+)
   p Total: {{ total }}
 
   table.memos(
@@ -10,7 +11,7 @@ div.container
       tr
         th ID
         th Content
-        th Date
+        th Created at
         th Command
     tbody
       tr(
@@ -21,7 +22,7 @@ div.container
         td.content(v-html="crlf2br(memo.content)")
         td.createdAt {{ printDate(memo.createdAt) }}
         td.command
-          div.button(
+          button(
             @click="onDelete(memo.id)"
           ) Delete
 </template>
@@ -78,7 +79,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+#memos {
   margin: 0;
   padding: 0;
   display: flex;
@@ -116,16 +117,8 @@ div.container {
     }
   }
 
-  div.button {
+  button {
     margin: 5px;
-    border: 1px solid gray;
-    font-size: small;
-    text-align: center;
-    cursor: pointer;
-
-    &:hover {
-      background: lightgray;
-    }
   }
 }
 </style>
