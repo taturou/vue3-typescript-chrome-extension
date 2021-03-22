@@ -1,29 +1,24 @@
 <template lang="pug">
 div.container
-  Header
-  router-view
+  router-link(
+    :to="{name: 'Counter'}"
+  ) Counter
+  router-link(
+    :to="{name: 'Memos'}"
+  ) Memos
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
-import Header from './components/Header.vue'
 
 export default defineComponent({
   setup() {
     return {
     }
-  },
-  components: {
-    Header
   }
 })
 </script>
 
 <style lang="scss" scoped>
-div.container {
-  margin: 0;
-  padding: 0px 20px;
-  display: flex;
-  flex-direction: column;
-}
 </style>
+
