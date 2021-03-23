@@ -30,6 +30,7 @@ import { defineComponent, reactive, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRoute, useRouter } from 'vue-router'
 import { MemoType } from '@/lib/store/Memos/types'
+import * as dateUtil from '@/util/Date'
 
 export default defineComponent({
   setup () {
@@ -72,15 +73,7 @@ export default defineComponent({
 
     const printDate = (dateStr: string): string => {
       const date = new Date(dateStr)
-      return date.getFullYear()
-        + '/'
-        + ('00' + (date.getMonth() + 1)).slice(-2)
-        + '/'
-        + ('00' + date.getDate()).slice(-2)
-        + ' '
-        + ('00' + date.getHours()).slice(-2)
-        + ':'
-        + ('00' + date.getMinutes()).slice(-2)
+      return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
     onBeforeMount(() => {
