@@ -1,6 +1,6 @@
 import { messageCounterDataType } from './types'
 import { StateType } from '@/lib/store/Counter/types'
-import { migrate as objectMigrate } from '@/lib/object'
+import { migrate as objectMigrate } from '@/util/object'
 
 const KEY = 'counter'
 

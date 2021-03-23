@@ -1,6 +1,6 @@
 import { messageMemosDataType } from './types'
 import { MemoType, StateType } from '@/lib/store/Memos/types'
-import { migrate as objectMigrate } from '@/lib/object'
+import { migrate as objectMigrate } from '@/util/object'
 
 const KEY = 'memos'
 
