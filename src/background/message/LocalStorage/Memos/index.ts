@@ -1,4 +1,6 @@
 import { memosDataType } from './types'
+import { tabsType } from '@/background/message/lib/tabs/types'
+import { Tabs } from '@/background/message/lib/tabs'
 import { MemoType, StateType } from '@/lib/store/Memos/types'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -7,6 +9,22 @@ const KEY = 'memos'
 const defaultState: StateType = {
   maxId: 0,
   memos: []
+}
+
+const tabs = new Tabs()
+
+function broadcastFetchToAllTabs() {
+  tabs.broadcastMessageToAllTabs(
+    {
+      type: 'tabs',
+      tabs: {
+        type: 'memos',
+        memos: {
+          type: 'fetch'
+        }
+      }
+    } as tabsType
+  )
 }
 
 function fetch (): StateType {
@@ -60,9 +78,10 @@ function deleteById (payload: { id: number }): StateType {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (memos: memosDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default function (memos: memosDataType, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(memos.type) {
   case 'fetch': {
+    if (memos.tab) { tabs.addTabId(memos.tab.id) }
     memos.response = fetch()
     sendResponse(memos.response)
     break
@@ -70,16 +89,19 @@ export default function (memos: memosDataType, sender: chrome.runtime.MessageSen
   case 'add': {
     memos.response = add(memos.params)
     sendResponse({ state: memos.response[0], index: memos.response[1] })
+    broadcastFetchToAllTabs()
     break
   }
   case 'updateById': {
     memos.response = updateById(memos.params)
     sendResponse(memos.response)
+    broadcastFetchToAllTabs()
     break
   }
   case 'deleteById': {
     memos.response = deleteById(memos.params)
     sendResponse(memos.response)
+    broadcastFetchToAllTabs()
     break
   }
   default: {

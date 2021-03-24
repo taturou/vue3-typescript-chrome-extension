@@ -1,4 +1,6 @@
 import { counterDataType } from './types'
+import { tabsType } from '@/background/message/lib/tabs/types'
+import { Tabs } from '@/background/message/lib/tabs'
 import { StateType } from '@/lib/store/Counter/types'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -6,6 +8,22 @@ const KEY = 'counter'
 
 const defaultState: StateType = {
   count: 0
+}
+
+const tabs = new Tabs()
+
+function broadcastFetchToAllTabs() {
+  tabs.broadcastMessageToAllTabs(
+    {
+      type: 'tabs',
+      tabs: {
+        type: 'counter',
+        counter: {
+          type: 'fetch'
+        }
+      }
+    } as tabsType
+  )
 }
 
 function fetch (): StateType {
@@ -29,9 +47,10 @@ function setCount (payload: { count: number }): number {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (counter: counterDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default function (counter: counterDataType, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(counter.type) {
   case 'fetch': {
+    if (counter.tab) { tabs.addTabId(counter.tab.id) }
     counter.response = fetch()
     sendResponse(counter.response)
     break
@@ -39,6 +58,7 @@ export default function (counter: counterDataType, sender: chrome.runtime.Messag
   case 'setCount': {
     counter.response = setCount(counter.params)
     sendResponse(counter.response)
+    broadcastFetchToAllTabs()
     break
   }
   default: {
