@@ -1,4 +1,4 @@
-import { messageCounterDataType } from './types'
+import { counterDataType } from './types'
 import { StateType } from '@/lib/store/Counter/types'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -29,7 +29,7 @@ function setCount (payload: { count: number }): number {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (counter: messageCounterDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default function (counter: counterDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(counter.type) {
   case 'fetch': {
     counter.response = fetch()

@@ -1,9 +1,9 @@
-import { messageLocalStorageDataType } from './types'
+import { localStorageDataType } from './types'
 import CounterDespatcher from './Counter'
 import MemosDespatcher from './Memos'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (localStorage: messageLocalStorageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default function (localStorage: localStorageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(localStorage.type) {
   case 'counter': {
     CounterDespatcher(localStorage.counter, sender, sendResponse)

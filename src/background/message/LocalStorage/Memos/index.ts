@@ -1,4 +1,4 @@
-import { messageMemosDataType } from './types'
+import { memosDataType } from './types'
 import { MemoType, StateType } from '@/lib/store/Memos/types'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -60,7 +60,7 @@ function deleteById (payload: { id: number }): StateType {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (memos: messageMemosDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default function (memos: memosDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(memos.type) {
   case 'fetch': {
     memos.response = fetch()

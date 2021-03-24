@@ -1,9 +1,6 @@
-import { messageCounterType } from './Counter/types'
-import { messageMemosType } from './Memos/types'
+import { messageType } from '@/background/message/_types'
+import { counterType } from './Counter/types'
+import { memosType } from './Memos/types'
 
-export type messageLocalStorageDataType = messageCounterType | messageMemosType
-
-export type messageLocalStorageType = {
-  type: 'localStorage',
-  localStorage: messageLocalStorageDataType
-}
+export type localStorageDataType = counterType | memosType
+export type localStorageType = messageType<'localStorage', localStorageDataType>

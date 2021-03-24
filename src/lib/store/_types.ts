@@ -74,7 +74,7 @@ export type StoreActionsInjecteeType<R, S, M> = {
     ```
   the output type is:
     ```
-    type StoreModuleType = StoreModuleType<'boo', S, GettersType, M, A> = {
+    type aStoreModuleType = StoreModuleType<'boo', S, GettersType, M, A> = {
       getters: {
         ['boo/get']: number
       }
@@ -91,7 +91,7 @@ export type StoreActionsInjecteeType<R, S, M> = {
     ```
   the output type is:
     ```
-    type StoreModuleType = StoreModuleType<'boo', S, G, MutationsType, A> = {
+    type aStoreModuleType = StoreModuleType<'boo', S, G, MutationsType, A> = {
       commit(
         key: 'boo/put',
         payload?: { id: number, value: string },
@@ -116,7 +116,7 @@ export type StoreActionsInjecteeType<R, S, M> = {
     ```
   the output type is:
     ```
-    type StoreModuleType = StoreModuleType<'boo', S, G, M, ActionsType> = {
+    type aStoreModuleType = StoreModuleType<'boo', S, G, M, ActionsType> = {
       dispatch(
         key: 'boo/put',
         payload?: { id: number, value: string },

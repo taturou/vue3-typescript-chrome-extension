@@ -1,4 +1,4 @@
-import { messageType } from '@/background/message/types'
+import { backgroundType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Memos/types'
 import { RepositoryType } from './types'
 
@@ -24,7 +24,7 @@ class MockRepository implements RepositoryType {
               response: {} as StateType
             }
           }
-        } as messageType,
+        } as backgroundType,
         (state: StateType) => {
           this.state = state
           resolve(this.state)
@@ -49,7 +49,7 @@ class MockRepository implements RepositoryType {
               response: [{} as StateType, 0]
             }
           }
-        } as messageType,
+        } as backgroundType,
         (response: { state: StateType, index: number }) => {
           this.state = response.state
           resolve([this.state, response.index])

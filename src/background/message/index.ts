@@ -1,9 +1,9 @@
-import { messageType } from './types'
+import { backgroundType } from './types'
 import localStorageDespatcher from './LocalStorage'
 
 export function addListener(): void {
   chrome.runtime.onInstalled.addListener(() => {
-    chrome.runtime.onMessage.addListener((message: messageType, sender, sendResponse): boolean => {
+    chrome.runtime.onMessage.addListener((message: backgroundType, sender, sendResponse): boolean => {
       switch(message.type) {
       case 'localStorage': {
         localStorageDespatcher(message.localStorage, sender, sendResponse)

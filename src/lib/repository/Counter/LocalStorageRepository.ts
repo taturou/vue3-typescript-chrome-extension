@@ -1,4 +1,4 @@
-import { messageType } from '@/background/message/types'
+import { backgroundType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Counter/types'
 import { RepositoryType } from './types'
 
@@ -23,7 +23,7 @@ class LocalStorageRepository implements RepositoryType {
               response: {} as StateType
             }
           }
-        } as messageType,
+        } as backgroundType,
         (state: StateType) => {
           this.state = state
           resolve(this.state)
@@ -47,7 +47,7 @@ class LocalStorageRepository implements RepositoryType {
               response: 0
             }
           }
-        } as messageType,
+        } as backgroundType,
         (count: number) => {
           this.state.count = count
           resolve(this.state.count)
