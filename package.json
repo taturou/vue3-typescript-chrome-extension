@@ -1,7 +1,7 @@
 {
   "name": "vue3-typescript-chrome-extension",
   "version": "1.0.0",
-  "description": "Chrome extension template with Vue 3 + Vuex 4 + Vue Router 4 + Typescript + SCSS + Webpack 5.",
+  "description": "Chrome extension template with Vue 3 + Vuex 4 + Vue Router 4 + Typescript 4.2 + SCSS + Webpack 5.",
   "scripts": {
     "build": "cross-env NODE_ENV=\"production\" webpack",
     "debug": "cross-env NODE_ENV=\"development\" webpack",
@@ -18,7 +18,12 @@
     "Chrome",
     "Extension",
     "Vue3",
-    "Typescript",
+    "Vuex4",
+    "Vuex-Router4",
+    "Typescript4.2",
+    "Pug",
+    "sass",
+    "scss",
     "Webpack5"
   ],
   "author": "taturou <taturou@gmail.com>",
