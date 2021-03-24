@@ -108,12 +108,15 @@ $ npm run build
 |   |-- @types/           -- Global types for Typescrip.
 |   |-- background/       -- background script.
 |   |-- icons/            -- Icons for the extension.
-|   |-- lib/              -- Library/Utilities
-|   |    |-- object/
-|   |    |-- repository/  -- Repository
-|   |    `-- store/       -- Vuex store.
+|   |-- lib/              -- Library
+|   |    |-- repository/  -- Repository to save the values of the Vuex store.
+|   |    |-- store/       -- Vuex store.
+|   |    `-- tabs/        -- Operate the browser tab.
 |   |-- options/          -- Options page.
 |   |-- popup/            -- Popup page.
+|   |-- util/             -- Utilities
+|   |    |-- Date/        -- Operate the Data object.
+|   |    `-- object/      -- Operate the general object.
 |   `-- manifest.json     -- Manifest file.
 |-- .eslintrc.js          -- Lint config for ESLint.
 |-- .gitignore            -- Ignore files for git.
