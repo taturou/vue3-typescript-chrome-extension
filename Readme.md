@@ -18,6 +18,48 @@ Notes:
 
 ---
 
+## Features
+
+### Popup page
+
+It has the following sections.
+
+* Options
+  * Opning the options page of this chrome-extension.
+* Counter
+  * Count Up/Down button.
+  * The value will sync between the options page.
+* Memos
+  * Add a memo.
+  * The options page display all memos that are added by this section.
+  * The value will sync between the options page.
+
+Those values will be saved to the LocalStorage of Chrome via the Vuex store.
+
+### Options page
+
+It has the following tab.
+
+* Counter
+  * It displays the counter value that was updated by the popup page.
+* Memos
+  * It displays the memos that were added by the popup page.
+  * You can update a memo specified.
+
+This page is generated with Vue-Router.
+
+Those values will be saved to the LocalStorage of Chrome via the Vuex store.
+
+### Content script
+
+Not supported yet.
+
+### Backgroud script
+
+This will save the value of the Vuex store to the LocalStorage of Chrome via a message from the popup page and the options page.
+
+---
+
 ## Install
 
 This does not support 'vue-cli'.
