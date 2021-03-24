@@ -3,7 +3,7 @@ import localStorageDespatcher from './LocalStorage'
 
 export function addListener(): void {
   chrome.runtime.onInstalled.addListener(() => {
-    chrome.runtime.onMessage.addListener((message: messageType, sender, sendResponse): void => {
+    chrome.runtime.onMessage.addListener((message: messageType, sender, sendResponse): boolean => {
       switch(message.type) {
       case 'localStorage': {
         localStorageDespatcher(message.localStorage, sender, sendResponse)
@@ -14,6 +14,8 @@ export function addListener(): void {
         const dummy: never = message.type
         throw new Error('Invalid message.')
       }}
+      // 'sendRespose' can be executed asynchronously by returning 'true' by this function.
+      return true
     })
   })
 }
