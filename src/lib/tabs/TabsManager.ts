@@ -1,6 +1,4 @@
-import { tabsType } from '@/background/message/lib/tabs/types'
-
-export class Tabs {
+export class TabsManager {
   private tabIds: Set<number>
 
   constructor() {
@@ -20,13 +18,13 @@ export class Tabs {
     this.tabIds.delete(tabId)
   }
 
-  broadcastMessageToAllTabs (message: tabsType): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  broadcastMessage (message: any, responseCallback?: (response: any) => void): void {
     this.tabIds.forEach((tabId) => {
       chrome.tabs.sendMessage(
         tabId,
         message,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        () => {}
+        responseCallback
       )
     })
   }

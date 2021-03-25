@@ -1,3 +1,3 @@
-import { localStorageType } from './LocalStorage/types'
+import { localStorageMessageType } from './LocalStorage/types'
 
-export type backgroundType = localStorageType
+export type backgroundMessageType = localStorageMessageType

@@ -34,7 +34,7 @@ import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
 import * as dateUtil from '@/util/Date'
-import { tabsType } from '@/background/message/lib/tabs/types'
+import { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
   setup () {
@@ -61,7 +61,7 @@ export default defineComponent({
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
-    const fetchByEventFromBackground = (message: tabsType, _sender: any, sendResponse: (response?: any) => void) => {
+    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void) => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'memos') {
           if (message.tabs.memos.type === 'fetch') {
