@@ -3,7 +3,8 @@ import localStorageDespatcher from './LocalStorage'
 
 export function addListener(): void {
   chrome.runtime.onInstalled.addListener(() => {
-    chrome.runtime.onMessage.addListener((message: backgroundType, sender, sendResponse): boolean => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    chrome.runtime.onMessage.addListener((message: backgroundType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): boolean => {
       switch(message.type) {
       case 'localStorage': {
         localStorageDespatcher(message.localStorage, sender, sendResponse)
