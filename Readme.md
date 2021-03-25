@@ -145,8 +145,25 @@ $ npm run build
 
 The following properties will be updated.
 
+* name
+    * This will be replaced by the "productName" of the package.json.
 * version
     * This will be replaced by the "version" of the package.json.
+* description
+    * This will be replaced by the "description" of the package.json.
+
+### Vuex store (src/lib/store)
+
+This store supports the module.
+In other words, you can use the following methods:
+
+e.g.: If a store whose module name is 'moduleA' has 'property1' property.
+
+* `const value = store.getters['moduleA/property1']`
+* `store.commit('moduleA/property1', value)`
+* `store.dispatch('moduleA/property1', value)`
+
+In addition, the parameter types are defined by Typescript, you can predict the parameters with the benefit of the editor.
 
 ---
 
