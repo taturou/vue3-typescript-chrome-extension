@@ -12,9 +12,9 @@ Pug | pug | 3.0.2
 SASS/SCSS | sass-loader | 11.0.1
 Webpack | webpack | 5.26.0
 
-Notes:
-* This sample does not use any Vue libraries and any CSS frameworks.
-* The manifest version is 2.
+Notes: \
+This sample does not use any Vue libraries and any CSS frameworks. \
+The chrome-extension manifest version is v2 (MV2).
 
 ---
 
@@ -91,7 +91,16 @@ $ npm run build
   ```
   $ npm run watch
   ```
-  Note: It does not support the hot reload. Reload the extension manually after building it.
+  Note: \
+  It does not support the hot reload. Reload the extension manually after building it.
+
+* Zip the './dist' to './dist_zip/(product-name)-(product-version).zip'
+  ```
+  $ npm run zip
+  ```
+  Notes: \
+  (product-name) is the "name" property of the package.json. \
+  (product-version) is the "version" property of the package.json.
 
 * Remove './dist'
   ```
@@ -104,6 +113,8 @@ $ npm run build
 
 ```
 .
+|-- dist_zip/             -- Products compressed are here if you execute 'npm run zip'.
+|-- scripts/              -- Script files for the package.json's commands.
 |-- src/
 |   |-- @types/           -- Global types for Typescrip.
 |   |-- background/       -- background script.
