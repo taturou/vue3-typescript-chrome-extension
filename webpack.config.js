@@ -115,7 +115,9 @@ const commonConfig = {
           transform: {
             transformer: (content) => {
               const json = JSON.parse(transformJson(content))
+              json.name = package_json.productName
               json.version = package_json.version
+              json.description = package_json.description
               return JSON.stringify(json, null, 2)
             },
             cache: true
