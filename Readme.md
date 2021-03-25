@@ -13,6 +13,7 @@ SASS/SCSS | sass-loader | 11.0.1
 Webpack | webpack | 5.26.0
 
 Notes: \
+This sample is checked with `node v15.11.0` and `npm v7.6.0`. \
 This sample does not use any Vue libraries and any CSS frameworks. \
 The chrome-extension manifest version is v2 (MV2).
 
