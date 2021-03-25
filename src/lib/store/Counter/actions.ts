@@ -8,17 +8,17 @@ const repo = Repositories.counter()
 const actions: ActionTree<StateType, RootState> & ActionsType = {
   async fetch ({ commit }): Promise<void> {
     const state = await repo.fetch()
-    commit('setCount', { count: state.count })
+    commit('count', { count: state.count })
   },
   async increment ({ commit, state }): Promise<void> {
     state.count += 1
     await repo.setCount({ count: state.count })
-    commit('setCount', { count: state.count })
+    commit('count', { count: state.count })
   },
   async decrement ({ commit, state }): Promise<void> {
     state.count -= 1
     await repo.setCount({ count: state.count })
-    commit('setCount', { count: state.count })
+    commit('count', { count: state.count })
   }
 }
 
