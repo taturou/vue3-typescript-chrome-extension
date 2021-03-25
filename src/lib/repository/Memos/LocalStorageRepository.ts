@@ -1,7 +1,6 @@
 import { backgroundType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Memos/types'
 import { RepositoryType } from './types'
-import * as tabs from '@/lib/tabs'
 
 class MockRepository implements RepositoryType {
   private state: StateType
@@ -14,9 +13,6 @@ class MockRepository implements RepositoryType {
   }
 
   async fetch(): Promise<StateType> {
-    const currentTab = await tabs.getCurrent()
-    const tab = currentTab ? { id: currentTab.id as number } : undefined
-
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -25,7 +21,6 @@ class MockRepository implements RepositoryType {
             type: 'memos',
             memos: {
               type: 'fetch',
-              tab: tab,
               response: {} as StateType
             }
           }

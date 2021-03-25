@@ -78,10 +78,10 @@ function deleteById (payload: { id: number }): StateType {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (memos: memosDataType, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default function (memos: memosDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(memos.type) {
   case 'fetch': {
-    if (memos.tab) { tabs.addTabId(memos.tab.id) }
+    if (sender.tab?.id) { tabs.addTabId(sender.tab.id) }
     memos.response = fetch()
     sendResponse(memos.response)
     break

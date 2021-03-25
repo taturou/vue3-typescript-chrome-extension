@@ -1,7 +1,6 @@
 import { backgroundType } from '@/background/message/types'
 import { StateType } from '@/lib/store/Counter/types'
 import { RepositoryType } from './types'
-import * as tabs from '@/lib/tabs'
 
 class LocalStorageRepository implements RepositoryType {
   private state: StateType
@@ -13,9 +12,6 @@ class LocalStorageRepository implements RepositoryType {
   }
 
   async fetch (): Promise<StateType> {
-    const currentTab = await tabs.getCurrent()
-    const tab = currentTab ? { id: currentTab.id as number } : undefined
-
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -24,7 +20,6 @@ class LocalStorageRepository implements RepositoryType {
             type: 'counter',
             counter: {
               type: 'fetch',
-              tab: tab,
               response: {} as StateType
             }
           }
