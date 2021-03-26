@@ -17,7 +17,8 @@ const commonConfig = {
   entry: {
     'background/index': './background/index.ts',
     'options/index': './options/index.ts',
-    'popup/index': './popup/index.ts'
+    'popup/index': './popup/index.ts',
+    'contents/counter/index': './contents/counter/index.ts'
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -26,6 +27,7 @@ const commonConfig = {
 	resolve: {
     extensions: [
       '.ts',
+      'scss',
       '.vue'
     ],
     alias: {

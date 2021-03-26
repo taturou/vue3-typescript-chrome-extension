@@ -37,6 +37,7 @@
   "homepage": "https://github.com/taturou/vue3-typescript-chrome-extension",
   "devDependencies": {
     "@types/chrome": "^0.0.133",
+    "@types/jquery": "^3.5.5",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/compiler-sfc": "^3.0.7",
@@ -69,6 +70,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "jquery": "^3.6.0",
     "vue": "^3.0.7"
   }
 }
