@@ -9,9 +9,6 @@ const CommentJson = require('comment-json')
 const path = require('path')
 const package_json = require('./package.json')
 const fs = require('fs')
-const manifest_json = (function () {
-  return CommentJson.parse(fs.readFileSync('./src/manifest.json').toString(), null, true)
-})()
 
 // webpack config for common
 const commonConfig = {
@@ -95,7 +92,7 @@ const commonConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        APP_NAME: JSON.stringify(manifest_json.name),
+        APP_NAME: JSON.stringify(package_json.productName),
         REPO_ENV: JSON.stringify(process.env.REPO_ENV)
       },
       __VUE_OPTIONS_API__: 'true',
