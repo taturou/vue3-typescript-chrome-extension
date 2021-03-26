@@ -51,9 +51,12 @@ This page is generated with Vue-Router.
 
 Those values will be saved to the LocalStorage of Chrome via the Vuex store.
 
-### Content script
+### Content script / Counter
 
-Not supported yet.
+It displays the counter value that was updated by the popup page.
+
+The collapse button will be located to the top-right of all web pages.
+If you push the button, it displays the counter that the popup page counts up/down.
 
 ### Backgroud script
 
@@ -118,8 +121,11 @@ $ npm run build
 |-- src/
 |   |-- @types/           -- Global types for Typescrip.
 |   |-- background/       -- background script.
+|   |-- contents/         -- content scripts.
+|   |   |-- counter/      --
 |   |-- icons/            -- Icons for the extension.
 |   |-- lib/              -- Library
+|   |    |-- components/  -- Vue components for all apps/components.
 |   |    |-- repository/  -- Repository to save the values of the Vuex store.
 |   |    |-- store/       -- Vuex store.
 |   |    `-- tabs/        -- Operate the browser tab.
@@ -127,7 +133,8 @@ $ npm run build
 |   |-- popup/            -- Popup page.
 |   |-- util/             -- Utilities
 |   |    |-- Date/        -- Operate the Data object.
-|   |    `-- object/      -- Operate the general object.
+|   |    |-- object/      -- Operate the general object.
+|   |    `-- string/      -- Operate the general string.
 |   `-- manifest.json     -- Manifest file.
 |-- .eslintrc.js          -- Lint config for ESLint.
 |-- .gitignore            -- Ignore files for git.
@@ -172,6 +179,11 @@ In addition, the parameter types are defined by Typescript, you can predict the 
 .
 |-- background/         -- background script.
 |   `-- index.js
+|-- contents            -- content scripts.
+|   `- counter/
+|      |-- index.css
+|      |-- index.html
+|      `-- index.js
 |-- icons/              -- Icons for the extension.
 |   `-- ...
 |-- options/            -- Options page.
@@ -184,6 +196,18 @@ In addition, the parameter types are defined by Typescript, you can predict the 
 |   `-- index.js
 `-- manifest.json       -- Manifest file.
 ```
+
+---
+
+## Future work
+
+* Creates a content page sample.
+* Supports 'Vue.js devtools' chrome-extension.
+    * I don't understand why the chrome-extension does not recognize this project...
+* Supports the chrome extension manifest v3 (MV3).
+    * MV3 supports only a service worker instead of a background script. \
+      But a service worker can not access the LocalStorage, as far as I know. \
+      This extension must use the LocalStorage to save data of the Vuex store.
 
 ---
 
