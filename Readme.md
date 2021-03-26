@@ -1,4 +1,4 @@
-# Vue.js 3 Chrome Extension Sample
+# Vue.js 3 Chrome Extension Template
 
 Chrome extension sample with Vue 3 + Vuex 4 + Vur Router 4 + Typescript 4.2 + Webpack 5.
 
@@ -13,7 +13,7 @@ SASS/SCSS | sass-loader | 11.0.1
 Webpack | webpack | 5.26.0
 
 Notes: \
-This sample is checked with `node v15.11.0` and `npm v7.6.0`. \
+This sample is checked with `node v15.11.0` and `npm v7.7.4`. \
 This sample does not use any Vue libraries and any CSS frameworks. \
 The chrome-extension manifest version is v2 (MV2).
 
@@ -61,15 +61,14 @@ This will save the value of the Vuex store to the LocalStorage of Chrome via a m
 
 ---
 
-## Install
+## Usage
 
-This does not support 'vue-cli'.
-
-Please download this repository and modify it to create your chrome-extension.
+Create a project by using vue-cli with this template.
 
 ```bash
-$ git clone https://github.com/taturou/vue3-typescript-chrome-extension.git
-$ cd vue3-typescript-chrome-extension
+$ npm install -g @vue/cli @vue/cli-init
+$ vue init taturou/vue3-typescript-chrome-extension#vue-template <project-name>
+$ cd  <project-name>
 $ npm install
 $ npm run build
 ```
