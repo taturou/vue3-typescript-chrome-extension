@@ -1,3 +1,5 @@
 import * as message from './message'
 
-message.addListener()
+chrome.runtime.onInstalled.addListener(() => {
+  message.addListener()
+})
