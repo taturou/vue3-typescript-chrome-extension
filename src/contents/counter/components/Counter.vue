@@ -1,17 +1,24 @@
 <template lang="pug">
-div(
-  id="counter"
-)
-  span Count: {{ counter }}
+div.counter
+  Collapse(
+    :expand="collapseExpand"
+  )
+    div.contents
+      span Count: {{ counter }}
 </template>
 
 <script lang='ts'>
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { tabsMessageType } from '@/lib/tabs/types'
+import Collapse, { CollapseExpandType } from '@/lib/components/Collapse.vue'
 
 export default defineComponent({
   setup() {
+    // Collapse
+    const collapseExpand: CollapseExpandType = 'right2left'
+
+    // Counter
     const store = useStore()
     const counter = computed(() => {
       return store.getters['counter/count']
@@ -29,6 +36,7 @@ export default defineComponent({
       return true
     }
 
+    // Lifecycle event
     onBeforeMount(() => {
       store.dispatch('counter/fetch')
       chrome.runtime.onMessage.addListener(fetchByEventFromBackground)
@@ -39,17 +47,24 @@ export default defineComponent({
     })
 
     return {
+      collapseExpand,
       counter
     }
+  },
+  components: {
+    Collapse
   }
 })
 </script>
 
 <style lang="scss" scoped>
-#counter {
+div.counter {
   margin: 0;
-  padding: 10px 20px;
-  border: 1px solid black;
-  background: white;
+  padding: 0;
+
+  div.contents {
+    margin: 0;
+    padding: 10px 20px;
+  }
 }
 </style>
