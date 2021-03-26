@@ -1,8 +1,8 @@
 {
-  "name": "vue3-typescript-chrome-extension",
+  "name": "{{name}}",
   "version": "1.0.0",
-  "productName": "Vue3 + Typescript",
-  "description": "Chrome extension template with Vue 3 + Vuex 4 + Vue Router 4 + Typescript 4.2 + SCSS + Webpack 5.",
+  "productName": "{{productName}}",
+  "description": "{{description}}",
   "scripts": {
     "build": "cross-env NODE_ENV=\"production\" webpack",
     "debug": "cross-env NODE_ENV=\"development\" webpack",
@@ -13,8 +13,8 @@
     "clean": "rimraf dist"
   },
   "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/taturou/vue3-typescript-chrome-extension"
+    "type": "",
+    "url": ""
   },
   "keywords": [
     "Chrome",
@@ -28,13 +28,13 @@
     "scss",
     "Webpack5"
   ],
-  "author": "taturou <taturou@gmail.com>",
-  "license": "MIT",
+  "author": "{{author}}",{{#useLicense}}
+  "license": "{{license}}",{{/useLicense}}
   "bugs": {
-    "url": "https://github.com/taturou/vue3-typescript-chrome-extension/issues",
-    "email": "taturou@gmail.com"
+    "url": "",
+    "email": ""
   },
-  "homepage": "https://github.com/taturou/vue3-typescript-chrome-extension",
+  "homepage": "",
   "devDependencies": {
     "@types/chrome": "^0.0.133",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
