@@ -11,6 +11,7 @@ Typescript | typescript | 4.2.3
 Pug | pug | 3.0.2
 SASS/SCSS | sass-loader | 11.0.1
 Webpack | webpack | 5.26.0
+jQuery | jquery | 3.6.0
 
 Notes: \
 This sample is checked with `node v15.11.0`, `npm v7.7.4`, and `@vue/cli 4.5.12`. \
@@ -201,7 +202,6 @@ In addition, the parameter types are defined by Typescript, you can predict the 
 
 ## Future work
 
-* Creates a content page sample.
 * Supports 'Vue.js devtools' chrome-extension.
     * I don't understand why the chrome-extension does not recognize this project...
 * Supports the chrome extension manifest v3 (MV3).

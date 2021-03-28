@@ -1,18 +1,12 @@
 <template lang="pug">
 div.collapse(
-  :class="$props.expand"
+  :class="[$props.expand, { visible: visibleContents }]"
 )
   div.operation(
-    :class="$props.expand"
     @click="onOperation"
   )
-    icon(v-show="visibleIcon.up" :icon="['fas', 'angle-up']")
-    icon(v-show="visibleIcon.down" :icon="['fas', 'angle-down']")
-    icon(v-show="visibleIcon.left" :icon="['fas', 'angle-left']")
-    icon(v-show="visibleIcon.right" :icon="['fas', 'angle-right']")
-  div.contents(
-    :class="[$props.expand, { visible: visibleContents }]"
-  )
+    div.character &gt;
+  div.contents
     slot
 </template>
 
@@ -30,25 +24,6 @@ export default defineComponent({
   },
   setup(props) {
     const visibleContents = ref<boolean>(false)
-    const visibleIcon = computed(() => {
-      let visible = { up: false, down: false, left: false, right: false }
-      if (visibleContents.value) {
-        switch(props.expand) {
-        case 'top2bottom': visible.up = true; break
-        case 'bottom2top': visible.down = true; break
-        case 'left2right': visible.left = true; break
-        case 'right2left': visible.right = true; break
-        }
-      } else {
-        switch(props.expand) {
-        case 'top2bottom': visible.down = true; break
-        case 'bottom2top': visible.up = true; break
-        case 'left2right': visible.right = true; break
-        case 'right2left': visible.left = true; break
-        }
-      }
-      return visible
-    })
 
     const onOperation = () => {
       visibleContents.value = !visibleContents.value
@@ -56,7 +31,6 @@ export default defineComponent({
 
     return {
       visibleContents,
-      visibleIcon,
       onOperation
     }
   }
@@ -64,6 +38,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+// common
 div.collapse {
   display: flex;
   margin: 0;
@@ -71,48 +46,14 @@ div.collapse {
   background: white;
   border: 1px solid gray;
 
-  &.top2bottom {
-    flex-direction: column;
-  }
-
-  &.bottom2top {
-    flex-direction: column-reverse;
-  }
-
-  &.left2right {
-    flex-direction: row;
-  }
-
-  &.right2left {
-    flex-direction: row-reverse;
-  }
-
   div.operation {
     margin: 0;
-    padding: 0px 5px;
+    padding: 0;
     cursor: pointer;
 
-    &.top2bottom {
-      text-align: right;
-      vertical-align: middle;
-    }
-
-    &.bottom2top {
-      text-align: right;
-      vertical-align: middle;
-    }
-
-    &.left2right {
-      text-align: center;
-      vertical-align: top;
-    }
-
-    &.right2left {
-      text-align: center;
-      vertical-align: top;
-    }
-
-    span {
+    div.character {
+      font-family: monospace;
+      font-size: 10px;
       color: rgb(38, 50, 56);
       background: transparent;
 
@@ -127,26 +68,124 @@ div.collapse {
     margin: 0;
     padding: 0;
     display: none;
+  }
+}
 
-    &.visible {
-      display: block;
-    }
+// top2bottom
+div.collapse.top2bottom {
+  flex-direction: column;
 
-    &.top2bottom {
-      border-top: 1px solid gray;
-    }
+  div.operation {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    vertical-align: middle;
 
-    &.bottom2top {
-      border-bottom: 1px solid gray;
+    div.character {
+      padding: 3px 10px 3px 10px;
+      transform: rotate(90deg)
     }
+  }
+}
 
-    &.left2right {
-      border-left: 1px solid gray;
-    }
+// bottom2top
+div.collapse.bottom2top {
+  flex-direction: column-reverse;
 
-    &.right2left {
-      border-right: 1px solid gray;
+  div.operation {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    vertical-align: middle;
+
+    div.character {
+      padding: 3px 10px 3px 10px;
+      transform: rotate(-90deg)
     }
+  }
+}
+
+// left2right
+div.collapse.left2right {
+  flex-direction: row;
+
+  div.operation {
+    text-align: center;
+    vertical-align: top;
+
+    div.character {
+      padding: 5px 5px 5px 8px;
+      transform: rotate(0deg)
+    }
+  }
+}
+
+// right2left
+div.collapse.right2left {
+  flex-direction: row-reverse;
+
+  div.operation {
+    text-align: center;
+    vertical-align: top;
+
+    div.character {
+      padding: 5px 5px 5px 8px;
+      transform: rotate(180deg)
+    }
+  }
+}
+
+// top2bottom.visible
+div.collapse.top2bottom.visible {
+  div.operation {
+    div.character {
+      transform: rotate(-90deg)
+    }
+  }
+  div.contents {
+    border-top: 1px solid lightgray;
+    display: block;
+  }
+}
+
+// bottom2top.visible
+div.collapse.bottom2top.visible {
+  div.operation {
+    div.character {
+      transform: rotate(90deg)
+    }
+  }
+  div.contents {
+    border-bottom: 1px solid lightgray;
+    display: block;
+  }
+}
+
+// left2right.visible
+div.collapse.left2right.visible {
+  div.operation {
+    div.character {
+      transform: rotate(180deg)
+    }
+  }
+  div.contents {
+    border-left: 1px solid lightgray;
+    display: block;
+  }
+}
+
+// right2left.visible
+div.collapse.right2left.visible {
+  div.operation {
+    div.character {
+      transform: rotate(0deg)
+    }
+  }
+  div.contents {
+    border-right: 1px solid lightgray;
+    display: block;
   }
 }
 </style>
