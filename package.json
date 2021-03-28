@@ -70,11 +70,6 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-brands-svg-icons": "^5.15.3",
-    "@fortawesome/free-regular-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/vue-fontawesome": "^3.0.0-3",
     "jquery": "^3.6.0",
     "vue": "^3.0.7"
   }

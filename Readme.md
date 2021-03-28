@@ -7,7 +7,6 @@ Product name | npm package name | npm package version
 Vue.js | vue | 3.0.7
 Vuex | vuex | 4.0.0
 Vue Router | vue-router | 4.0.5
-Vue Fontawesome | vue-fontawesome | 3.0.0-3
 Typescript | typescript | 4.2.3
 Pug | pug | 3.0.2
 SASS/SCSS | sass-loader | 11.0.1
@@ -16,7 +15,7 @@ jQuery | jquery | 3.6.0
 
 Notes: \
 This sample is checked with `node v15.11.0`, `npm v7.7.4`, and `@vue/cli 4.5.12`. \
-This sample does not use any CSS frameworks. \
+This sample does not use any Vue libraries and any CSS frameworks. \
 The chrome-extension manifest version is v2 (MV2).
 
 ---
