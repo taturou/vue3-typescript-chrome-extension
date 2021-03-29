@@ -1,6 +1,6 @@
 # Vue.js 3 Chrome Extension Template
 
-Chrome extension sample with Vue 3 + Vuex 4 + Vur Router 4 + Typescript 4.2 + Webpack 5.
+Chrome extension template for vue-cli with Vue 3 + Vuex 4 + Vue Router 4 + Typescript 4.2 + Webpack 5.
 
 Product name | npm package name | npm package version
 :--|:--|:--
@@ -14,13 +14,15 @@ Webpack | webpack | 5.26.0
 jQuery | jquery | 3.6.0
 
 Notes: \
-This sample is checked with `node v15.11.0`, `npm v7.7.4`, and `@vue/cli 4.5.12`. \
+This sample is checked with `node v15.11.0`, `npm v7.7.4`, `@vue/cli 4.5.12`, and `Chrome 89.0.4389.90 (64-bit)`. \
 This sample does not use any Vue libraries and any CSS frameworks. \
 The chrome-extension manifest version is v2 (MV2).
 
 ---
 
 ## Features
+
+![usage](./doc/images/usage-1.gif)
 
 ### Popup page
 
