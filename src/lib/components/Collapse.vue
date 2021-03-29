@@ -18,7 +18,7 @@ export type CollapseExpandType = 'top2bottom' | 'bottom2top' | 'left2right' | 'r
 export default defineComponent({
   props: {
     expand: {
-      type: String, // as CollapseExpandType
+      type: String as () => CollapseExpandType,
       default: 'top2bottom'
     }
   },
