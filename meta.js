@@ -2,7 +2,7 @@ module.exports = {
   prompts: {
     name: {
       type: 'string',
-      message: 'Project Name (not include space characters):'
+      message: 'Product Name (not include space characters):'
     },
     productName: {
       type: 'string',
@@ -20,12 +20,12 @@ module.exports = {
     },
     useLicense: {
       type: "confirm",
-      message: "Use a OSS License?:"
+      message: "Use an OSS License?:"
     },
     license: {
       when: "useLicense",
       type: 'list',
-      message: 'Pick a licence:',
+      message: 'Pick a license:',
       choices: [
         "Apache License 2.0",
         "BSD 2-Clause Simplified License",
