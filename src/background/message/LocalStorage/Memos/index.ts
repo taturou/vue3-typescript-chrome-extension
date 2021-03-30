@@ -41,7 +41,7 @@ function fetch (): StateType {
 }
 
 // 2nd return value is the index of the MemoType.memo[] that was added.
-function add (payload: { content: string }): [StateType, number] {
+function add (payload: { content: string }): { state: StateType, addedIndex: number } {
   const state = fetch()
   state.maxId += 1
   const now = new Date().toISOString()
@@ -53,7 +53,7 @@ function add (payload: { content: string }): [StateType, number] {
   }
   state.memos.push(memo)
   localStorage.setItem(KEY, JSON.stringify(state))
-  return [state, state.memos.length - 1]
+  return { state: state, addedIndex: state.memos.length - 1 }
 }
 
 function updateById (payload: { id: number, content: string }): StateType {
@@ -88,7 +88,7 @@ export default function (memos: memosMessageDataType, sender: chrome.runtime.Mes
   }
   case 'add': {
     memos.response = add(memos.params)
-    sendResponse({ state: memos.response[0], index: memos.response[1] })
+    sendResponse({ state: memos.response.state, addedIndex: memos.response.addedIndex })
     broadcastFetchToAllTabs()
     break
   }

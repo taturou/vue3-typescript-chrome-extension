@@ -11,9 +11,9 @@ const actions: ActionTree<StateType, RootState> & ActionsType = {
     commit('commit', state)
   },
   async add ({ commit }, payload: { content: string }): Promise<MemoType> {
-    const [state, index] = await repo.add({ content: payload.content })
+    const { state, addedIndex } = await repo.add({ content: payload.content })
     commit('commit', state)
-    return state.memos[index]
+    return state.memos[addedIndex]
   },
   async updateById ({ commit }, payload: { id: number, content: string }): Promise<MemoType> {
     const state = await repo.updateById({ id: payload.id, content: payload.content })

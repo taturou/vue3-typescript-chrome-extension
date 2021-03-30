@@ -34,7 +34,7 @@ class MockRepository implements RepositoryType {
   }
 
   // 2nd return value is the index of the MemoType.memo[] that was added.
-  add (payload: { content: string }): Promise<[StateType, number]> {
+  add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -46,13 +46,16 @@ class MockRepository implements RepositoryType {
               params: {
                 content: payload.content
               },
-              response: [{} as StateType, 0]
+              response: {
+                state: {},
+                addedIndex: 0
+              }
             }
           }
         } as backgroundMessageType,
-        (response: { state: StateType, index: number }) => {
+        (response: { state: StateType, addedIndex: number }) => {
           this.state = response.state
-          resolve([this.state, response.index])
+          resolve({ state: this.state, addedIndex: response.addedIndex })
         }
       )
     })

@@ -32,7 +32,7 @@ class MockRepository implements RepositoryType {
   }
 
   // 2nd return value is the index of the MemoType.memo[] that was added.
-  add (payload: { content: string }): Promise<[StateType, number]> {
+  add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number }> {
     return new Promise((resolve) => {
       this.state.maxId += 1
       const now = new Date().toISOString()
@@ -43,7 +43,7 @@ class MockRepository implements RepositoryType {
         modifiedAt: now
       }
       this.state.memos.push(memo)
-      resolve([this.state, this.state.memos.length - 1])
+      resolve({ state: this.state, addedIndex: this.state.memos.length - 1 })
     })
   }
 
