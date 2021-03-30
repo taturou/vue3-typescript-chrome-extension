@@ -26,6 +26,8 @@ The chrome-extension manifest version is v2 (MV2).
 
 ### Popup page
 
+![popup](./doc/images/popup-1.png)
+
 It has the following sections.
 
 * Options
@@ -42,6 +44,9 @@ Those values will be saved to the LocalStorage of Chrome via the Vuex store.
 
 ### Options page
 
+![options-counter](./doc/images/options-counter-1.gif)
+![options-memos](./doc/images/options-memos-1.gif)
+
 It has the following tab.
 
 * Counter
@@ -55,6 +60,8 @@ This page is generated with Vue-Router.
 Those values will be saved to the LocalStorage of Chrome via the Vuex store.
 
 ### Content script / Counter
+
+![content-counter](./doc/images/content-counter-1.gif)
 
 It displays the counter value that was updated by the popup page.
 
