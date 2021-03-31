@@ -2,16 +2,8 @@ import { backgroundMessageType } from '@/background/message/types'
 import { StateType } from '@/lib/store/counter/types'
 import { RepositoryType } from './types'
 
-class LocalStorageRepository implements RepositoryType {
-  private state: StateType
-
-  constructor() {
-    this.state = {
-      count: 0
-    }
-  }
-
-  async fetch (): Promise<StateType> {
+const repository: RepositoryType = {
+  fetch (): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -25,13 +17,11 @@ class LocalStorageRepository implements RepositoryType {
           }
         } as backgroundMessageType,
         (state: StateType) => {
-          this.state = state
-          resolve(this.state)
+          resolve(state)
         }
       )
     })
-  }
-
+  },
   setCount (payload: { count: number }): Promise<number> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
@@ -49,12 +39,11 @@ class LocalStorageRepository implements RepositoryType {
           }
         } as backgroundMessageType,
         (count: number) => {
-          this.state.count = count
-          resolve(this.state.count)
+          resolve(count)
         }
       )
     })
   }
 }
 
-export default LocalStorageRepository
+export default repository

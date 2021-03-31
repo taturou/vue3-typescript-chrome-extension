@@ -3,7 +3,7 @@ import { RootState } from '@/lib/store/types'
 import { StateType, ActionsType } from './types'
 import Repositories from '@/lib/repository'
 
-const repo = Repositories.counter()
+const repo = Repositories.counter
 
 const actions: ActionTree<StateType, RootState> & ActionsType = {
   async fetch ({ commit }): Promise<void> {
