@@ -1,14 +1,10 @@
-import { RepositoryType as CounterRepositoryType } from './counter/types'
+import { RepositoriesType } from './types'
 import CounterRepository from './counter'
-import { RepositoryType as MemosRepositoryType } from './memos/types'
 import MemosRepository from './memos'
 
-export interface Repositories {
-  counter: CounterRepositoryType,
-  memos: MemosRepositoryType
-}
-
-export default {
+const repositories: RepositoriesType = {
   counter: CounterRepository,
   memos: MemosRepository
-} as Repositories
+}
+
+export default repositories

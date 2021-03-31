@@ -1,6 +1,7 @@
 import { counterMessageDataType } from './types'
 import { StateType } from '@/lib/store/counter/types'
 import { tabsMessageType } from '@/lib/tabs/types'
+import { Storage } from '@/lib/storage'
 import { TabsManager } from '@/lib/tabs'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -10,6 +11,7 @@ const defaultState: StateType = {
   count: 0
 }
 
+const storage = Storage()
 const tabs = new TabsManager()
 
 function broadcastFetchToAllTabs() {
@@ -26,37 +28,36 @@ function broadcastFetchToAllTabs() {
   )
 }
 
-function fetch (): StateType {
-  let state = {}
-  const json = localStorage.getItem(KEY)
-  if (json) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/no-explicit-any
-    state = objectMigrate(JSON.parse(json) as any, defaultState)
+async function fetch (): Promise<StateType> {
+  let state = await storage.get<StateType>(KEY)
+  if (state) {
+    state = objectMigrate(state, defaultState)
+    return state
   } else {
-    Object.assign(state, defaultState)
-    localStorage.setItem(KEY, JSON.stringify(state))
+    const state = JSON.parse(JSON.stringify(defaultState)) as StateType
+    await storage.set(KEY, state)
+    return state
   }
-  return state as StateType
 }
 
-function setCount (payload: { count: number }): number {
-  const state = fetch()
+async function setCount (payload: { count: number }): Promise<number> {
+  const state = await fetch()
   state.count = payload.count
-  localStorage.setItem(KEY, JSON.stringify(state))
+  await storage.set(KEY, state)
   return state.count
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (counter: counterMessageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default async function (counter: counterMessageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): Promise<void> {
   switch(counter.type) {
   case 'fetch': {
     if (sender.tab?.id) { tabs.addTabId(sender.tab.id) }
-    counter.response = fetch()
+    counter.response = await fetch()
     sendResponse(counter.response)
     break
   }
   case 'setCount': {
-    counter.response = setCount(counter.params)
+    counter.response = await setCount(counter.params)
     sendResponse(counter.response)
     broadcastFetchToAllTabs()
     break

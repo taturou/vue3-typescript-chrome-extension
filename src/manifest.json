@@ -9,6 +9,9 @@
     "48": "icons/icon-48x48.png",
     "128": "icons/icon-128x128.png"
   },
+  "permissions": [
+    "storage"
+  ],
   // background
   "background": {
     "persistent": false,
