@@ -1,5 +1,5 @@
 import { backgroundMessageType } from '@/background/message/types'
-import { StateType } from '@/lib/store/Memos/types'
+import { StateType } from '@/lib/store/memos/types'
 import { RepositoryType } from './types'
 
 class MockRepository implements RepositoryType {

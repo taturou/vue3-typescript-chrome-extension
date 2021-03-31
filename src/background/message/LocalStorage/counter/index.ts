@@ -1,5 +1,5 @@
 import { counterMessageDataType } from './types'
-import { StateType } from '@/lib/store/Counter/types'
+import { StateType } from '@/lib/store/counter/types'
 import { tabsMessageType } from '@/lib/tabs/types'
 import { TabsManager } from '@/lib/tabs'
 import { migrate as objectMigrate } from '@/util/object'

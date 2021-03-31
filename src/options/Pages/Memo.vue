@@ -29,7 +29,7 @@ div(
 import { defineComponent, reactive, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRoute, useRouter } from 'vue-router'
-import { MemoType } from '@/lib/store/Memos/types'
+import { MemoType } from '@/lib/store/memos/types'
 import * as dateUtil from '@/util/Date'
 
 export default defineComponent({

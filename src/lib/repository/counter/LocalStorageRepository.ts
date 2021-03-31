@@ -1,5 +1,5 @@
 import { backgroundMessageType } from '@/background/message/types'
-import { StateType } from '@/lib/store/Counter/types'
+import { StateType } from '@/lib/store/counter/types'
 import { RepositoryType } from './types'
 
 class LocalStorageRepository implements RepositoryType {

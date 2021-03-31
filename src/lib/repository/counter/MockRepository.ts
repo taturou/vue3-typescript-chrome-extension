@@ -1,4 +1,4 @@
-import { StateType } from '@/lib/store/Counter/types'
+import { StateType } from '@/lib/store/counter/types'
 import { RepositoryType } from './types'
 
 class MockRepository implements RepositoryType {

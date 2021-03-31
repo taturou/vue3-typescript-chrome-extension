@@ -1,9 +1,9 @@
-import { RepositoryType as CounterRepositoryType } from './Counter/types'
-import CounterLocalStorageRepository from './Counter/LocalStorageRepository'
-import CounterMockRepository from './Counter/MockRepository'
-import { RepositoryType as MemosRepositoryType } from './Memos/types'
-import MemosLocalStorageRepository from './Memos/LocalStorageRepository'
-import MemosMockRepository from './Memos/MockRepository'
+import { RepositoryType as CounterRepositoryType } from './counter/types'
+import CounterLocalStorageRepository from './counter/LocalStorageRepository'
+import CounterMockRepository from './counter/MockRepository'
+import { RepositoryType as MemosRepositoryType } from './memos/types'
+import MemosLocalStorageRepository from './memos/LocalStorageRepository'
+import MemosMockRepository from './memos/MockRepository'
 
 export interface Repositories {
   counter: () => CounterRepositoryType,

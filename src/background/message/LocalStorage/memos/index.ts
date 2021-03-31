@@ -1,5 +1,5 @@
 import { memosMessageDataType } from './types'
-import { MemoType, StateType } from '@/lib/store/Memos/types'
+import { MemoType, StateType } from '@/lib/store/memos/types'
 import { tabsMessageType } from '@/lib/tabs/types'
 import { TabsManager } from '@/lib/tabs'
 import { migrate as objectMigrate } from '@/util/object'
