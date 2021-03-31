@@ -15,8 +15,8 @@ class LocalStorageRepository implements RepositoryType {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'counter',
             counter: {
               type: 'fetch',
@@ -36,8 +36,8 @@ class LocalStorageRepository implements RepositoryType {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'counter',
             counter: {
               type: 'setCount',

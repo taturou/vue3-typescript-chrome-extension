@@ -16,8 +16,8 @@ class MockRepository implements RepositoryType {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'fetch',
@@ -38,8 +38,8 @@ class MockRepository implements RepositoryType {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'add',
@@ -65,8 +65,8 @@ class MockRepository implements RepositoryType {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'updateById',
@@ -90,8 +90,8 @@ class MockRepository implements RepositoryType {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'deleteById',
