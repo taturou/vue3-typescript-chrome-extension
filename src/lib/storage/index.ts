@@ -18,7 +18,7 @@ export function Storage (kind?: 'LocalStorage' | 'storage.local' | 'mock'): Stor
     if (process.env.REPO_ENV === 'mock') {
       return new Mock()
     } else {
-      return new LocalStorage()
+      return new StorageLocal()
     }
   }
 }
