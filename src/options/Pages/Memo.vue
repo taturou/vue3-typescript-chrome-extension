@@ -1,28 +1,52 @@
 
 <template lang="pug">
-div(
-  id="memo"
-)
-  h1 Memo editor
-  p Id: {{ memo.id }}
-  p Created at: {{ printDate(memo.createdAt) }}
-  p Modified at: {{ printDate(memo.modifiedAt) }}
-  p Content:
-  textarea(
-    rows="10"
-    wrap="off"
-    v-model="memo.content"
-  )
-  div.buttons
-    button(
-      @click="onCancel"
-    ) Cancel
-    button(
-      @click="onUpdate"
-    ) Update
-    button(
-      @click="onDelete"
-    ) Delete
+div#memo
+  el-card
+    el-form(
+      :model="memo"
+      label-width="100px"
+      label-position="left"
+    )
+      el-form-item(
+        label="ID"
+      )
+        div {{ memo.id }}
+      el-form-item(
+        label="Content"
+      )
+        el-input(
+          type="textarea"
+          autosize
+          v-model="memo.content"
+        )
+      el-form-item(
+        label="Created at"
+      )
+        div {{ printDate(memo.createdAt) }}
+      el-form-item(
+        label="Modified at"
+      )
+        div {{ printDate(memo.modifiedAt) }}
+      el-form-item
+        div.justify-end
+          el-button(
+            @click="onCancel"
+          ) Cancel
+          el-button(
+            type="primary"
+            @click="onUpdate"
+          ) Update
+          el-popconfirm(
+            title="Are you sure to delete this?"
+            confirmButtonType="danger"
+            @confirm="onDelete"
+          )
+            template(
+              #reference
+            )
+              el-button(
+                type="danger"
+              ) Delete
 </template>
 
 <script lang='ts'>
@@ -99,19 +123,10 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
 
-  textarea {
-    width: 100%;
-    margin-bottom: 12px;
-  }
-
-  div.buttons {
+  div.justify-end {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-
-    button {
-      margin-left: 5px;
-    }
   }
 }
 </style>

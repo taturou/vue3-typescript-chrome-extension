@@ -1,8 +1,10 @@
 <template lang="pug">
-div(
-  id="counter"
-)
-  p Count: {{ counter }}
+div#counter
+  el-progress(
+    :text-inside="true"
+    :stroke-width="30"
+    :percentage="counter"
+  )
 </template>
 
 <script lang='ts'>

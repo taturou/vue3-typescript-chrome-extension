@@ -1,7 +1,5 @@
 <template lang="pug">
-div(
-  id="app"
-)
+div#app
   Header
   router-view
 </template>
@@ -25,6 +23,7 @@ export default defineComponent({
 #app {
   margin: 0;
   padding: 0px 20px;
+  width:80%;
   display: flex;
   flex-direction: column;
 }

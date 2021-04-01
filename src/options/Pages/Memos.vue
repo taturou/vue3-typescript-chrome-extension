@@ -1,32 +1,78 @@
 <template lang="pug">
-div(
-  id="memos"
-)
-  p Total: {{ total }}
-
-  table.memos(
-    v-if="total > 0"
+div#memos
+  el-table(
+    :data="memos"
+    :default-sort="{ prop: 'id', order: 'ascending' }"
+    style="wwidth: 100%"
   )
-    thead
-      tr
-        th ID
-        th Content
-        th Created at
-        th Modified at
-        th Command
-    tbody
-      tr(
-        v-for="memo in memos"
-        :key="memo.id"
+    el-table-column(
+      prop="id"
+      label="ID"
+      sortable
+      width="60"
+      header-align="center"
+      align="center"
+    )
+    el-table-column(
+      prop="content"
+      label="Content"
+      header-align="center"
+      align="left"
+    )
+      template(
+        #default="scope"
       )
-        td.id {{ memo.id }}
-        td.content(v-html="crlf2br(memo.content)")
-        td.createdAt {{ printDate(memo.createdAt) }}
-        td.modifiedAt {{ printDate(memo.modifiedAt) }}
-        td.command
-          button(
-            @click="onEdit(memo.id)"
-          ) Edit
+        div(
+          v-html="crlf2br(scope.row.content)"
+        )
+    el-table-column(
+      prop="createdAt"
+      label="Created at"
+      sortable
+      width="150"
+      header-align="center"
+      align="center"
+    )
+      template(
+        #default="scope"
+      ) {{ printDate(scope.row.createdAt) }}
+    el-table-column(
+      prop="modifiedAt"
+      label="Modified at"
+      sortable
+      width="150"
+      header-align="center"
+      align="center"
+    )
+      template(
+        #default="scope"
+      ) {{ printDate(scope.row.modifiedAt) }}
+    el-table-column(
+      label="Operations"
+      width="200"
+      header-align="center"
+      align="center"
+    )
+      template(
+        #default="scope"
+      )
+        el-button(
+          type="primary"
+          size="mini"
+          @click="onEdit(scope.row.id)"
+        ) Edit
+        el-popconfirm(
+          title="Are you sure to delete this?"
+          confirmButtonType="danger"
+          @confirm="onDelete(scope.row.id)"
+        )
+          template(
+            #reference
+          )
+            el-button(
+              type="danger"
+              size="mini"
+            ) Delete
 </template>
 
 <script lang='ts'>
@@ -51,11 +97,13 @@ export default defineComponent({
     const onEdit = (id: number) => {
       router.push({ name: 'Memo', params: { id: id }})
     }
+    const onDelete = (id: number) => {
+      store.dispatch('memos/deleteById', { id: id })
+    }
 
     const crlf2br = (text: string): string => {
       return text.replace(/\n|\r|\r\n/g, '<br>')
     }
-
     const printDate = (dateStr: string): string => {
       const date = new Date(dateStr)
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
@@ -87,7 +135,8 @@ export default defineComponent({
       memos,
       crlf2br,
       printDate,
-      onEdit
+      onEdit,
+      onDelete
     }
   }
 })
@@ -99,41 +148,5 @@ export default defineComponent({
   padding: 0;
   display: flex;
   flex-direction: column;
-
-  table.memos {
-    border-collapse: collapse;
-    border: 1px solid gray;
-    width: fit-content;
-
-    thead {
-      tr {
-        border-bottom: 1px solid lightgray;
-
-        th {
-          padding: 5px 10px;
-          border-left: 1px dashed lightgray;
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        border-bottom: 1px dashed lightgray;
-
-        td {
-          border-left: 1px dashed lightgray;
-          padding: 5px 10px;
-
-          &.id {
-            text-align: center;
-          }
-        }
-      }
-    }
-  }
-
-  button {
-    margin: 5px;
-  }
 }
 </style>
