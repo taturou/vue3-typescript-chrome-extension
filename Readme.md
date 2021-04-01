@@ -1,5 +1,7 @@
 # Vue.js 3 Chrome Extension Template
 
+[In Japanese.](https://qiita.com/taturou/items/f3e594716d174ee9bada)
+
 Chrome extension template for vue-cli with Vue 3 + Vuex 4 + Vue Router 4 + Typescript 4.2 + Webpack 5.
 
 Product name | npm package name | npm package version
@@ -81,10 +83,36 @@ Create a project by using vue-cli with this template.
 ```bash
 $ npm install -g @vue/cli @vue/cli-init
 $ vue init taturou/vue3-typescript-chrome-extension#vue-template <project-name>
+(*1) Choose some options.
 $ cd  <project-name>
 $ npm install
 $ npm run build
 ```
+
+(*1) You can choose the following options:
+
+* Product Name (not include space characters)
+* Chrome extension Name
+* Description
+* Author
+    * e.g.: "taturou <taturou@gmail.com>"
+* Use an OSS License?
+    * Choose the two below options too if 'Y'.
+* Pick a license: (Use arrow keys)
+    * There are the following licenses.
+        * Apache License 2.0
+        * BSD 2-Clause Simplified License
+        * BSD 3-Clause New or Revised License
+        * Eclipse Public License 2.0
+        * GNU General Public License v3.0
+        * GNU Lesser General Public License v2.1
+        * MIT License
+        * Mozilla Public License 2.0
+* Copyright year:
+* Chrome extension's manifest versions:
+    * There are the following versions.
+        * v2
+        * v3
 
 ---
 
@@ -194,6 +222,25 @@ Sequence | Caller module | Callee module | Called method
 4 | chrome                  | background      | the callback which is set to runtime.onMessage.addListener()
 5 | background              | storage         | storage.get()/set()
 6 | storage                 | LocalStorage    | LocalStorage.getItem()/setItem()
+
+### Storage (src/lib/storage)
+
+The storage library supports the following storage.
+
+* [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+* [chrome.storage.local](https://developer.chrome.com/docs/extensions/reference/storage/#property-local)
+* Mock
+    * Saves data to the javascript variables.
+
+If you choose 'v2' as the manifest version, this template uses 'LocalStorage' by default. \
+If 'v3', it uses 'chrome.storage.local' by default. \
+In both versions, you can use 'Mock' by using the commands below.
+
+```bash
+$ npm run debug:mock
+or
+$ npm run watch:mock
+```
 
 ---
 
