@@ -42,6 +42,14 @@ module.exports = {
       type: 'string',
       message: 'Copyright year:',
       default: "2021",
+    },
+    manifestVer: {
+      type: 'list',
+      message: 'Chrome extension\'s manifest version:',
+      choices: [
+        "v2",
+        "v3"
+      ]
     }
   },
   filters: {
@@ -50,7 +58,7 @@ module.exports = {
   skipInterpolation: [
     'node_modules/**',
     'scripts/**',
-    'src/**'
+    'src/**/*.vue'
   ],
   complete: (data) => {
     console.log('\nTo get started:');

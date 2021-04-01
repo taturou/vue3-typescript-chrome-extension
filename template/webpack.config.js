@@ -15,7 +15,7 @@ const commonConfig = {
   mode: process.env.NODE_ENV,
   context: path.resolve(__dirname, './src'),
   entry: {
-    'background': './background/index.ts',
+    {{#if_eq manifestVer "v2"}}'background/index': './background/index.ts',{{/if_eq}}{{#if_eq manifestVer "v3"}}'background': './background/index.ts',{{/if_eq}}
     'options/index': './options/index.ts',
     'popup/index': './popup/index.ts',
     'contents/counter/index': './contents/counter/index.ts'

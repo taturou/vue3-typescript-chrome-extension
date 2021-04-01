@@ -1,6 +1,6 @@
 {
   // Required
-  "manifest_version": 3,
+  {{#if_eq manifestVer "v2"}}"manifest_version": 2,{{/if_eq}}{{#if_eq manifestVer "v3"}}"manifest_version": 3,{{/if_eq}}
   "name": "It will be replaced by the 'productName' of package.json.",
   "version": "It will be replaced by the 'version' of package.json.",
   "description": "It will be replaced by the 'description' of package.json.",
@@ -13,18 +13,25 @@
     "storage"
   ],
   // background
-  "background": {
+  {{#if_eq manifestVer "v2"}}"background": {
+    "persistent": false,
+    "scripts": [
+      "background/index.js"
+    ]
+  },{{/if_eq}}{{#if_eq manifestVer "v3"}}"background": {
     "service_worker": "background.js"
-  },
+  },{{/if_eq}}
   // option
   "options_ui": {
     "page": "options/index.html",
     "open_in_tab": true
   },
   // Popup
-  "action": {
+  {{#if_eq manifestVer "v2"}}"browser_action": {
     "default_popup": "popup/index.html"
-  },
+  },{{/if_eq}}{{#if_eq manifestVer "v3"}}"action": {
+    "default_popup": "popup/index.html"
+  },{{/if_eq}}
   // Content scripts
   "content_scripts": [
     {
