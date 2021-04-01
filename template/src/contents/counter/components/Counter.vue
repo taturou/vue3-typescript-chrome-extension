@@ -24,7 +24,7 @@ export default defineComponent({
       return store.getters['counter/count']
     })
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void) => {
+    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'counter') {
           if (message.tabs.counter.type === 'fetch') {

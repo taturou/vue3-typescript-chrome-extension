@@ -1,6 +1,7 @@
 import { memosMessageDataType } from './types'
-import { MemoType, StateType } from '@/lib/store/Memos/types'
+import { MemoType, StateType } from '@/lib/store/memos/types'
 import { tabsMessageType } from '@/lib/tabs/types'
+import { Storage } from '@/lib/storage'
 import { TabsManager } from '@/lib/tabs'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -11,6 +12,7 @@ const defaultState: StateType = {
   memos: []
 }
 
+const storage = Storage()
 const tabs = new TabsManager()
 
 function broadcastFetchToAllTabs() {
@@ -27,22 +29,21 @@ function broadcastFetchToAllTabs() {
   )
 }
 
-function fetch (): StateType {
-  let state = {}
-  const json = localStorage.getItem(KEY)
-  if (json) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/no-explicit-any
-    state = objectMigrate(JSON.parse(json) as any, defaultState)
+async function fetch (): Promise<StateType> {
+  let state = await storage.get<StateType>(KEY)
+  if (state) {
+    state = objectMigrate(state, defaultState)
+    return state
   } else {
-    Object.assign(state, defaultState)
-    localStorage.setItem(KEY, JSON.stringify(state))
+    const state = JSON.parse(JSON.stringify(defaultState)) as StateType
+    await storage.set(KEY, state)
+    return state
   }
-  return state as StateType
 }
 
 // 2nd return value is the index of the MemoType.memo[] that was added.
-function add (payload: { content: string }): [StateType, number] {
-  const state = fetch()
+async function add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number }> {
+  const state = await fetch()
   state.maxId += 1
   const now = new Date().toISOString()
   const memo: MemoType = {
@@ -52,54 +53,54 @@ function add (payload: { content: string }): [StateType, number] {
     modifiedAt: now
   }
   state.memos.push(memo)
-  localStorage.setItem(KEY, JSON.stringify(state))
-  return [state, state.memos.length - 1]
+  await storage.set(KEY, state)
+  return { state: state, addedIndex: state.memos.length - 1 }
 }
 
-function updateById (payload: { id: number, content: string }): StateType {
-  const state = fetch()
+async function updateById (payload: { id: number, content: string }): Promise<StateType> {
+  const state = await fetch()
   state.memos
     .filter((memo) => { return memo.id === payload.id })
     .map((memo) => {
       memo.content = payload.content
       memo.modifiedAt = new Date().toISOString()
     })
-  localStorage.setItem(KEY, JSON.stringify(state))
+  await storage.set(KEY, state)
   return state
 }
 
-function deleteById (payload: { id: number }): StateType {
-  const state = fetch()
+async function deleteById (payload: { id: number }): Promise<StateType> {
+  const state = await fetch()
   state.memos = state.memos.filter((memo) => {
     return memo.id !== payload.id
   })
-  localStorage.setItem(KEY, JSON.stringify(state))
+  await storage.set(KEY, state)
   return state
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (memos: memosMessageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
+export default async function (memos: memosMessageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): Promise<void> {
   switch(memos.type) {
   case 'fetch': {
     if (sender.tab?.id) { tabs.addTabId(sender.tab.id) }
-    memos.response = fetch()
+    memos.response = await fetch()
     sendResponse(memos.response)
     break
   }
   case 'add': {
-    memos.response = add(memos.params)
-    sendResponse({ state: memos.response[0], index: memos.response[1] })
+    memos.response = await add(memos.params)
+    sendResponse({ state: memos.response.state, addedIndex: memos.response.addedIndex })
     broadcastFetchToAllTabs()
     break
   }
   case 'updateById': {
-    memos.response = updateById(memos.params)
+    memos.response = await updateById(memos.params)
     sendResponse(memos.response)
     broadcastFetchToAllTabs()
     break
   }
   case 'deleteById': {
-    memos.response = deleteById(memos.params)
+    memos.response = await deleteById(memos.params)
     sendResponse(memos.response)
     broadcastFetchToAllTabs()
     break

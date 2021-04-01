@@ -1,4 +1,4 @@
-import { StateType } from '@/lib/store/Counter/types'
+import { StateType } from '@/lib/store/counter/types'
 
 export interface RepositoryType {
   fetch (): Promise<StateType>,

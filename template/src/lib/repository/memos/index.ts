@@ -1,23 +1,14 @@
 import { backgroundMessageType } from '@/background/message/types'
-import { StateType } from '@/lib/store/Memos/types'
+import { StateType } from '@/lib/store/memos/types'
 import { RepositoryType } from './types'
 
-class MockRepository implements RepositoryType {
-  private state: StateType
-
-  constructor() {
-    this.state = {
-      maxId: 0,
-      memos: []
-    }
-  }
-
-  async fetch(): Promise<StateType> {
+const repository: RepositoryType = {
+  fetch(): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'fetch',
@@ -26,44 +17,42 @@ class MockRepository implements RepositoryType {
           }
         } as backgroundMessageType,
         (state: StateType) => {
-          this.state = state
-          resolve(this.state)
+          resolve(state)
         }
       )
     })
-  }
-
-  // 2nd return value is the index of the MemoType.memo[] that was added.
-  add (payload: { content: string }): Promise<[StateType, number]> {
+  },
+  add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'add',
               params: {
                 content: payload.content
               },
-              response: [{} as StateType, 0]
+              response: {
+                state: {},
+                addedIndex: 0
+              }
             }
           }
         } as backgroundMessageType,
-        (response: { state: StateType, index: number }) => {
-          this.state = response.state
-          resolve([this.state, response.index])
+        (response: { state: StateType, addedIndex: number }) => {
+          resolve({ state: response.state, addedIndex: response.addedIndex })
         }
       )
     })
-  }
-
+  },
   updateById (payload: { id: number, content: string }): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'updateById',
@@ -76,19 +65,17 @@ class MockRepository implements RepositoryType {
           }
         } as backgroundMessageType,
         (state: StateType) => {
-          this.state = state
-          resolve(this.state)
+          resolve(state)
         }
       )
     })
-  }
-
+  },
   deleteById (payload: { id: number }): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
-          type: 'localStorage',
-          localStorage: {
+          type: 'repository',
+          repository: {
             type: 'memos',
             memos: {
               type: 'deleteById',
@@ -100,12 +87,11 @@ class MockRepository implements RepositoryType {
           }
         } as backgroundMessageType,
         (state: StateType) => {
-          this.state = state
-          resolve(this.state)
+          resolve(state)
         }
       )
     })
   }
 }
 
-export default MockRepository
+export default repository

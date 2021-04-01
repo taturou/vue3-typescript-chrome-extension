@@ -1,9 +1,9 @@
 import { createStore, ModuleTree, useStore as baseUseStore } from 'vuex'
 import { RootState } from './types'
-import CounterModule from './Counter'
-import { CounterStoreModuleType } from './Counter/types'
-import MemosModule from './Memos'
-import { MemosStoreModuleType } from './Memos/types'
+import CounterModule from './counter'
+import { CounterStoreModuleType } from './counter/types'
+import MemosModule from './memos'
+import { MemosStoreModuleType } from './memos/types'
 
 const modules: ModuleTree<RootState> = {
   counter: CounterModule,

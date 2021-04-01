@@ -61,7 +61,7 @@ export default defineComponent({
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void) => {
+    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'memos') {
           if (message.tabs.memos.type === 'fetch') {

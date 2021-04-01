@@ -26,6 +26,8 @@ The chrome-extension manifest version is v2 (MV2).
 
 ### Popup page
 
+![popup](./doc/images/popup-1.png)
+
 It has the following sections.
 
 * Options
@@ -42,6 +44,9 @@ Those values will be saved to the LocalStorage of Chrome via the Vuex store.
 
 ### Options page
 
+![options-counter](./doc/images/options-counter-1.gif)
+![options-memos](./doc/images/options-memos-1.gif)
+
 It has the following tab.
 
 * Counter
@@ -55,6 +60,8 @@ This page is generated with Vue-Router.
 Those values will be saved to the LocalStorage of Chrome via the Vuex store.
 
 ### Content script / Counter
+
+![content-counter](./doc/images/content-counter-1.gif)
 
 It displays the counter value that was updated by the popup page.
 
@@ -119,35 +126,38 @@ $ npm run build
 
 ```
 .
-|-- dist_zip/             -- Products compressed are here if you execute 'npm run zip'.
-|-- scripts/              -- Script files for the package.json's commands.
+|-- dist_zip/               -- Products compressed are here if you execute 'npm run zip'.
+|-- scripts/                -- Script files for the package.json's commands.
 |-- src/
-|   |-- @types/           -- Global types for Typescrip.
-|   |-- background/       -- background script.
-|   |-- contents/         -- content scripts.
-|   |   |-- counter/      --
-|   |-- icons/            -- Icons for the extension.
-|   |-- lib/              -- Library
-|   |    |-- components/  -- Vue components for all apps/components.
-|   |    |-- repository/  -- Repository to save the values of the Vuex store.
-|   |    |-- store/       -- Vuex store.
-|   |    `-- tabs/        -- Operate the browser tab.
-|   |-- options/          -- Options page.
-|   |-- popup/            -- Popup page.
-|   |-- util/             -- Utilities
-|   |    |-- Date/        -- Operate the Data object.
-|   |    |-- object/      -- Operate the general object.
-|   |    `-- string/      -- Operate the general string.
-|   `-- manifest.json     -- Manifest file.
-|-- .eslintrc.js          -- Lint config for ESLint.
-|-- .gitignore            -- Ignore files for git.
-|-- LICENSE               -- License file.
-|-- package-lock.json     -- npm lockfile.
-|-- package.json          -- Build script and packages dependencies.
-|-- Readme.md             -- This file.
-|-- tsconfig.eslint.json  -- Lint config for Typescript.
-|-- tsconfig.json         -- Config for Typescript.
-`-- webpack.config.js     -- Config for webpack.
+|   |-- @types/             -- Global types for Typescrip.
+|   |-- background/         -- background script.
+|   |   `-- message/        -- The message dispatcher from the popup/options/content.
+|   |       `-- repository/ -- The module accepts messages from the repository library.
+|   |-- contents/           -- content scripts.
+|   |   |-- counter/        --
+|   |-- icons/              -- Icons for the extension.
+|   |-- lib/                -- Library
+|   |    |-- components/    -- Vue components for all apps/components.
+|   |    |-- repository/    -- Repository to save the values of the Vuex store via the background script.
+|   |    |-- storage/       -- A storage called by the background script.
+|   |    |-- store/         -- Vuex store.
+|   |    `-- tabs/          -- Operate the browser tab.
+|   |-- options/            -- Options page.
+|   |-- popup/              -- Popup page.
+|   |-- util/               -- Utilities
+|   |    |-- Date/          -- Operate the Data object.
+|   |    |-- object/        -- Operate the general object.
+|   |    `-- string/        -- Operate the general string.
+|   `-- manifest.json       -- Manifest file.
+|-- .eslintrc.js            -- Lint config for ESLint.
+|-- .gitignore              -- Ignore files for git.
+|-- LICENSE                 -- License file.
+|-- package-lock.json       -- npm lockfile.
+|-- package.json            -- Build script and packages dependencies.
+|-- Readme.md               -- This file.
+|-- tsconfig.eslint.json    -- Lint config for Typescript.
+|-- tsconfig.json           -- Config for Typescript.
+`-- webpack.config.js       -- Config for webpack.
 ```
 
 ### manifest.json
@@ -173,6 +183,17 @@ e.g.: If a store whose module name is 'moduleA' has 'property1' property.
 * `store.dispatch('moduleA/property1', value)`
 
 In addition, the parameter types are defined by Typescript, you can predict the parameters with the benefit of the editor.
+
+The data managed by the Vuex store will be saved to storage through the following path.
+
+Sequence | Caller module | Callee module | Called method
+:--:|:--|:--|:--
+1 | Popup, Options, content | Vuex            | store.getters, store.dispatch()
+2 | Vuex                    | repository      | repository.foo()
+3 | repository              | chrome          | runtime.message.sendMessage()
+4 | chrome                  | background      | the callback which is set to runtime.onMessage.addListener()
+5 | background              | storage         | storage.get()/set()
+6 | storage                 | LocalStorage    | LocalStorage.getItem()/setItem()
 
 ---
 

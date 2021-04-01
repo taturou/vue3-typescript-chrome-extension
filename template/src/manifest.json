@@ -1,6 +1,6 @@
 {
   // Required
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "It will be replaced by the 'productName' of package.json.",
   "version": "It will be replaced by the 'version' of package.json.",
   "description": "It will be replaced by the 'description' of package.json.",
@@ -9,12 +9,12 @@
     "48": "icons/icon-48x48.png",
     "128": "icons/icon-128x128.png"
   },
+  "permissions": [
+    "storage"
+  ],
   // background
   "background": {
-    "persistent": false,
-    "scripts": [
-      "background/index.js"
-    ]
+    "service_worker": "background.js"
   },
   // option
   "options_ui": {
@@ -22,7 +22,7 @@
     "open_in_tab": true
   },
   // Popup
-  "browser_action": {
+  "action": {
     "default_popup": "popup/index.html"
   },
   // Content scripts
