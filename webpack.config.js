@@ -26,6 +26,7 @@ const commonConfig = {
   },
 	resolve: {
     extensions: [
+      '.js',
       '.ts',
       'scss',
       '.vue'
@@ -33,7 +34,10 @@ const commonConfig = {
     alias: {
       '@': path.resolve(__dirname, './src'),
       'vue': '@vue/runtime-dom'
-    }
+    },
+    modules: [
+      "node_modules"
+    ]
   },
   target: [
     'web'
@@ -53,11 +57,16 @@ const commonConfig = {
         loader: 'vue-loader'
       },
       {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ]
+      },
+      {
         test: /\.scss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',
@@ -68,6 +77,10 @@ const commonConfig = {
             }
           }
         ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        type: 'asset/inline'
       },
       {
         // Refer: https://qiita.com/yuusuke510/items/af3adfd17af0114f4a2a
