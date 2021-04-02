@@ -1,14 +1,17 @@
 <template lang="pug">
-div.container
-  div.title Counter
-  div.count {{ counter }}
-  div.buttons
-    button(
-      @click="onIncrement"
-    ) +
-    button(
-      @click="onDecrement"
-    ) -
+div#counter
+  el-card
+    template(#header)
+      span Counter
+    div
+      div.counter {{ counter }}
+      el-button-group
+        el-button(
+          @click="onIncrement"
+        ) +
+        el-button(
+          @click="onDecrement"
+        ) -
 </template>
 
 <script lang='ts'>
@@ -42,31 +45,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+#counter {
   display: flex;
   flex-direction: column;
+  margin: 0px;
+  padding: 10px;
 
-  div.title {
-    font-size: 1em;
-    font-weight: lighter;
-    padding: 5px 20px;
-    margin: 0px;
-  }
-
-  div.count {
-    font-size: large;
+  .counter {
+    width: 100%;
     text-align: center;
+    font-size: 20px;
     font-weight: lighter;
-    padding-bottom: 5px;
+    margin-bottom: 10px;
   }
 
-  div.buttons {
-    display: flex;
-    flex-direction: row;
+  .el-button-group {
+    width: 100%;
 
-    button {
-      flex-grow: 1;
-      margin: 5px;
+    .el-button {
+      width: 50%;
     }
   }
 }

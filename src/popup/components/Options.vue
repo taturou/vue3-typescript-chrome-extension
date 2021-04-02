@@ -1,9 +1,8 @@
 <template lang="pug">
-div.container
-  div.title Options
-  button(
+div#options
+  el-button(
     @click="onOpenOptions"
-  ) Open
+  ) Options page
 </template>
 
 <script lang='ts'>
@@ -28,19 +27,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+div#options {
   display: flex;
   flex-direction: column;
+  margin: 0px;
+  padding: 10px;
 
-  div.title {
-    font-size: 1em;
-    font-weight: lighter;
-    padding: 5px 20px;
-    margin: 0px;
-  }
-
-  button {
-    margin: 5px;
+  .el-button {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   }
 }
 </style>

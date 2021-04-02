@@ -1,11 +1,8 @@
 <template lang="pug">
-div.container
+div#app
   h1 {{ title }}
-  hr
   Options
-  hr
   Counter
-  hr
   Memos
 </template>
 
@@ -32,25 +29,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+#app {
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
+  min-width: 280px;
 
   h1 {
     margin: 0px;
-    padding: 5px 20px;
-    font-size: 1.5em;
+    padding: 20px 20px 10px 20px;
+    font-size: 14px;
     font-weight: lighter;
+    text-align: center;
     white-space: nowrap;
-  }
-
-  hr {
-    size: 1px;
-    width: 100%;
-    color: gray;
-    margin: 0px;
   }
 }
 </style>

@@ -1,14 +1,25 @@
 <template lang="pug">
-div.container
-  div.title Memo
-  textarea.content(
-    rows="3"
-    v-model="content"
-  )
-  div.buttons
-    button(
-      @click="onAdd"
-    ) Add
+div#memos
+  el-card
+    template(#header)
+      span Memo
+    div
+      el-input(
+        type="textarea"
+        :autosize="{ minRows: 2 }"
+        placeholder="Please input a memo"
+        v-model="content"
+      )
+      el-button-group
+        el-button(
+          size="small"
+          @click="onClear"
+        ) Clear
+        el-button(
+          type="primary"
+          size="small"
+          @click="onAdd"
+        ) Add
 </template>
 
 <script lang='ts'>
@@ -20,6 +31,9 @@ export default defineComponent({
     const content = ref<string>('')
     const store = useStore()
 
+    const onClear = () => {
+      content.value = ''
+    }
     const onAdd = () => {
       store.dispatch('memos/add', { content: content.value })
       content.value = ''
@@ -31,6 +45,7 @@ export default defineComponent({
 
     return {
       content,
+      onClear,
       onAdd
     }
   }
@@ -38,30 +53,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
+#memos {
   display: flex;
   flex-direction: column;
+  margin: 0px;
+  padding: 10px;
 
-  div.title {
-    font-size: 1em;
-    font-weight: lighter;
-    padding: 5px 20px;
-    margin: 0px;
+  .el-textarea {
+    margin-bottom: 10px;
   }
 
-  textarea.content {
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: 5px;
-  }
+  .el-button-group {
+    width: 100%;
 
-  div.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-
-    button {
-      margin: 5px;
+    .el-button {
+      width: 50%;
     }
   }
 }
