@@ -1,7 +1,8 @@
 import $ from 'jquery'
-import { cleanHtmlSpace } from '@/util/string'
 import { createApp } from 'vue'
 import { store } from '@/lib/store'
+import ElementPlus from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
 import Counter from './components/Counter.vue'
 import './css/index.scss'
 
@@ -11,20 +12,14 @@ function vueMount () {
   const id = `${idPrefix}counter`
 
   // Create dom to mount a Vue component
-  let html = `
-    <div
-      id="${id}"
-    >
-      Count: 0
-    </div>
-  `
-  html = cleanHtmlSpace(html)
+  let html = `<div id="${id}"></div>`
   const body = $('body')[0]
   $(body).append(html)
 
   // Mount the Counter vue component
   createApp(Counter)
     .use(store)
+    .use(ElementPlus)
     .mount(`#${id}`)
 }
 
