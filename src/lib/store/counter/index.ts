@@ -6,7 +6,9 @@ import actions from './actions'
 import mutations from './mutations'
 
 const state: StateType = {
-  count: 0
+  count: 0,
+  max: 100,
+  min: 0
 }
 
 const counter: Module<StateType, RootState> = {

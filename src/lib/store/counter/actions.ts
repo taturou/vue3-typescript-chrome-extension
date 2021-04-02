@@ -12,13 +12,21 @@ const actions: ActionTree<StateType, RootState> & ActionsType = {
   },
   async increment ({ commit, state }): Promise<void> {
     state.count += 1
+    if (state.count > state.max) {
+      state.count = state.max
+    } else {
     await repo.setCount({ count: state.count })
     commit('count', { count: state.count })
+    }
   },
   async decrement ({ commit, state }): Promise<void> {
     state.count -= 1
+    if (state.count < state.min) {
+      state.count = state.min
+    } else {
     await repo.setCount({ count: state.count })
     commit('count', { count: state.count })
+    }
   }
 }
 
