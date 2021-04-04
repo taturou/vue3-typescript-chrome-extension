@@ -2,7 +2,9 @@ import { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
 import { RootState } from '@/lib/store/types'
 
 export interface StateType {
-  count: number
+  count: number,
+  max: number,
+  min: number
 }
 
 export interface GettersType {

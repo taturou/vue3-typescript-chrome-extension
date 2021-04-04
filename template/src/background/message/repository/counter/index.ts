@@ -8,7 +8,9 @@ import { migrate as objectMigrate } from '@/util/object'
 const KEY = 'counter'
 
 const defaultState: StateType = {
-  count: 0
+  count: 0,
+  max: 100,
+  min: 0
 }
 
 const storage = Storage()
