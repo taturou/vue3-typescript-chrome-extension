@@ -1,14 +1,19 @@
 <template lang="pug">
-div.container
-  div.title Counter
-  div.count {{ counter }}
-  div.buttons
-    button(
-      @click="onIncrement"
-    ) +
-    button(
-      @click="onDecrement"
-    ) -
+div#counter
+  p-card
+    template(#title) Counter
+    template(#content)
+      div.content.p-d-flex.p-flex-column
+        label.count.p-mb-2 {{ counter }}
+        div.p-d-flex.p-flex-row
+          p-button.p-button-text.p-button-raised(
+            icon="pi pi-plus"
+            @click="onIncrement"
+          )
+          p-button.p-button-text.p-button-raised(
+            icon="pi pi-minus"
+            @click="onDecrement"
+          )
 </template>
 
 <script lang='ts'>
@@ -42,31 +47,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
-  display: flex;
-  flex-direction: column;
+#counter {
+  margin: 0;
+  padding: 10px;
 
-  div.title {
-    font-size: 1em;
-    font-weight: lighter;
-    padding: 5px 20px;
-    margin: 0px;
-  }
+  .content {
+    .count {
+      text-align: center;
+      font-weight: lighter;
+      font-size: 2rem;
+    }
 
-  div.count {
-    font-size: large;
-    text-align: center;
-    font-weight: lighter;
-    padding-bottom: 5px;
-  }
-
-  div.buttons {
-    display: flex;
-    flex-direction: row;
-
-    button {
-      flex-grow: 1;
-      margin: 5px;
+    .p-button {
+      width: 50%;
     }
   }
 }

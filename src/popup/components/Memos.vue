@@ -1,14 +1,23 @@
 <template lang="pug">
-div.container
-  div.title Memo
-  textarea.content(
-    rows="3"
-    v-model="content"
-  )
-  div.buttons
-    button(
-      @click="onAdd"
-    ) Add
+div#memos
+  p-card
+    template(#title) Memo
+    template(#content)
+      div.p-d-flex.p-flex-column
+        p-textarea.p-mb-2(
+          :autoResize="true"
+          rows="2"
+          v-model="content"
+        )
+        div.p-d-flex.p-flex-row.p-jc-end
+          p-button.p-button-secondary.p-button-sm.p-mr-2(
+            label="Clear"
+            @click="onClear"
+          )
+          p-button.p-button-sm(
+            label="Add"
+            @click="onAdd"
+          )
 </template>
 
 <script lang='ts'>
@@ -20,6 +29,9 @@ export default defineComponent({
     const content = ref<string>('')
     const store = useStore()
 
+    const onClear = () => {
+      content.value = ''
+    }
     const onAdd = () => {
       store.dispatch('memos/add', { content: content.value })
       content.value = ''
@@ -31,6 +43,7 @@ export default defineComponent({
 
     return {
       content,
+      onClear,
       onAdd
     }
   }
@@ -38,32 +51,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
-  display: flex;
-  flex-direction: column;
-
-  div.title {
-    font-size: 1em;
-    font-weight: lighter;
-    padding: 5px 20px;
-    margin: 0px;
-  }
-
-  textarea.content {
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: 5px;
-  }
-
-  div.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-
-    button {
-      margin: 5px;
-    }
-  }
+#memos {
+  margin: 0;
+  padding: 10px;
 }
 </style>
 

@@ -1,9 +1,10 @@
 <template lang="pug">
-div.container
-  div.title Options
-  button(
-    @click="onOpenOptions"
-  ) Open
+div#options
+  div.contents
+    p-button.p-button-text.p-button-raised(
+      label="Options page"
+      @click="onOpenOptions"
+    )
 </template>
 
 <script lang='ts'>
@@ -28,19 +29,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.container {
-  display: flex;
-  flex-direction: column;
+#options {
+  margin: 0;
+  padding: 10px;
 
-  div.title {
-    font-size: 1em;
-    font-weight: lighter;
-    padding: 5px 20px;
-    margin: 0px;
-  }
+  .contents {
+    background: white;
 
-  button {
-    margin: 5px;
+    .p-button {
+      width: 100%;
+    }
   }
 }
 </style>
