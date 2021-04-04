@@ -79,6 +79,20 @@ const commonConfig = {
         ]
       },
       {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/images/[hash][ext][query]'
+        }
+      },
+      {
+        test: /\.ico$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/icons/[hash][ext][query]'
+        }
+      },
+      {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         type: 'asset/inline'
       },
