@@ -1,8 +1,15 @@
 import $ from 'jquery'
-import { cleanHtmlSpace } from '@/util/string'
 import { createApp } from 'vue'
 import { store } from '@/lib/store'
 import Counter from './components/Counter.vue'
+import PrimeVue from 'primevue/config'
+import PButton from 'primevue/button'
+import PSidebar from 'primevue/sidebar'
+import PProgressBar from 'primevue/progressbar'
+import 'primevue/resources/themes/saga-blue/theme.css'
+import 'primevue/resources/primevue.min.css'
+import 'primeicons/primeicons.css'
+import 'primeflex/primeflex.css'
 import './css/index.scss'
 
 const idPrefix = 'vue3-typescript-chrome-extension-'
@@ -11,20 +18,17 @@ function vueMount () {
   const id = `${idPrefix}counter`
 
   // Create dom to mount a Vue component
-  let html = `
-    <div
-      id="${id}"
-    >
-      Count: 0
-    </div>
-  `
-  html = cleanHtmlSpace(html)
+  let html = `<div id="${id}"></div>`
   const body = $('body')[0]
   $(body).append(html)
 
   // Mount the Counter vue component
   createApp(Counter)
     .use(store)
+    .use(PrimeVue)
+    .component('p-button', PButton)
+    .component('p-sidebar', PSidebar)
+    .component('p-progress-bar', PProgressBar)
     .mount(`#${id}`)
 }
 

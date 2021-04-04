@@ -1,29 +1,46 @@
 <template lang="pug">
-div.counter
-  Collapse(
-    :expand="collapseExpand"
+div#counter
+  p-button(
+    icon="pi pi-arrow-right"
+    :class="{ invisible: visibleSidebar }"
+    @click="onOpenSidebar"
   )
-    div.contents
-      span Count: {{ counter }}
+
+  p-sidebar#vue3-typescript-chrome-extension-sidebar(
+    v-model:visible="visibleSidebar"
+    :baseZIndex="1000000006"
+    :showCloseIcon="true"
+    position="left"
+  )
+    h1 {{ title }}
+    p-progress-bar(
+      :value="counter"
+    ) {{ counter }}
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
+import { defineComponent, ref, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { tabsMessageType } from '@/lib/tabs/types'
-import Collapse, { CollapseExpandType } from '@/lib/components/Collapse.vue'
 
 export default defineComponent({
   setup() {
-    // Collapse
-    const collapseExpand: CollapseExpandType = 'right2left'
-
-    // Counter
     const store = useStore()
+
+    // Sidebar
+    const visibleSidebar = ref(false)
+    const title = process.env.APP_NAME
+
     const counter = computed(() => {
       return store.getters['counter/count']
     })
 
+    // opener
+    const onOpenSidebar = () => {
+      visibleSidebar.value = true
+    }
+
+    // store
     const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'counter') {
@@ -47,12 +64,11 @@ export default defineComponent({
     })
 
     return {
-      collapseExpand,
-      counter
+      visibleSidebar,
+      title,
+      counter,
+      onOpenSidebar
     }
-  },
-  components: {
-    Collapse
   }
 })
 </script>
@@ -62,9 +78,16 @@ div.counter {
   margin: 0;
   padding: 0;
 
-  div.contents {
-    margin: 0;
-    padding: 10px 20px;
+  .el-button {
+    display: block;
+
+    &.invisible {
+      display: none;
+    }
   }
+}
+
+::v-global(#vue3-typescript-chrome-extension-sidebar) {
+  width: 50%;
 }
 </style>
