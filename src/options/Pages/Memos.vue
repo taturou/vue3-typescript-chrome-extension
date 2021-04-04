@@ -1,32 +1,57 @@
 <template lang="pug">
-div(
-  id="memos"
-)
-  p Total: {{ total }}
-
-  table.memos(
-    v-if="total > 0"
+div#memos
+  p-data-table(
+    :value="memos"
+    :autoLayout="true"
   )
-    thead
-      tr
-        th ID
-        th Content
-        th Created at
-        th Modified at
-        th Command
-    tbody
-      tr(
-        v-for="memo in memos"
-        :key="memo.id"
+    p-column(
+      field="id"
+      header="ID"
+      :sortable="true"
+    )
+    p-column(
+      field="content"
+      header="Content"
+    )
+      template(
+        #body="memo"
       )
-        td.id {{ memo.id }}
-        td.content(v-html="crlf2br(memo.content)")
-        td.createdAt {{ printDate(memo.createdAt) }}
-        td.modifiedAt {{ printDate(memo.modifiedAt) }}
-        td.command
-          button(
-            @click="onEdit(memo.id)"
-          ) Edit
+        div(
+          v-html="crlf2br(memo.data.content)"
+        )
+    p-column(
+      field="createdAt"
+      header="Created At"
+      :sortable="true"
+    )
+      template(
+        #body="memo"
+      ) {{ printDate(memo.data.createdAt) }}
+    p-column(
+      field="modifiedAt"
+      header="Modified At"
+      :sortable="true"
+    )
+      template(
+        #body="memo"
+      ) {{ printDate(memo.data.modifiedAt) }}
+    p-column(
+      header="Operations"
+    )
+      template(
+        #body="memo"
+      )
+        div.p-d-flex.p-flex-row
+          p-button.p-button-sm.p-mr-2(
+            label="Edit"
+            @click="onEdit(memo.data.id)"
+          )
+          p-button.p-button-danger.p-button-sm(
+            label="Delete"
+            @click="onDelete($event, memo.data.id)"
+          )
+
+p-confirm-popup
 </template>
 
 <script lang='ts'>
@@ -35,11 +60,13 @@ import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
 import * as dateUtil from '@/util/Date'
 import { tabsMessageType } from '@/lib/tabs/types'
+import { useConfirm } from 'primevue/useconfirm'
 
 export default defineComponent({
   setup () {
     const store = useStore()
     const router = useRouter()
+    const confirm = useConfirm()
 
     const total = computed(() => {
       return store.getters['memos/total']
@@ -50,6 +77,17 @@ export default defineComponent({
 
     const onEdit = (id: number) => {
       router.push({ name: 'Memo', params: { id: id }})
+    }
+    const onDelete = (event: MouseEvent, id: number) => {
+      confirm.require({
+        target: event.currentTarget as EventTarget,
+        message: 'Are you sure to delete this?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          store.dispatch('memos/deleteById', { id: id })
+        },
+        acceptClass: "p-button-danger"
+      })
     }
 
     const crlf2br = (text: string): string => {
@@ -87,7 +125,8 @@ export default defineComponent({
       memos,
       crlf2br,
       printDate,
-      onEdit
+      onEdit,
+      onDelete
     }
   }
 })
@@ -99,41 +138,5 @@ export default defineComponent({
   padding: 0;
   display: flex;
   flex-direction: column;
-
-  table.memos {
-    border-collapse: collapse;
-    border: 1px solid gray;
-    width: fit-content;
-
-    thead {
-      tr {
-        border-bottom: 1px solid lightgray;
-
-        th {
-          padding: 5px 10px;
-          border-left: 1px dashed lightgray;
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        border-bottom: 1px dashed lightgray;
-
-        td {
-          border-left: 1px dashed lightgray;
-          padding: 5px 10px;
-
-          &.id {
-            text-align: center;
-          }
-        }
-      }
-    }
-  }
-
-  button {
-    margin: 5px;
-  }
 }
 </style>

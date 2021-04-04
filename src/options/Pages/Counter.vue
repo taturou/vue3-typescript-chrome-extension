@@ -1,8 +1,8 @@
 <template lang="pug">
-div(
-  id="counter"
-)
-  p Count: {{ counter }}
+div#counter
+  p-progress-bar(
+    :value="counter"
+  ) {{ counter }}
 </template>
 
 <script lang='ts'>
