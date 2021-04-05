@@ -22,7 +22,7 @@ export default defineComponent({
       default: 'top2bottom'
     }
   },
-  setup(props) {
+  setup() {
     const visibleContents = ref<boolean>(false)
 
     const onOperation = () => {

@@ -32,7 +32,7 @@ function vueMount () {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function onLoaded (this: Window, event: Event): void {
+function onLoaded (this: Window, _event: Event): void {
   vueMount()
 }
 

@@ -11,7 +11,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup () {
-    const onOpenOptions = (e: MouseEvent) => {
+    const onOpenOptions = (_event: MouseEvent) => {
       chrome.tabs.create({
         // This is for chrome-extension tab
         // url: 'chrome://extensions/?options=' + chrome.runtime.id
