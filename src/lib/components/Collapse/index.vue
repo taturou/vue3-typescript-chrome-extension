@@ -12,8 +12,7 @@ div.collapse(
 
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
-
-export type CollapseExpandType = 'top2bottom' | 'bottom2top' | 'left2right' | 'right2left'
+import { CollapseExpandType } from './types'
 
 export default defineComponent({
   props: {
