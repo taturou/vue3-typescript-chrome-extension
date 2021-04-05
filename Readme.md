@@ -20,7 +20,7 @@ Chrome extension template for vue-cli with Vue 3 + Vuex 4 + Vue Router 4 + Types
 Notes: \
 This sample is checked with `node v15.11.0`, `npm v7.8.0`, `@vue/cli 4.5.12`, and `Chrome 89.0.4389.90 (64-bit)`. \
 This sample does not use any Vue libraries and any CSS frameworks. \
-The chrome-extension manifest version is v2 (MV2).
+The chrome-extension manifest version of this brunch is v2 (MV2), but you can choose MV2 and MV3 when you create a project by this template.
 
 ---
 
@@ -295,10 +295,6 @@ $ npm run watch:mock
 
 -   Supports 'Vue.js devtools' chrome-extension.
     -   I don't understand why the chrome-extension does not recognize this project...
--   Supports the chrome extension manifest v3 (MV3).
-    -   MV3 supports only a service worker instead of a background script. \
-        But a service worker can not access the LocalStorage, as far as I know. \
-        This extension must use the LocalStorage to save data of the Vuex store.
 
 ---
 
