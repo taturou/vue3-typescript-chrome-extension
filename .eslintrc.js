@@ -10,6 +10,7 @@ module.exports = {
     "@vue/typescript/recommended",
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -24,13 +25,14 @@ module.exports = {
   ],
   rules: {
     // スペース2個でインデント
-    "indent": [ 2, 2 ],
+    indent: ["error", 2, { SwitchCase: 1 }],
     // 改行コードはLF
     "linebreak-style": [ 2, "unix" ],
     // セミコロンを省略する
     "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}],
     "semi-spacing": ["error", {"after": true, "before": false}],
     "semi-style": ["error", "first"],
+    "newline-per-chained-call": [2],
     "no-extra-semi": "error",
     "no-unexpected-multiline": "error",
     "no-unreachable": "error",

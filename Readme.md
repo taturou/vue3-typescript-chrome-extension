@@ -14,6 +14,7 @@ Pug | pug | 3.0.2
 SASS/SCSS | sass-loader | 11.0.1
 Webpack | webpack | 5.26.0
 ESLint | eslint | 7.23.0
+Prettier | prettier | 2.2.1
 jQuery | jquery | 3.6.0
 
 Notes: \
