@@ -9,15 +9,11 @@
     "48": "icons/icon-48x48.png",
     "128": "icons/icon-128x128.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   // background
   {{#if_eq manifestVer "v2"}}"background": {
     "persistent": false,
-    "scripts": [
-      "background/index.js"
-    ]
+    "scripts": ["background/index.js"]
   },{{/if_eq}}{{#if_eq manifestVer "v3"}}"background": {
     "service_worker": "background.js"
   },{{/if_eq}}
@@ -35,16 +31,9 @@
   // Content scripts
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "contents/counter/index.js"
-      ],
-      "css": [
-        "contents/counter/index.css"
-      ],
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["contents/counter/index.js"],
+      "css": ["contents/counter/index.css"],
       "run_at": "document_idle",
       "all_frames": false
     }

@@ -1,19 +1,14 @@
 <template lang="pug">
-div.collapse(
-  :class="[$props.expand, { visible: visibleContents }]"
-)
-  div.operation(
-    @click="onOperation"
-  )
-    div.character &gt;
-  div.contents
+.collapse(:class='[$props.expand, { visible: visibleContents }]')
+  .operation(@click='onOperation')
+    .character &gt;
+  .contents
     slot
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
-
-export type CollapseExpandType = 'top2bottom' | 'bottom2top' | 'left2right' | 'right2left'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import { CollapseExpandType } from './types'
 
 export default defineComponent({
   props: {
@@ -22,7 +17,7 @@ export default defineComponent({
       default: 'top2bottom'
     }
   },
-  setup(props) {
+  setup() {
     const visibleContents = ref<boolean>(false)
 
     const onOperation = () => {
@@ -84,7 +79,7 @@ div.collapse.top2bottom {
 
     div.character {
       padding: 3px 10px 3px 10px;
-      transform: rotate(90deg)
+      transform: rotate(90deg);
     }
   }
 }
@@ -102,7 +97,7 @@ div.collapse.bottom2top {
 
     div.character {
       padding: 3px 10px 3px 10px;
-      transform: rotate(-90deg)
+      transform: rotate(-90deg);
     }
   }
 }
@@ -117,7 +112,7 @@ div.collapse.left2right {
 
     div.character {
       padding: 5px 5px 5px 8px;
-      transform: rotate(0deg)
+      transform: rotate(0deg);
     }
   }
 }
@@ -132,7 +127,7 @@ div.collapse.right2left {
 
     div.character {
       padding: 5px 5px 5px 8px;
-      transform: rotate(180deg)
+      transform: rotate(180deg);
     }
   }
 }
@@ -141,7 +136,7 @@ div.collapse.right2left {
 div.collapse.top2bottom.visible {
   div.operation {
     div.character {
-      transform: rotate(-90deg)
+      transform: rotate(-90deg);
     }
   }
   div.contents {
@@ -154,7 +149,7 @@ div.collapse.top2bottom.visible {
 div.collapse.bottom2top.visible {
   div.operation {
     div.character {
-      transform: rotate(90deg)
+      transform: rotate(90deg);
     }
   }
   div.contents {
@@ -167,7 +162,7 @@ div.collapse.bottom2top.visible {
 div.collapse.left2right.visible {
   div.operation {
     div.character {
-      transform: rotate(180deg)
+      transform: rotate(180deg);
     }
   }
   div.contents {
@@ -180,7 +175,7 @@ div.collapse.left2right.visible {
 div.collapse.right2left.visible {
   div.operation {
     div.character {
-      transform: rotate(0deg)
+      transform: rotate(0deg);
     }
   }
   div.contents {

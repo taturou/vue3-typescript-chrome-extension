@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const EslintWebpackPlugin = require('eslint-webpack-plugin')
 const CommentJson = require('comment-json')
@@ -15,7 +15,7 @@ const commonConfig = {
   mode: process.env.NODE_ENV,
   context: path.resolve(__dirname, './src'),
   entry: {
-    {{#if_eq manifestVer "v2"}}'background/index': './background/index.ts',{{/if_eq}}{{#if_eq manifestVer "v3"}}'background': './background/index.ts',{{/if_eq}}
+    {{#if_eq manifestVer "v2"}}'background/index': './background/index.ts',{{/if_eq}}{{#if_eq manifestVer "v3"}}background: './background/index.ts',{{/if_eq}}
     'options/index': './options/index.ts',
     'popup/index': './popup/index.ts',
     'contents/counter/index': './contents/counter/index.ts'
@@ -24,24 +24,15 @@ const commonConfig = {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].js'
   },
-	resolve: {
-    extensions: [
-      '.js',
-      '.ts',
-      'scss',
-      '.vue'
-    ],
+  resolve: {
+    extensions: ['.js', '.ts', '.css', '.scss', '.vue'],
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'vue': '@vue/runtime-dom'
+      vue: '@vue/runtime-dom'
     },
-    modules: [
-      "node_modules"
-    ]
+    modules: ['node_modules']
   },
-  target: [
-    'web'
-  ],
+  target: ['web'],
   module: {
     rules: [
       {
@@ -58,10 +49,7 @@ const commonConfig = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.scss$/,
@@ -103,16 +91,11 @@ const commonConfig = {
           // this applies to pug imports inside JavaScript
           {
             exclude: /\.vue$/,
-            use: [
-              'raw-loader',
-              'pug-plain-loader'
-            ]
+            use: ['raw-loader', 'pug-plain-loader']
           },
           // this applies to `<template lang="pug">` in Vue components
           {
-            use: [
-              'pug-plain-loader'
-            ]
+            use: ['pug-plain-loader']
           }
         ]
       }
@@ -185,29 +168,27 @@ const developmentConfig = {
   devtool: 'inline-source-map',
   optimization: {
     minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin()
-    ],
+    minimizer: [new CssMinimizerPlugin()]
   }
 }
 
 // transform content
-function transformJson (content, _path) {
+function transformJson(content, _path) {
   const obj = CommentJson.parse(content.toString(), null, true)
   return CommentJson.stringify(obj, null, 2)
 }
 
-function transformHtml (content, _path) {
+function transformHtml(content, _path) {
   return content.toString()
 }
 
 module.exports = (() => {
-  switch(process.env.NODE_ENV) {
+  switch (process.env.NODE_ENV) {
     case 'development':
-      return merge(commonConfig, developmentConfig);
+      return merge(commonConfig, developmentConfig)
     case 'production':
-      return merge(commonConfig, productionConfig);
+      return merge(commonConfig, productionConfig)
     default:
-      throw new Error('No matching configuration was found!');
+      throw new Error('No matching configuration was found!')
   }
 })()

@@ -1,5 +1,5 @@
 <template lang="pug">
-div.container
+.container
   h1 {{ title }}
   hr
   Options
@@ -9,14 +9,14 @@ div.container
   Memos
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import Options from './components/Options.vue'
 import Counter from './components/Counter.vue'
 import Memos from './components/Memos.vue'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const title = process.env.APP_NAME
 
     return {
