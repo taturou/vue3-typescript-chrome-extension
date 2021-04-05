@@ -9,9 +9,7 @@
     "48": "icons/icon-48x48.png",
     "128": "icons/icon-128x128.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   // background
   "background": {
     "service_worker": "background.js"
@@ -28,16 +26,9 @@
   // Content scripts
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "contents/counter/index.js"
-      ],
-      "css": [
-        "contents/counter/index.css"
-      ],
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["contents/counter/index.js"],
+      "css": ["contents/counter/index.css"],
       "run_at": "document_idle",
       "all_frames": false
     }

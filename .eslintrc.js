@@ -5,11 +5,12 @@ module.exports = {
     browser: true
   },
   extends: [
-    "eslint:recommended",
-    "plugin:vue/vue3-essential",
-    "@vue/typescript/recommended",
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    '@vue/typescript/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -18,25 +19,23 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json']
   },
-  plugins: [
-    'vue',
-    '@typescript-eslint'
-  ],
+  plugins: ['vue', '@typescript-eslint'],
   rules: {
     // スペース2個でインデント
-    "indent": [ 2, 2 ],
+    indent: ['error', 2, { SwitchCase: 1 }],
     // 改行コードはLF
-    "linebreak-style": [ 2, "unix" ],
+    'linebreak-style': [2, 'unix'],
     // セミコロンを省略する
-    "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}],
-    "semi-spacing": ["error", {"after": true, "before": false}],
-    "semi-style": ["error", "first"],
-    "no-extra-semi": "error",
-    "no-unexpected-multiline": "error",
-    "no-unreachable": "error",
+    semi: ['error', 'never', { beforeStatementContinuationChars: 'never' }],
+    'semi-spacing': ['error', { after: true, before: false }],
+    'semi-style': ['error', 'first'],
+    'newline-per-chained-call': [2],
+    'no-extra-semi': 'error',
+    'no-unexpected-multiline': 'error',
+    'no-unreachable': 'error',
     // console.log() を使わない
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     // vue
     'vue/no-deprecated-slot-attribute': 2,
     'vue/no-deprecated-scope-attribute': 2,

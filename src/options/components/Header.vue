@@ -1,20 +1,14 @@
 <template lang="pug">
-div(
-  id="header"
-)
+#header
   h1 {{ title }}
 
-  div.tab
-    router-link.item(
-      :to="{name: 'Counter'}"
-    ) Counter
-    router-link.item(
-      :to="{name: 'Memos'}"
-    ) Memos
+  .tab
+    router-link.item(:to='{ name: "Counter" }') Counter
+    router-link.item(:to='{ name: "Memos" }') Memos
     span.item.grow
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -83,4 +77,3 @@ export default defineComponent({
   }
 }
 </style>
-

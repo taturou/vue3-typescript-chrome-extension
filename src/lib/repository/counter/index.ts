@@ -3,7 +3,7 @@ import { StateType } from '@/lib/store/counter/types'
 import { RepositoryType } from './types'
 
 const repository: RepositoryType = {
-  fetch (): Promise<StateType> {
+  fetch(): Promise<StateType> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -22,7 +22,7 @@ const repository: RepositoryType = {
       )
     })
   },
-  setCount (payload: { count: number }): Promise<number> {
+  setCount(payload: { count: number }): Promise<number> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {

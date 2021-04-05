@@ -4,7 +4,7 @@ const archiver = require('archiver')
 const packageJson = require('../package.json')
 const { exit } = require('process')
 
-function create_zip_file () {
+function create_zip_file() {
   const productName = packageJson.name
   const srcDirName = path.join(__dirname, '../dist')
   const destDirName = path.join(__dirname, '../dist_zip')
@@ -41,8 +41,12 @@ function create_zip_file () {
   const archive = archiver('zip', { zlib: { level: 9 } })
   archive.directory(srcDirName, productName)
   archive.pipe(output)
-  archive.on('warning', (err) => { console.log(err) })
-  archive.on('error', (err) => { console.log(err) })
+  archive.on('warning', (err) => {
+    console.log(err)
+  })
+  archive.on('error', (err) => {
+    console.log(err)
+  })
   archive.finalize()
 }
 

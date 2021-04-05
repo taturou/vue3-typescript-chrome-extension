@@ -1,22 +1,17 @@
 <template lang="pug">
-div.container
-  div.title Memo
-  textarea.content(
-    rows="3"
-    v-model="content"
-  )
-  div.buttons
-    button(
-      @click="onAdd"
-    ) Add
+.container
+  .title Memo
+  textarea.content(rows='3', v-model='content')
+  .buttons
+    button(@click='onAdd') Add
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const content = ref<string>('')
     const store = useStore()
 
@@ -66,4 +61,3 @@ div.container {
   }
 }
 </style>
-
