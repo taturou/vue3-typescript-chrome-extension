@@ -96,7 +96,7 @@
     "noStrictGenericChecks": false,
     "preserveConstEnums": false,
     "resolveJsonModule": true,
-    "skipLibCheck": true, // false
+    "skipLibCheck": false,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
     "traceResolution": false,
