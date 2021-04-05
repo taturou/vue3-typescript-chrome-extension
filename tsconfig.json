@@ -1,28 +1,106 @@
+// See the following links to understand the variables.
+// * https://www.typescriptlang.org/tsconfig
+// * https://www.typescriptlang.org/ja/tsconfig
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
+    // Project Options
+    "allowJs": false,
+    "declaration": false,
+    "declarationMap": false,
+    "downlevelIteration": false,
+    "importHelpers": true, // false
+    "incremental": false,
+    "isolatedModules": false,
     "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "module": "esnext",
+    "noEmit": false,
+    "plugins": [],
+    "removeComments": false,
     "sourceMap": true,
+    "target": "esnext",
+
+    // Stric Checks
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+
+    // Module Resolution
+    "allowSyntheticDefaultImports": true,
+    "allowUmdGlobalAccess": false,
     "baseUrl": "./",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
-    "lib": [
-      "esnext",
-      "dom"
+    "preserveSymlinks": false,
+    "rootDirs": [
+      "./"
     ],
     "typeRoots": [
-      "node_modules/@types"
-    ]
+      "node_modules/@types",
+      "src/@types"
+    ],
+
+    // Source Maps
+    "inlineSourceMap": false, // use 'sourceMap'
+    "inlineSources": false, // ignore with 'inlineSourceMap: false'
+
+    // Linter Checks
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    /// "noUncheckedIndexedAccess": true,
+    /// "noUnusedLocals": true,
+    /// "noUnusedParameters": true,
+
+    // Experimental
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
+
+    // Advanced
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": false,
+    "charset": "utf8",
+    "diagnostics": false,
+    "disableReferencedProjectLoad": false,
+    "disableSizeLimit": false,
+    "emitBOM": false,
+    "emitDeclarationOnly": false,
+    "explainFiles": true,
+    "extendedDiagnostics": true,
+    "forceConsistentCasingInFileNames": true,
+    "importsNotUsedAsValues": "remove",
+    "keyofStringsOnly": false,
+    "listEmittedFiles": false,
+    "listFiles": true,
+    "maxNodeModuleJsDepth": 0,
+    "newLine": "LF",
+    "noEmitHelpers": true,
+    /// "noEmitOnError": true,
+    "noErrorTruncation": false,
+    "noImplicitUseStrict": false,
+    "noLib": false,
+    "noResolve": false,
+    "noStrictGenericChecks": false,
+    "preserveConstEnums": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true, // false
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "traceResolution": false,
+    /// "useDefineForClassFields": true,
   },
   "include": [
     "./src/**/*.ts",
