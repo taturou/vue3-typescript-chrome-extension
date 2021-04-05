@@ -9,9 +9,9 @@ type messageTypeType<T extends string> = {
 }
 
 type messageDataObjectType<R> = {
-  [P in {[K in keyof R]: R[K] extends FuncType ? K : never}[keyof R]]: {
-    type: P,
-    params: ArgumentTypes<R[P]>[0],
+  [P in { [K in keyof R]: R[K] extends FuncType ? K : never }[keyof R]]: {
+    type: P
+    params: ArgumentTypes<R[P]>[0]
     response: ReturnExcludePromiseType<R[P]>
   }
 }

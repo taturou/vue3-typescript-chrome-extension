@@ -1,28 +1,19 @@
 <template lang="pug">
-div#counter
-  el-button(
-    icon="el-icon-caret-right"
-    size="mini"
-    :class="{ invisible: visibleDrawer }"
-    @click="onOpenDrawer"
-  )
+#counter
+  el-button(icon='el-icon-caret-right', size='mini', :class='{ invisible: visibleDrawer }', @click='onOpenDrawer')
 
 el-drawer(
-  :title="title"
-  v-model="visibleDrawer"
-  :append-to-body="true"
-  :destroy-on-close="true"
-  direction="ltr"
-  size="50%"
+  :title='title',
+  v-model='visibleDrawer',
+  :append-to-body='true',
+  :destroy-on-close='true',
+  direction='ltr',
+  size='50%'
 )
-  el-progress(
-    :text-inside="true"
-    :stroke-width="30"
-    :percentage="counter"
-  )
+  el-progress(:text-inside='true', :stroke-width='30', :percentage='counter')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { tabsMessageType } from '@/lib/tabs/types'
@@ -44,7 +35,11 @@ export default defineComponent({
       visibleDrawer.value = true
     }
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
+    const fetchByEventFromBackground = (
+      message: tabsMessageType,
+      _sender: any,
+      sendResponse: (response?: any) => void
+    ): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'counter') {
           if (message.tabs.counter.type === 'fetch') {

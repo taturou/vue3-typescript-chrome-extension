@@ -2,7 +2,7 @@ import { StorageType } from './types'
 class Storage implements StorageType {
   private data: Record<string, unknown>
 
-  constructor () {
+  constructor() {
     this.data = {}
   }
 
@@ -24,14 +24,14 @@ class Storage implements StorageType {
     })
   }
 
-  remove (key: string): Promise<void> {
+  remove(key: string): Promise<void> {
     return new Promise((resolve) => {
       delete this.data[key]
       resolve()
     })
   }
 
-  clear (): Promise<void> {
+  clear(): Promise<void> {
     return new Promise((resolve) => {
       this.data = {}
       resolve()

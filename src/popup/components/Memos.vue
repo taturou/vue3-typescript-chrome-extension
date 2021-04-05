@@ -1,41 +1,29 @@
 <template lang="pug">
-div#memos
+#memos
   el-card
     template(#header)
       span Memo
     div
-      el-input(
-        type="textarea"
-        :autosize="{ minRows: 2 }"
-        placeholder="Please input a memo"
-        v-model="content"
-      )
+      el-input(type='textarea', :autosize='{ minRows: 2 }', placeholder='Please input a memo', v-model='content')
       el-button-group
-        el-button(
-          size="small"
-          @click="onClear"
-        ) Clear
-        el-button(
-          type="primary"
-          size="small"
-          @click="onAdd"
-        ) Add
+        el-button(size='small', @click='onClear') Clear
+        el-button(type='primary', size='small', @click='onAdd') Add
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const content = ref<string>('')
     const store = useStore()
 
     const onClear = () => {
       content.value = ''
     }
-    const onAdd = () => {
-      store.dispatch('memos/add', { content: content.value })
+    const onAdd = async () => {
+      await store.dispatch('memos/add', { content: content.value })
       content.value = ''
     }
 
@@ -72,4 +60,3 @@ export default defineComponent({
   }
 }
 </style>
-

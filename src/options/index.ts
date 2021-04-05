@@ -6,7 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
 document.addEventListener('DOMContentLoaded', () => {
-  createApp(App)
+  createApp(App) // prettier-ignore
     .use(store)
     .use(router)
     .use(ElementPlus)

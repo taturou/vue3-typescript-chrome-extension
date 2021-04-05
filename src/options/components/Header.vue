@@ -1,22 +1,13 @@
 <template lang="pug">
-div#header
+#header
   h1.title {{ title }}
 
-  el-tabs(
-    v-model="router.currentRoute.value.name"
-    @tab-click="onClick"
-  )
-    el-tab-pane(
-      label="Counter"
-      name="Counter"
-    )
-    el-tab-pane(
-      label="Memos"
-      name="Memos"
-    )
+  el-tabs(v-model='router.currentRoute.value.name', @tab-click='onClick')
+    el-tab-pane(label='Counter', name='Counter')
+    el-tab-pane(label='Memos', name='Memos')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -25,7 +16,7 @@ export default defineComponent({
     const title = `"${process.env.APP_NAME}"'s Options`
 
     const router = useRouter()
-    const onClick = (tab: any, event: MouseEvent): void => {
+    const onClick = (tab: any, _event: MouseEvent): void => {
       router.push({ name: tab.paneName })
     }
 
@@ -47,9 +38,8 @@ export default defineComponent({
   width: 100%;
 
   h1.title {
-    width:100%;
+    width: 100%;
     text-align: center;
   }
 }
 </style>
-

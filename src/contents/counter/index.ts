@@ -8,23 +8,26 @@ import './css/index.scss'
 
 const idPrefix = 'vue3-typescript-chrome-extension-'
 
-function vueMount () {
+function vueMount() {
   const id = `${idPrefix}counter`
 
   // Create dom to mount a Vue component
-  let html = `<div id="${id}"></div>`
+  const html = `<div id="${id}"></div>`
   const body = $('body')[0]
+  if (!body) {
+    throw new Error('There is no "body" element.')
+  }
   $(body).append(html)
 
   // Mount the Counter vue component
-  createApp(Counter)
+  createApp(Counter) // prettier-ignore
     .use(store)
     .use(ElementPlus)
     .mount(`#${id}`)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function onLoaded (this: Window, event: Event): void {
+function onLoaded(this: Window, _event: Event): void {
   vueMount()
 }
 

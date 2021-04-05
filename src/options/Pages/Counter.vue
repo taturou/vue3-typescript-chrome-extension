@@ -1,25 +1,25 @@
 <template lang="pug">
-div#counter
-  el-progress(
-    :text-inside="true"
-    :stroke-width="30"
-    :percentage="counter"
-  )
+#counter
+  el-progress(:text-inside='true', :stroke-width='30', :percentage='counter')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const counter = computed(() => {
       return store.getters['counter/count']
     })
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
+    const fetchByEventFromBackground = (
+      message: tabsMessageType,
+      _sender: any,
+      sendResponse: (response?: any) => void
+    ): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'counter') {
           if (message.tabs.counter.type === 'fetch') {

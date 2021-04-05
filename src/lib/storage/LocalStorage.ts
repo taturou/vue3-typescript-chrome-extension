@@ -20,14 +20,14 @@ class Storage implements StorageType {
     })
   }
 
-  remove (key: string): Promise<void> {
+  remove(key: string): Promise<void> {
     return new Promise((resolve) => {
       localStorage.removeItem(key)
       resolve()
     })
   }
 
-  clear (): Promise<void> {
+  clear(): Promise<void> {
     return new Promise((resolve) => {
       localStorage.clear()
       resolve()

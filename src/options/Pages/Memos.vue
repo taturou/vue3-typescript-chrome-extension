@@ -1,81 +1,34 @@
 <template lang="pug">
-div#memos
-  el-table(
-    :data="memos"
-    :default-sort="{ prop: 'id', order: 'ascending' }"
-    style="wwidth: 100%"
-  )
+#memos
+  el-table(:data='memos', :default-sort='{ prop: "id", order: "ascending" }', style='wwidth: 100%')
+    el-table-column(prop='id', label='ID', sortable, width='60', header-align='center', align='center')
+    el-table-column(prop='content', label='Content', header-align='center', align='left')
+      template(#default='scope')
+        div(v-html='crlf2br(scope.row.content)')
+    el-table-column(prop='createdAt', label='Created at', sortable, width='150', header-align='center', align='center')
+      template(#default='scope') {{ printDate(scope.row.createdAt) }}
     el-table-column(
-      prop="id"
-      label="ID"
-      sortable
-      width="60"
-      header-align="center"
-      align="center"
+      prop='modifiedAt',
+      label='Modified at',
+      sortable,
+      width='150',
+      header-align='center',
+      align='center'
     )
-    el-table-column(
-      prop="content"
-      label="Content"
-      header-align="center"
-      align="left"
-    )
-      template(
-        #default="scope"
-      )
-        div(
-          v-html="crlf2br(scope.row.content)"
-        )
-    el-table-column(
-      prop="createdAt"
-      label="Created at"
-      sortable
-      width="150"
-      header-align="center"
-      align="center"
-    )
-      template(
-        #default="scope"
-      ) {{ printDate(scope.row.createdAt) }}
-    el-table-column(
-      prop="modifiedAt"
-      label="Modified at"
-      sortable
-      width="150"
-      header-align="center"
-      align="center"
-    )
-      template(
-        #default="scope"
-      ) {{ printDate(scope.row.modifiedAt) }}
-    el-table-column(
-      label="Operations"
-      width="200"
-      header-align="center"
-      align="center"
-    )
-      template(
-        #default="scope"
-      )
-        el-button(
-          type="primary"
-          size="mini"
-          @click="onEdit(scope.row.id)"
-        ) Edit
+      template(#default='scope') {{ printDate(scope.row.modifiedAt) }}
+    el-table-column(label='Operations', width='200', header-align='center', align='center')
+      template(#default='scope')
+        el-button(type='primary', size='mini', @click='onEdit(scope.row.id)') Edit
         el-popconfirm(
-          title="Are you sure to delete this?"
-          confirmButtonType="danger"
-          @confirm="onDelete(scope.row.id)"
+          title='Are you sure to delete this?',
+          confirmButtonType='danger',
+          @confirm='onDelete(scope.row.id)'
         )
-          template(
-            #reference
-          )
-            el-button(
-              type="danger"
-              size="mini"
-            ) Delete
+          template(#reference)
+            el-button(type='danger', size='mini') Delete
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
@@ -83,7 +36,7 @@ import * as dateUtil from '@/util/Date'
 import { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const router = useRouter()
 
@@ -95,10 +48,10 @@ export default defineComponent({
     })
 
     const onEdit = (id: number) => {
-      router.push({ name: 'Memo', params: { id: id }})
+      router.push({ name: 'Memo', params: { id: id } })
     }
-    const onDelete = (id: number) => {
-      store.dispatch('memos/deleteById', { id: id })
+    const onDelete = async (id: number) => {
+      await store.dispatch('memos/deleteById', { id: id })
     }
 
     const crlf2br = (text: string): string => {
@@ -109,7 +62,11 @@ export default defineComponent({
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
+    const fetchByEventFromBackground = (
+      message: tabsMessageType,
+      _sender: any,
+      sendResponse: (response?: any) => void
+    ): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'memos') {
           if (message.tabs.memos.type === 'fetch') {

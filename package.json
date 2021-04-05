@@ -10,7 +10,9 @@
     "watch": "cross-env NODE_ENV=\"development\" webpack --watch",
     "watch:mock": "cross-env REPO_ENV=\"mock\" npm run watch",
     "zip": "node scripts/zip_dist.js",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "lint": "eslint ./src",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -36,6 +38,7 @@
   },
   "homepage": "https://github.com/taturou/vue3-typescript-chrome-extension",
   "devDependencies": {
+    "@prettier/plugin-pug": "^1.13.5",
     "@types/chrome": "^0.0.133",
     "@types/jquery": "^3.5.5",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
@@ -49,10 +52,12 @@
     "css-loader": "^5.2.0",
     "css-minimizer-webpack-plugin": "^1.3.0",
     "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.8.0",
     "eslint-webpack-plugin": "^2.5.3",
     "mini-css-extract-plugin": "^1.4.0",
     "node-sass": "^5.0.0",
+    "prettier": "^2.2.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
     "raw-loader": "^4.0.2",

@@ -1,25 +1,21 @@
 <template lang="pug">
-div#counter
+#counter
   el-card
     template(#header)
       span Counter
     div
-      div.counter {{ counter }}
+      .counter {{ counter }}
       el-button-group
-        el-button(
-          @click="onIncrement"
-        ) +
-        el-button(
-          @click="onDecrement"
-        ) -
+        el-button(@click='onIncrement') +
+        el-button(@click='onDecrement') -
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const counter = computed(() => {
       return store.getters['counter/count']
