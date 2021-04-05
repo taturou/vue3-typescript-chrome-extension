@@ -1,60 +1,24 @@
 <template lang="pug">
-div#memos
-  p-data-table(
-    :value="memos"
-    :autoLayout="true"
-  )
-    p-column(
-      field="id"
-      header="ID"
-      :sortable="true"
-    )
-    p-column(
-      field="content"
-      header="Content"
-    )
-      template(
-        #body="memo"
-      )
-        div(
-          v-html="crlf2br(memo.data.content)"
-        )
-    p-column(
-      field="createdAt"
-      header="Created At"
-      :sortable="true"
-    )
-      template(
-        #body="memo"
-      ) {{ printDate(memo.data.createdAt) }}
-    p-column(
-      field="modifiedAt"
-      header="Modified At"
-      :sortable="true"
-    )
-      template(
-        #body="memo"
-      ) {{ printDate(memo.data.modifiedAt) }}
-    p-column(
-      header="Operations"
-    )
-      template(
-        #body="memo"
-      )
-        div.p-d-flex.p-flex-row
-          p-button.p-button-sm.p-mr-2(
-            label="Edit"
-            @click="onEdit(memo.data.id)"
-          )
-          p-button.p-button-danger.p-button-sm(
-            label="Delete"
-            @click="onDelete($event, memo.data.id)"
-          )
+#memos
+  p-data-table(:value='memos', :autoLayout='true')
+    p-column(field='id', header='ID', :sortable='true')
+    p-column(field='content', header='Content')
+      template(#body='memo')
+        div(v-html='crlf2br(memo.data.content)')
+    p-column(field='createdAt', header='Created At', :sortable='true')
+      template(#body='memo') {{ printDate(memo.data.createdAt) }}
+    p-column(field='modifiedAt', header='Modified At', :sortable='true')
+      template(#body='memo') {{ printDate(memo.data.modifiedAt) }}
+    p-column(header='Operations')
+      template(#body='memo')
+        .p-d-flex.p-flex-row
+          p-button.p-button-sm.p-mr-2(label='Edit', @click='onEdit(memo.data.id)')
+          p-button.p-button-danger.p-button-sm(label='Delete', @click='onDelete($event, memo.data.id)')
 
 p-confirm-popup
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
@@ -63,7 +27,7 @@ import { tabsMessageType } from '@/lib/tabs/types'
 import { useConfirm } from 'primevue/useconfirm'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const router = useRouter()
     const confirm = useConfirm()
@@ -76,7 +40,7 @@ export default defineComponent({
     })
 
     const onEdit = (id: number) => {
-      router.push({ name: 'Memo', params: { id: id }})
+      router.push({ name: 'Memo', params: { id: id } })
     }
     const onDelete = (event: MouseEvent, id: number) => {
       confirm.require({
@@ -86,7 +50,7 @@ export default defineComponent({
         accept: () => {
           store.dispatch('memos/deleteById', { id: id })
         },
-        acceptClass: "p-button-danger"
+        acceptClass: 'p-button-danger'
       })
     }
 
@@ -99,7 +63,11 @@ export default defineComponent({
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
+    const fetchByEventFromBackground = (
+      message: tabsMessageType,
+      _sender: any,
+      sendResponse: (response?: any) => void
+    ): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'memos') {
           if (message.tabs.memos.type === 'fetch') {

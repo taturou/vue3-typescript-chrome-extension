@@ -1,19 +1,13 @@
 <template lang="pug">
-div#header
+#header
   h1 {{ title }}
 
-  p-tab-view(
-    v-model:activeIndex="activeTabIndex"
-  )
-    template(
-      v-for="name in TabIndexForRouterName"
-    )
-      p-tab-panel(
-        :header="name"
-      )
+  p-tab-view(v-model:activeIndex='activeTabIndex')
+    template(v-for='name in TabIndexForRouterName')
+      p-tab-panel(:header='name')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -23,10 +17,7 @@ export default defineComponent({
 
     const router = useRouter()
 
-    const TabIndexForRouterName = [
-      'Counter',
-      'Memos'
-    ]
+    const TabIndexForRouterName = ['Counter', 'Memos']
 
     const activeTabIndex = computed<number>({
       get: () => {
@@ -58,4 +49,3 @@ export default defineComponent({
   }
 }
 </style>
-

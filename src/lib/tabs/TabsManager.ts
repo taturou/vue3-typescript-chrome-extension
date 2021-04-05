@@ -10,22 +10,18 @@ export class TabsManager {
     })
   }
 
-  addTabId (tabId: number): void {
+  addTabId(tabId: number): void {
     this.tabIds.add(tabId)
   }
 
-  deleteTabId (tabId: number): void {
+  deleteTabId(tabId: number): void {
     this.tabIds.delete(tabId)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  broadcastMessage (message: any, responseCallback?: (response: any) => void): void {
+  broadcastMessage(message: any, responseCallback?: (response: any) => void): void {
     this.tabIds.forEach((tabId) => {
-      chrome.tabs.sendMessage(
-        tabId,
-        message,
-        responseCallback
-      )
+      chrome.tabs.sendMessage(tabId, message, responseCallback)
     })
   }
 }

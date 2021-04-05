@@ -1,24 +1,18 @@
 <template lang="pug">
-div#counter
-  p-button(
-    icon="pi pi-arrow-right"
-    :class="{ invisible: visibleSidebar }"
-    @click="onOpenSidebar"
-  )
+#counter
+  p-button(icon='pi pi-arrow-right', :class='{ invisible: visibleSidebar }', @click='onOpenSidebar')
 
   p-sidebar#vue3-typescript-chrome-extension-sidebar(
-    v-model:visible="visibleSidebar"
-    :baseZIndex="1000000006"
-    :showCloseIcon="true"
-    position="left"
+    v-model:visible='visibleSidebar',
+    :baseZIndex='1000000006',
+    :showCloseIcon='true',
+    position='left'
   )
     h1 {{ title }}
-    p-progress-bar(
-      :value="counter"
-    ) {{ counter }}
+    p-progress-bar(:value='counter') {{ counter }}
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { tabsMessageType } from '@/lib/tabs/types'
@@ -41,7 +35,11 @@ export default defineComponent({
     }
 
     // store
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
+    const fetchByEventFromBackground = (
+      message: tabsMessageType,
+      _sender: any,
+      sendResponse: (response?: any) => void
+    ): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'counter') {
           if (message.tabs.counter.type === 'fetch') {

@@ -11,7 +11,7 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 
 document.addEventListener('DOMContentLoaded', () => {
-  createApp(App)
+  createApp(App) // prettier-ignore
     .use(store)
     .use(PrimeVue)
     .component('p-button', PButton)
