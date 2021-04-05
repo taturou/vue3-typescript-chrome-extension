@@ -13,10 +13,11 @@ Typescript | typescript | 4.2.3
 Pug | pug | 3.0.2
 SASS/SCSS | sass-loader | 11.0.1
 Webpack | webpack | 5.26.0
+ESLint | eslint | 7.23.0
 jQuery | jquery | 3.6.0
 
 Notes: \
-This sample is checked with `node v15.11.0`, `npm v7.7.4`, `@vue/cli 4.5.12`, and `Chrome 89.0.4389.90 (64-bit)`. \
+This sample is checked with `node v15.11.0`, `npm v7.8.0`, `@vue/cli 4.5.12`, and `Chrome 89.0.4389.90 (64-bit)`. \
 This sample does not use any Vue libraries and any CSS frameworks. \
 The chrome-extension manifest version is v2 (MV2).
 
@@ -146,6 +147,11 @@ $ npm run build
 * Remove './dist'
   ```
   $ npm run clean
+  ```
+
+* Lint .ts files by ESLint
+  ```
+  $ npm run eslint
   ```
 
 ---

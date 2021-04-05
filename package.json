@@ -10,7 +10,8 @@
     "watch": "cross-env NODE_ENV=\"development\" webpack --watch",
     "watch:mock": "cross-env REPO_ENV=\"mock\" npm run watch",
     "zip": "node scripts/zip_dist.js",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "lint": "eslint src/**/*.ts"
   },
   "repository": {
     "type": "git",
