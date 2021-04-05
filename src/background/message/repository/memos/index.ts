@@ -113,8 +113,10 @@ export default async function (memos: memosMessageDataType, sender: chrome.runti
     break
   }
   default: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore TS6133: 'req' is declared but its value is never read.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dummy: never = memos
+    const _: never = memos
     throw new Error('Invalid counter.')
   }}
 }

@@ -10,8 +10,10 @@ export function addListener(): void {
       break
     }
     default: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore TS6133: 'req' is declared but its value is never read.
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const dummy: never = message.type
+      const _: never = message.type
       throw new Error('Invalid message.')
     }}
     return true

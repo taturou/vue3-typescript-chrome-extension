@@ -62,7 +62,7 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": true,
-    /// "noUnusedLocals": true,
+    "noUnusedLocals": true,
     /// "noUnusedParameters": true,
 
     // Experimental

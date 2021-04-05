@@ -11,7 +11,7 @@ div.collapse(
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export type CollapseExpandType = 'top2bottom' | 'bottom2top' | 'left2right' | 'right2left'
 

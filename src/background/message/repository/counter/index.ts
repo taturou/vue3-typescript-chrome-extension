@@ -65,8 +65,10 @@ export default async function (counter: counterMessageDataType, sender: chrome.r
     break
   }
   default: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore TS6133: 'req' is declared but its value is never read.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dummy: never = counter
+    const _: never = counter
     throw new Error('Invalid counter.')
   }}
 }

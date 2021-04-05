@@ -6,16 +6,18 @@ import MemosDespatcher from './memos'
 export default function (repository: repositoryMessageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): void {
   switch(repository.type) {
   case 'counter': {
-    CounterDespatcher(repository.counter, sender, sendResponse)
+    void CounterDespatcher(repository.counter, sender, sendResponse)
     break
   }
   case 'memos': {
-    MemosDespatcher(repository.memos, sender, sendResponse)
+    void MemosDespatcher(repository.memos, sender, sendResponse)
     break
   }
   default: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore TS6133: 'req' is declared but its value is never read.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dummy: never = repository
+    const _: never = repository
     throw new Error('Invalid store.')
   }}
 }
