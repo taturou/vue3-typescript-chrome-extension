@@ -28,7 +28,8 @@ const commonConfig = {
     extensions: [
       '.js',
       '.ts',
-      'scss',
+      '.css',
+      '.scss',
       '.vue'
     ],
     alias: {
