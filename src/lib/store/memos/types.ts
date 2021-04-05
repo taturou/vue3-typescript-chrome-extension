@@ -27,9 +27,9 @@ export type ActionsInjecteeType = StoreActionsInjecteeType<RootState, StateType,
 
 export interface ActionsType {
   fetch (injectee: ActionsInjecteeType): Promise<void>,
-  add (injectee: ActionsInjecteeType, payload: { content: string }): Promise<MemoType>,
-  updateById (injectee: ActionsInjecteeType, payload: { id: number, content: string }): Promise<MemoType>
-  deleteById (injectee: ActionsInjecteeType, payload: { id: number }): Promise<void>
+  add (injectee: ActionsInjecteeType, payload: { content: string }): Promise<MemoType | undefined>,
+  updateById (injectee: ActionsInjecteeType, payload: { id: number, content: string }): Promise<MemoType | undefined>
+  deleteById (injectee: ActionsInjecteeType, payload: { id: number }): Promise<boolean>
 }
 
 export type MemosStoreModuleType<M extends string> = StoreModuleType<M, StateType, GettersType, MutationsType, ActionsType>

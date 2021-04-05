@@ -42,7 +42,7 @@ async function fetch (): Promise<StateType> {
 }
 
 // 2nd return value is the index of the MemoType.memo[] that was added.
-async function add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number }> {
+async function add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number | null }> {
   const state = await fetch()
   state.maxId += 1
   const now = new Date().toISOString()
@@ -57,25 +57,32 @@ async function add (payload: { content: string }): Promise<{ state: StateType, a
   return { state: state, addedIndex: state.memos.length - 1 }
 }
 
-async function updateById (payload: { id: number, content: string }): Promise<StateType> {
+async function updateById (payload: { id: number, content: string }): Promise<{ state: StateType, updatedIndex: number | null }> {
   const state = await fetch()
-  state.memos
-    .filter((memo) => { return memo.id === payload.id })
-    .map((memo) => {
-      memo.content = payload.content
-      memo.modifiedAt = new Date().toISOString()
-    })
-  await storage.set(KEY, state)
-  return state
+  const index = state.memos.findIndex((memo) => { return memo.id === payload.id })
+  const memo = state.memos[index]
+  if (memo) {
+    memo.content = payload.content
+    memo.modifiedAt = new Date().toISOString()
+    await storage.set(KEY, state)
+    return { state: state, updatedIndex: index }
+  } else {
+    return { state: state, updatedIndex: null }
+  }
 }
 
-async function deleteById (payload: { id: number }): Promise<StateType> {
+async function deleteById (payload: { id: number }): Promise<{ state: StateType, success: boolean }> {
   const state = await fetch()
-  state.memos = state.memos.filter((memo) => {
-    return memo.id !== payload.id
-  })
-  await storage.set(KEY, state)
-  return state
+  const index = state.memos.findIndex((memo) => { return memo.id === payload.id })
+  if (index >= 0) {
+    state.memos = state.memos.filter((memo) => {
+      return memo.id !== payload.id
+    })
+    await storage.set(KEY, state)
+    return { state: state, success: true }
+  } else {
+    return { state: state, success: false }
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,7 +96,7 @@ export default async function (memos: memosMessageDataType, sender: chrome.runti
   }
   case 'add': {
     memos.response = await add(memos.params)
-    sendResponse({ state: memos.response.state, addedIndex: memos.response.addedIndex })
+    sendResponse(memos.response)
     broadcastFetchToAllTabs()
     break
   }

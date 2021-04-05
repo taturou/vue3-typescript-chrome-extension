@@ -20,6 +20,9 @@ function vueMount () {
   `
   html = cleanHtmlSpace(html)
   const body = $('body')[0]
+  if (!body) {
+    throw new Error('There is no "body" element.')
+  }
   $(body).append(html)
 
   // Mount the Counter vue component

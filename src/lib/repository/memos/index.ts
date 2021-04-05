@@ -22,7 +22,7 @@ const repository: RepositoryType = {
       )
     })
   },
-  add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number }> {
+  add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number | null }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -36,18 +36,18 @@ const repository: RepositoryType = {
               },
               response: {
                 state: {},
-                addedIndex: 0
+                addedIndex: null
               }
             }
           }
         } as backgroundMessageType,
-        (response: { state: StateType, addedIndex: number }) => {
+        (response: { state: StateType, addedIndex: number | null }) => {
           resolve({ state: response.state, addedIndex: response.addedIndex })
         }
       )
     })
   },
-  updateById (payload: { id: number, content: string }): Promise<StateType> {
+  updateById (payload: { id: number, content: string }): Promise<{ state: StateType, updatedIndex: number | null }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -60,17 +60,20 @@ const repository: RepositoryType = {
                 id: payload.id,
                 content: payload.content
               },
-              response: {} as StateType
+              response: {
+                state: {},
+                updatedIndex: null
+              }
             }
           }
         } as backgroundMessageType,
-        (state: StateType) => {
-          resolve(state)
+        (response: { state: StateType, updatedIndex: number | null }) => {
+          resolve({ state: response.state, updatedIndex: response.updatedIndex })
         }
       )
     })
   },
-  deleteById (payload: { id: number }): Promise<StateType> {
+  deleteById (payload: { id: number }): Promise<{ state: StateType, success: boolean }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -82,12 +85,15 @@ const repository: RepositoryType = {
               params: {
                 id: payload.id
               },
-              response: {} as StateType
+              response: {
+                state: {},
+                success: false
+              }
             }
           }
         } as backgroundMessageType,
-        (state: StateType) => {
-          resolve(state)
+        (response: { state: StateType, success: boolean }) => {
+          resolve({ state: response.state, success: response.success })
         }
       )
     })

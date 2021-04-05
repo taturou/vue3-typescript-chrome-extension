@@ -4,29 +4,36 @@ div(
   id="memo"
 )
   h1 Memo editor
-  p Id: {{ memo.id }}
-  p Created at: {{ printDate(memo.createdAt) }}
-  p Modified at: {{ printDate(memo.modifiedAt) }}
-  p Content:
-  textarea(
-    rows="10"
-    wrap="off"
-    v-model="memo.content"
+  template(
+    v-if="available"
   )
-  div.buttons
-    button(
-      @click="onCancel"
-    ) Cancel
-    button(
-      @click="onUpdate"
-    ) Update
-    button(
-      @click="onDelete"
-    ) Delete
+    p Id: {{ memo.id }}
+    p Created at: {{ printDate(memo.createdAt) }}
+    p Modified at: {{ printDate(memo.modifiedAt) }}
+    p Content:
+    textarea(
+      rows="10"
+      wrap="off"
+      v-model="memo.content"
+    )
+    div.buttons
+      button(
+        @click="onCancel"
+      ) Cancel
+      button(
+        @click="onUpdate"
+      ) Update
+      button(
+        @click="onDelete"
+      ) Delete
+  template(
+    v-else
+  )
+    p Id: {{ route.params.id }} is not available.
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, onBeforeMount } from 'vue'
+import { defineComponent, ref, reactive, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRoute, useRouter } from 'vue-router'
 import { MemoType } from '@/lib/store/memos/types'
@@ -38,6 +45,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
 
+    const available = ref<boolean>(false)
     const memo = reactive<MemoType>({
       id: 0,
       content: '',
@@ -48,13 +56,19 @@ export default defineComponent({
     function fetchMemo () {
       const memos = store.getters['memos/memos']
       const id = route.params.id
-      const _memo = memos.filter((memo) => {
+      const index = memos.findIndex((memo) => {
         return memo.id === Number(id)
-      })[0]
-      memo.id = _memo.id
-      memo.content = _memo.content
-      memo.createdAt = _memo.createdAt
-      memo.modifiedAt = _memo.modifiedAt
+      })
+      const _memo = memos[index]
+      if (_memo) {
+        memo.id = _memo.id
+        memo.content = _memo.content
+        memo.createdAt = _memo.createdAt
+        memo.modifiedAt = _memo.modifiedAt
+        available.value = true
+      } else {
+        available.value = false
+      }
     }
 
     const onCancel = () => {
@@ -82,6 +96,8 @@ export default defineComponent({
     })
 
     return {
+      route,
+      available,
       memo,
       onCancel,
       onUpdate,
