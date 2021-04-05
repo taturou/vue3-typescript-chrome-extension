@@ -1,12 +1,8 @@
 <template lang="pug">
-div(
-  id="memos"
-)
+#memos
   p Total: {{ total }}
 
-  table.memos(
-    v-if="total > 0"
-  )
+  table.memos(v-if='total > 0')
     thead
       tr
         th ID
@@ -15,21 +11,16 @@ div(
         th Modified at
         th Command
     tbody
-      tr(
-        v-for="memo in memos"
-        :key="memo.id"
-      )
+      tr(v-for='memo in memos', :key='memo.id')
         td.id {{ memo.id }}
-        td.content(v-html="crlf2br(memo.content)")
+        td.content(v-html='crlf2br(memo.content)')
         td.createdAt {{ printDate(memo.createdAt) }}
         td.modifiedAt {{ printDate(memo.modifiedAt) }}
         td.command
-          button(
-            @click="onEdit(memo.id)"
-          ) Edit
+          button(@click='onEdit(memo.id)') Edit
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
@@ -37,7 +28,7 @@ import * as dateUtil from '@/util/Date'
 import { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const router = useRouter()
 
@@ -49,7 +40,7 @@ export default defineComponent({
     })
 
     const onEdit = (id: number) => {
-      router.push({ name: 'Memo', params: { id: id }})
+      router.push({ name: 'Memo', params: { id: id } })
     }
 
     const crlf2br = (text: string): string => {
@@ -61,7 +52,11 @@ export default defineComponent({
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
-    const fetchByEventFromBackground = (message: tabsMessageType, _sender: any, sendResponse: (response?: any) => void): boolean => {
+    const fetchByEventFromBackground = (
+      message: tabsMessageType,
+      _sender: any,
+      sendResponse: (response?: any) => void
+    ): boolean => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'memos') {
           if (message.tabs.memos.type === 'fetch') {

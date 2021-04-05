@@ -3,7 +3,7 @@ import App from './App.vue'
 import { store } from '@/lib/store'
 
 document.addEventListener('DOMContentLoaded', () => {
-  createApp(App)
+  createApp(App) // prettier-ignore
     .use(store)
     .mount('#app')
 })

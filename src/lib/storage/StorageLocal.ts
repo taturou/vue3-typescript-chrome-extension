@@ -1,6 +1,9 @@
 import { StorageType } from './types'
 
-type onChangedCallback = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: "sync" | "local" | "managed") => void
+type onChangedCallback = (
+  changes: { [key: string]: chrome.storage.StorageChange },
+  areaName: 'sync' | 'local' | 'managed'
+) => void
 
 class Storage implements StorageType {
   // Required
@@ -25,15 +28,15 @@ class Storage implements StorageType {
     })
   }
 
-  remove (key: string): Promise<void> {
+  remove(key: string): Promise<void> {
     return new Promise((resolve) => {
-      chrome.storage.local.remove(key, (): void =>{
+      chrome.storage.local.remove(key, (): void => {
         resolve()
       })
     })
   }
 
-  clear (): Promise<void> {
+  clear(): Promise<void> {
     return new Promise((resolve) => {
       chrome.storage.local.clear((): void => {
         resolve()
@@ -42,16 +45,16 @@ class Storage implements StorageType {
   }
 
   // Optional
-  onChanged_addListener (callback: onChangedCallback): void {
+  onChanged_addListener(callback: onChangedCallback): void {
     chrome.storage.onChanged.addListener(callback)
   }
 
-  onChanged_removeListener (callback: onChangedCallback): void {
+  onChanged_removeListener(callback: onChangedCallback): void {
     chrome.storage.onChanged.removeListener(callback)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getAll (): Promise<any> {
+  getAll(): Promise<any> {
     return new Promise((resolve) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       chrome.storage.local.get((items: { [key: string]: any }): void => {
@@ -60,7 +63,7 @@ class Storage implements StorageType {
     })
   }
 
-  getBytesInUse (keys: string | string[] | null = null): Promise<number> {
+  getBytesInUse(keys: string | string[] | null = null): Promise<number> {
     return new Promise((resolve) => {
       chrome.storage.local.getBytesInUse(keys, (bytesInUse: number): void => {
         resolve(bytesInUse)

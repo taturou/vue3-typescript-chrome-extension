@@ -12,10 +12,7 @@
     "incremental": false,
     "isolatedModules": false,
     "jsx": "preserve",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "module": "esnext",
     "noEmit": false,
     "plugins": [],
@@ -40,18 +37,11 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
     "preserveSymlinks": false,
-    "rootDirs": [
-      "./"
-    ],
-    "typeRoots": [
-      "node_modules/@types",
-      "src/@types"
-    ],
+    "rootDirs": ["./"],
+    "typeRoots": ["node_modules/@types", "src/@types"],
 
     // Source Maps
     "inlineSourceMap": false, // use 'sourceMap'
@@ -100,14 +90,8 @@
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
     "traceResolution": false,
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": false
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.vue",
-    "./src/@types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.vue", "./src/@types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

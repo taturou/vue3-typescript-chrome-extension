@@ -1,38 +1,21 @@
-
 <template lang="pug">
-div(
-  id="memo"
-)
+#memo
   h1 Memo editor
-  template(
-    v-if="available"
-  )
+  template(v-if='available')
     p Id: {{ memo.id }}
     p Created at: {{ printDate(memo.createdAt) }}
     p Modified at: {{ printDate(memo.modifiedAt) }}
     p Content:
-    textarea(
-      rows="10"
-      wrap="off"
-      v-model="memo.content"
-    )
-    div.buttons
-      button(
-        @click="onCancel"
-      ) Cancel
-      button(
-        @click="onUpdate"
-      ) Update
-      button(
-        @click="onDelete"
-      ) Delete
-  template(
-    v-else
-  )
+    textarea(rows='10', wrap='off', v-model='memo.content')
+    .buttons
+      button(@click='onCancel') Cancel
+      button(@click='onUpdate') Update
+      button(@click='onDelete') Delete
+  template(v-else)
     p Id: {{ route.params.id }} is not available.
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, reactive, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRoute, useRouter } from 'vue-router'
@@ -40,7 +23,7 @@ import { MemoType } from '@/lib/store/memos/types'
 import * as dateUtil from '@/util/Date'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const router = useRouter()
     const route = useRoute()
@@ -53,7 +36,7 @@ export default defineComponent({
       modifiedAt: ''
     })
 
-    function fetchMemo () {
+    function fetchMemo() {
       const memos = store.getters['memos/memos']
       const id = route.params.id
       const index = memos.findIndex((memo) => {

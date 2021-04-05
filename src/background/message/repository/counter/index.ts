@@ -17,20 +17,18 @@ const storage = Storage()
 const tabs = new TabsManager()
 
 function broadcastFetchToAllTabs() {
-  tabs.broadcastMessage(
-    {
-      type: 'tabs',
-      tabs: {
-        type: 'counter',
-        counter: {
-          type: 'fetch'
-        }
+  tabs.broadcastMessage({
+    type: 'tabs',
+    tabs: {
+      type: 'counter',
+      counter: {
+        type: 'fetch'
       }
-    } as tabsMessageType
-  )
+    }
+  } as tabsMessageType)
 }
 
-async function fetch (): Promise<StateType> {
+async function fetch(): Promise<StateType> {
   let state = await storage.get<StateType>(KEY)
   if (state) {
     state = objectMigrate(state, defaultState)
@@ -42,33 +40,40 @@ async function fetch (): Promise<StateType> {
   }
 }
 
-async function setCount (payload: { count: number }): Promise<number> {
+async function setCount(payload: { count: number }): Promise<number> {
   const state = await fetch()
   state.count = payload.count
   await storage.set(KEY, state)
   return state.count
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function (counter: counterMessageDataType, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void): Promise<void> {
-  switch(counter.type) {
-  case 'fetch': {
-    if (sender.tab?.id) { tabs.addTabId(sender.tab.id) }
-    counter.response = await fetch()
-    sendResponse(counter.response)
-    break
+export default async function (
+  counter: counterMessageDataType,
+  sender: chrome.runtime.MessageSender,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sendResponse: (response?: any) => void
+): Promise<void> {
+  switch (counter.type) {
+    case 'fetch': {
+      if (sender.tab?.id) {
+        tabs.addTabId(sender.tab.id)
+      }
+      counter.response = await fetch()
+      sendResponse(counter.response)
+      break
+    }
+    case 'setCount': {
+      counter.response = await setCount(counter.params)
+      sendResponse(counter.response)
+      broadcastFetchToAllTabs()
+      break
+    }
+    default: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore TS6133: 'req' is declared but its value is never read.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const _: never = counter
+      throw new Error('Invalid counter.')
+    }
   }
-  case 'setCount': {
-    counter.response = await setCount(counter.params)
-    sendResponse(counter.response)
-    broadcastFetchToAllTabs()
-    break
-  }
-  default: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore TS6133: 'req' is declared but its value is never read.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _: never = counter
-    throw new Error('Invalid counter.')
-  }}
 }

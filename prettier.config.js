@@ -8,23 +8,23 @@ module.exports = {
   // シングルクォーテーションを使う
   singleQuote: true,
   // 必要な場合のみ、オブジェクトプロパティを引用符で囲む
-  quoteProps: "as-needed",
+  quoteProps: 'as-needed',
   // 末尾にカンマを付けない
-  trailingComma: "none",
+  trailingComma: 'none',
   // オブジェクトの {} の内側にスペースを入れる
   bracketSpacing: true,
   // アロー関数のパラメターを常に () で囲む
-  arrowParens: "always",
+  arrowParens: 'always',
   // printWidthを超える行は as-is で
-  proseWrap: "preserve",
+  proseWrap: 'preserve',
   // HTMLの空白を区別しない
-  htmlWhitespaceSensitivity: "ignore",
+  htmlWhitespaceSensitivity: 'ignore',
   // Vueファイル内で<scrip>/<style>内のコードをインデントしない
   vueIndentScriptAndStyle: false,
   // 改行文字は LF (UNIX)
-  endOfLine: "lf",
+  endOfLine: 'lf',
   //引用コードのフォーマットは、Prettierが自動的に識別できる場合にのみフォーマットする
-  embeddedLanguageFormatting: "auto",
+  embeddedLanguageFormatting: 'auto',
   overrides: [
     {
       files: ['*.md'],

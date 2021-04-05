@@ -1,16 +1,14 @@
 <template lang="pug">
-div.container
-  div.title Options
-  button(
-    @click="onOpenOptions"
-  ) Open
+.container
+  .title Options
+  button(@click='onOpenOptions') Open
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const onOpenOptions = (_event: MouseEvent) => {
       chrome.tabs.create({
         // This is for chrome-extension tab

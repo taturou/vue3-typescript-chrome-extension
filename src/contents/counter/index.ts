@@ -7,7 +7,7 @@ import './css/index.scss'
 
 const idPrefix = 'vue3-typescript-chrome-extension-'
 
-function vueMount () {
+function vueMount() {
   const id = `${idPrefix}counter`
 
   // Create dom to mount a Vue component
@@ -26,13 +26,13 @@ function vueMount () {
   $(body).append(html)
 
   // Mount the Counter vue component
-  createApp(Counter)
+  createApp(Counter) // prettier-ignore
     .use(store)
     .mount(`#${id}`)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function onLoaded (this: Window, _event: Event): void {
+function onLoaded(this: Window, _event: Event): void {
   vueMount()
 }
 

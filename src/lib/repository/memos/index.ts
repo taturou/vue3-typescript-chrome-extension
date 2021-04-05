@@ -22,7 +22,7 @@ const repository: RepositoryType = {
       )
     })
   },
-  add (payload: { content: string }): Promise<{ state: StateType, addedIndex: number | null }> {
+  add(payload: { content: string }): Promise<{ state: StateType; addedIndex: number | null }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -41,13 +41,13 @@ const repository: RepositoryType = {
             }
           }
         } as backgroundMessageType,
-        (response: { state: StateType, addedIndex: number | null }) => {
+        (response: { state: StateType; addedIndex: number | null }) => {
           resolve({ state: response.state, addedIndex: response.addedIndex })
         }
       )
     })
   },
-  updateById (payload: { id: number, content: string }): Promise<{ state: StateType, updatedIndex: number | null }> {
+  updateById(payload: { id: number; content: string }): Promise<{ state: StateType; updatedIndex: number | null }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -67,13 +67,13 @@ const repository: RepositoryType = {
             }
           }
         } as backgroundMessageType,
-        (response: { state: StateType, updatedIndex: number | null }) => {
+        (response: { state: StateType; updatedIndex: number | null }) => {
           resolve({ state: response.state, updatedIndex: response.updatedIndex })
         }
       )
     })
   },
-  deleteById (payload: { id: number }): Promise<{ state: StateType, success: boolean }> {
+  deleteById(payload: { id: number }): Promise<{ state: StateType; success: boolean }> {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage(
         {
@@ -92,7 +92,7 @@ const repository: RepositoryType = {
             }
           }
         } as backgroundMessageType,
-        (response: { state: StateType, success: boolean }) => {
+        (response: { state: StateType; success: boolean }) => {
           resolve({ state: response.state, success: response.success })
         }
       )

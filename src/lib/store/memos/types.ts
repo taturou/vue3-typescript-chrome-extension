@@ -2,34 +2,40 @@ import { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
 import { RootState } from '@/lib/store/types'
 
 export interface MemoType {
-  id: number,
-  content: string,
-  createdAt: string,
+  id: number
+  content: string
+  createdAt: string
   modifiedAt: string
 }
 
 export interface StateType {
-  maxId: number,
+  maxId: number
   memos: MemoType[]
 }
 
 export interface GettersType {
-  object (state: StateType): StateType,
-  memos (state: StateType): MemoType[]
-  total (state: StateType): number
+  object(state: StateType): StateType
+  memos(state: StateType): MemoType[]
+  total(state: StateType): number
 }
 
 export interface MutationsType {
-  commit (state: StateType, payload: StateType): void
+  commit(state: StateType, payload: StateType): void
 }
 
 export type ActionsInjecteeType = StoreActionsInjecteeType<RootState, StateType, MutationsType>
 
 export interface ActionsType {
-  fetch (injectee: ActionsInjecteeType): Promise<void>,
-  add (injectee: ActionsInjecteeType, payload: { content: string }): Promise<MemoType | undefined>,
-  updateById (injectee: ActionsInjecteeType, payload: { id: number, content: string }): Promise<MemoType | undefined>
-  deleteById (injectee: ActionsInjecteeType, payload: { id: number }): Promise<boolean>
+  fetch(injectee: ActionsInjecteeType): Promise<void>
+  add(injectee: ActionsInjecteeType, payload: { content: string }): Promise<MemoType | undefined>
+  updateById(injectee: ActionsInjecteeType, payload: { id: number; content: string }): Promise<MemoType | undefined>
+  deleteById(injectee: ActionsInjecteeType, payload: { id: number }): Promise<boolean>
 }
 
-export type MemosStoreModuleType<M extends string> = StoreModuleType<M, StateType, GettersType, MutationsType, ActionsType>
+export type MemosStoreModuleType<M extends string> = StoreModuleType<
+  M,
+  StateType,
+  GettersType,
+  MutationsType,
+  ActionsType
+>

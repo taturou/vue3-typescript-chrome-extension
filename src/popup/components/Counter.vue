@@ -1,22 +1,18 @@
 <template lang="pug">
-div.container
-  div.title Counter
-  div.count {{ counter }}
-  div.buttons
-    button(
-      @click="onIncrement"
-    ) +
-    button(
-      @click="onDecrement"
-    ) -
+.container
+  .title Counter
+  .count {{ counter }}
+  .buttons
+    button(@click='onIncrement') +
+    button(@click='onDecrement') -
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, computed, onBeforeMount } from 'vue'
 import { useStore } from '@/lib/store'
 
 export default defineComponent({
-  setup () {
+  setup() {
     const store = useStore()
     const counter = computed(() => {
       return store.getters['counter/count']
