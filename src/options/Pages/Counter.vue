@@ -6,7 +6,7 @@
 <script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
-import { tabsMessageType } from '@/lib/tabs/types'
+import type { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
   setup() {

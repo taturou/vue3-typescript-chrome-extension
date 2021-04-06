@@ -1,4 +1,4 @@
-import { StorageType } from './types'
+import type { StorageType } from './types'
 
 type onChangedCallback = (
   changes: { [key: string]: chrome.storage.StorageChange },

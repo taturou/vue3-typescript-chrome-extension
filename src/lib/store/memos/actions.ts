@@ -1,6 +1,6 @@
-import { ActionTree } from 'vuex'
-import { RootState } from '@/lib/store/types'
-import { MemoType, StateType, ActionsType } from './types'
+import type { ActionTree } from 'vuex'
+import type { RootState } from '@/lib/store/types'
+import type { MemoType, StateType, ActionsType } from './types'
 import Repositories from '@/lib/repository'
 
 const repo = Repositories.memos

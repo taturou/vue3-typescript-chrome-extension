@@ -25,7 +25,7 @@ import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
 import * as dateUtil from '@/util/Date'
-import { tabsMessageType } from '@/lib/tabs/types'
+import type { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
   setup() {

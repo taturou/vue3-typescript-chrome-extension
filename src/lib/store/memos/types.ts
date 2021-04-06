@@ -1,5 +1,5 @@
-import { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
-import { RootState } from '@/lib/store/types'
+import type { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
+import type { RootState } from '@/lib/store/types'
 
 export interface MemoType {
   id: number

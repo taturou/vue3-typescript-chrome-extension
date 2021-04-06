@@ -1,4 +1,4 @@
-import { Store as baseStore, CommitOptions, DispatchOptions, ActionContext } from 'vuex'
+import type { Store as baseStore, CommitOptions, DispatchOptions, ActionContext } from 'vuex'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FuncType = (...args: any) => any

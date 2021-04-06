@@ -1,4 +1,4 @@
-import { StorageType } from './types'
+import type { StorageType } from './types'
 class Storage implements StorageType {
   private data: Record<string, unknown>
 

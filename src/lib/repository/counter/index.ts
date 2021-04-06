@@ -1,6 +1,6 @@
-import { backgroundMessageType } from '@/background/message/types'
-import { StateType } from '@/lib/store/counter/types'
-import { RepositoryType } from './types'
+import type { backgroundMessageType } from '@/background/message/types'
+import type { StateType } from '@/lib/store/counter/types'
+import type { RepositoryType } from './types'
 
 const repository: RepositoryType = {
   fetch(): Promise<StateType> {

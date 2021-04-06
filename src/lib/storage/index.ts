@@ -1,4 +1,4 @@
-import { StorageType } from './types'
+import type { StorageType } from './types'
 import LocalStorage from './LocalStorage'
 import StorageLocal from './StorageLocal'
 import Mock from './Mock'

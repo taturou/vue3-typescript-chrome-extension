@@ -1,4 +1,4 @@
-import { backgroundMessageType } from './types'
+import type { backgroundMessageType } from './types'
 import repositoryDespatcher from './repository'
 
 export function addListener(): void {

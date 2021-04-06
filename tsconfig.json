@@ -71,7 +71,7 @@
     "explainFiles": true,
     "extendedDiagnostics": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "remove",
+    "importsNotUsedAsValues": "error",
     "keyofStringsOnly": false,
     "listEmittedFiles": false,
     "listFiles": true,

@@ -1,4 +1,4 @@
-import { repositoryMessageDataType } from './types'
+import type { repositoryMessageDataType } from './types'
 import CounterDespatcher from './counter'
 import MemosDespatcher from './memos'
 
