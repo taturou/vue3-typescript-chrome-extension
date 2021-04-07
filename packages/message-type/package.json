@@ -1,0 +1,46 @@
+{
+  "name": "message-type",
+  "version": "1.0.0",
+  "description": "A typescript type to generate a message container type.",
+  "main": "dist/index.common.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm-run-all -s build-cjs build-esm",
+    "build-cjs": "cross-env NODE_ENV=\"production\" webpack --config webpack.config.commonjs.js",
+    "build-esm": "cross-env NODE_ENV=\"production\" webpack --config webpack.config.esmodule.js",
+    "build:dev": "npm-run-all -s build-cjs:dev build-esm:dev",
+    "build-cjs:dev": "cross-env NODE_ENV=\"development\" webpack --config webpack.config.commonjs.js",
+    "build-esm:dev": "cross-env NODE_ENV=\"development\" webpack --config webpack.config.esmodule.js",
+    "clean": "rimraf dist",
+    "lint": "eslint ./src",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "vuex",
+    "typescript"
+  ],
+  "author": "taturou <taturou@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "cross-env": "^7.0.3",
+    "dts-bundle": "^0.7.3",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-webpack-plugin": "^2.5.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.30.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-merge": "^5.7.3"
+  },
+  "dependencies": {
+    "vuex": "^4.0.0"
+  }
+}

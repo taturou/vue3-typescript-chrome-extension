@@ -1,5 +1,5 @@
-import { MutationTree } from 'vuex'
-import { StateType, MutationsType } from './types'
+import type { MutationTree } from 'vuex'
+import type { StateType, MutationsType } from './types'
 
 const mutations: MutationTree<StateType> & MutationsType = {
   commit(state: StateType, payload: StateType): void {

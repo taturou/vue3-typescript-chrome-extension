@@ -12,9 +12,8 @@ function create_zip_file() {
   const destPath = path.join(destDirName, destFileName)
 
   if (fs.existsSync(srcDirName) === false) {
-    console.log(`Error: '${srcDirName}' is not found.`)
-    console.log('Please build the extension before zip it.')
-    console.log('')
+    console.error(`Error: '${srcDirName}' is not found.`)
+    console.error('Please build the extension before zip it.')
     exit()
   }
 

@@ -1,7 +1,8 @@
-import { counterMessageDataType } from './types'
-import { StateType } from '@/lib/store/counter/types'
-import { tabsMessageType } from '@/lib/tabs/types'
-import { Storage } from '@/lib/storage'
+import type { Runtime } from 'webextension-polyfill-ts'
+import type { counterMessageDataType } from './types'
+import type { StateType } from '@/lib/store/counter/types'
+import type { tabsMessageType } from '@/lib/tabs/types'
+import { StorageFactory } from 'storage'
 import { TabsManager } from '@/lib/tabs'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -13,7 +14,13 @@ const defaultState: StateType = {
   min: 0
 }
 
-const storage = Storage()
+const storage = (() => {
+  if (process.env.REPO_ENV === 'mock') {
+    return StorageFactory('memory')
+  } else {
+    return StorageFactory('storage.local')
+  }
+})()
 const tabs = new TabsManager()
 
 function broadcastFetchToAllTabs() {
@@ -47,26 +54,20 @@ async function setCount(payload: { count: number }): Promise<number> {
   return state.count
 }
 
-export default async function (
-  counter: counterMessageDataType,
-  sender: chrome.runtime.MessageSender,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendResponse: (response?: any) => void
-): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function (counter: counterMessageDataType, sender: Runtime.MessageSender): Promise<any> {
   switch (counter.type) {
     case 'fetch': {
       if (sender.tab?.id) {
         tabs.addTabId(sender.tab.id)
       }
       counter.response = await fetch()
-      sendResponse(counter.response)
-      break
+      return counter.response
     }
     case 'setCount': {
       counter.response = await setCount(counter.params)
-      sendResponse(counter.response)
       broadcastFetchToAllTabs()
-      break
+      return counter.response
     }
     default: {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

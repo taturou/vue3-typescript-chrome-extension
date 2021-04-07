@@ -1,6 +1,6 @@
-import { GetterTree } from 'vuex'
-import { RootState } from '@/lib/store/types'
-import { StateType, GettersType } from './types'
+import type { GetterTree } from 'vuex'
+import type { RootState } from '@/lib/store/types'
+import type { StateType, GettersType } from './types'
 
 const getters: GetterTree<StateType, RootState> & GettersType = {
   object(state: StateType): StateType {

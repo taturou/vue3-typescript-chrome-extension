@@ -6,15 +6,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { browser } from 'webextension-polyfill-ts'
 
 export default defineComponent({
   setup() {
     const onOpenOptions = (_event: MouseEvent) => {
-      chrome.tabs.create({
+      browser.tabs.create({
         // This is for chrome-extension tab
-        // url: 'chrome://extensions/?options=' + chrome.runtime.id
+        // url: 'chrome://extensions/?options=' + browser.runtime.id
         // This is for new tab
-        url: `chrome-extension://${chrome.runtime.id}/options/index.html`
+        url: `chrome-extension://${browser.runtime.id}/options/index.html`
       })
     }
 

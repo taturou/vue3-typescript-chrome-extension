@@ -1,0 +1,97 @@
+{
+  "files": ["src/index.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "./dist",
+
+    // Project Options
+    "allowJs": false,
+    "declaration": false,
+    "declarationMap": false,
+    "downlevelIteration": false,
+    "importHelpers": true,
+    "incremental": false,
+    "isolatedModules": false,
+    "jsx": "preserve",
+    "lib": ["esnext", "dom"],
+    "module": "esnext",
+    "noEmit": false,
+    "plugins": [],
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "esnext",
+
+    // Stric Checks
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+
+    // Module Resolution
+    "allowSyntheticDefaultImports": true,
+    "allowUmdGlobalAccess": false,
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "preserveSymlinks": false,
+    "rootDirs": ["./"],
+    "typeRoots": ["node_modules/@types", "src/@types"],
+
+    // Source Maps
+    "inlineSourceMap": false, // use 'sourceMap'
+    "inlineSources": false, // ignore with 'inlineSourceMap: false'
+
+    // Linter Checks
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // Experimental
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
+
+    // Advanced
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": false,
+    "charset": "utf8",
+    "diagnostics": false,
+    "disableReferencedProjectLoad": false,
+    "disableSizeLimit": false,
+    "emitBOM": false,
+    "emitDeclarationOnly": false,
+    "explainFiles": true,
+    "extendedDiagnostics": true,
+    "forceConsistentCasingInFileNames": true,
+    "importsNotUsedAsValues": "error",
+    "keyofStringsOnly": false,
+    "listEmittedFiles": false,
+    "listFiles": true,
+    "maxNodeModuleJsDepth": 0,
+    "newLine": "LF",
+    "noEmitHelpers": true,
+    "noEmitOnError": true,
+    "noErrorTruncation": false,
+    "noImplicitUseStrict": false,
+    "noLib": false,
+    "noResolve": false,
+    "noStrictGenericChecks": false,
+    "preserveConstEnums": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "traceResolution": false,
+    "useDefineForClassFields": false
+  }
+}
