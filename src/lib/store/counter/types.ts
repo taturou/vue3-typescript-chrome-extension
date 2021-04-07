@@ -1,4 +1,4 @@
-import type { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
+import type { MakeStoreActionsInjecteeType, MakeStoreModuleType } from 'vuex-ts'
 import type { RootState } from '@/lib/store/types'
 
 export interface StateType {
@@ -16,7 +16,7 @@ export interface MutationsType {
   count(state: StateType, payload: { count: number }): void
 }
 
-export type ActionsInjecteeType = StoreActionsInjecteeType<RootState, StateType, MutationsType>
+export type ActionsInjecteeType = MakeStoreActionsInjecteeType<RootState, StateType, MutationsType>
 
 export interface ActionsType {
   fetch(injectee: ActionsInjecteeType): Promise<void>
@@ -24,7 +24,7 @@ export interface ActionsType {
   decrement(injectee: ActionsInjecteeType): Promise<void>
 }
 
-export type CounterStoreModuleType<M extends string> = StoreModuleType<
+export type CounterStoreModuleType<M extends string> = MakeStoreModuleType<
   M,
   StateType,
   GettersType,

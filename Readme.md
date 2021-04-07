@@ -129,7 +129,7 @@ $ npm run build
 -   Build chrome-extension with debug information to './dist'.
 
     ```
-    $ npm run debug
+    $ npm run build:dev
     ```
 
 -   Build chrome-extension with debug information and watch mode.
@@ -258,7 +258,7 @@ If 'v3', it uses 'chrome.storage.local' by default. \
 In both versions, you can use 'Mock' by using the commands below.
 
 ```bash
-$ npm run debug:mock
+$ npm run build:dev:mock
 or
 $ npm run watch:mock
 ```

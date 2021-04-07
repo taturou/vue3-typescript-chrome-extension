@@ -2,6 +2,8 @@
 // * https://www.typescriptlang.org/tsconfig
 // * https://www.typescriptlang.org/ja/tsconfig
 {
+  "include": ["./src/**/*.ts", "./src/**/*.vue", "./src/@types/**/*.ts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     // Project Options
     "allowJs": false,
@@ -91,7 +93,5 @@
     "suppressImplicitAnyIndexErrors": false,
     "traceResolution": false,
     "useDefineForClassFields": false
-  },
-  "include": ["./src/**/*.ts", "./src/**/*.vue", "./src/@types/**/*.ts"],
-  "exclude": ["node_modules"]
+  }
 }
