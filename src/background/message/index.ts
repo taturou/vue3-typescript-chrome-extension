@@ -1,18 +1,15 @@
+import { browser } from 'webextension-polyfill-ts'
+import type { Runtime } from 'webextension-polyfill-ts'
 import type { backgroundMessageType } from './types'
 import repositoryDespatcher from './repository'
 
 export function addListener(): void {
-  chrome.runtime.onMessage.addListener(
-    (
-      message: backgroundMessageType,
-      sender: chrome.runtime.MessageSender,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sendResponse: (response?: any) => void
-    ): boolean => {
+  browser.runtime.onMessage.addListener(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (message: backgroundMessageType, sender: Runtime.MessageSender): Promise<any> => {
       switch (message.type) {
         case 'repository': {
-          repositoryDespatcher(message.repository, sender, sendResponse)
-          break
+          return repositoryDespatcher(message.repository, sender)
         }
         default: {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -22,7 +19,6 @@ export function addListener(): void {
           throw new Error('Invalid message.')
         }
       }
-      return true
     }
   )
 }

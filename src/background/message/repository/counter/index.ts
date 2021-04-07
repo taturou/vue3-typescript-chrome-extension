@@ -1,3 +1,4 @@
+import type { Runtime } from 'webextension-polyfill-ts'
 import type { counterMessageDataType } from './types'
 import type { StateType } from '@/lib/store/counter/types'
 import type { tabsMessageType } from '@/lib/tabs/types'
@@ -53,26 +54,20 @@ async function setCount(payload: { count: number }): Promise<number> {
   return state.count
 }
 
-export default async function (
-  counter: counterMessageDataType,
-  sender: chrome.runtime.MessageSender,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendResponse: (response?: any) => void
-): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function (counter: counterMessageDataType, sender: Runtime.MessageSender): Promise<any> {
   switch (counter.type) {
     case 'fetch': {
       if (sender.tab?.id) {
         tabs.addTabId(sender.tab.id)
       }
       counter.response = await fetch()
-      sendResponse(counter.response)
-      break
+      return counter.response
     }
     case 'setCount': {
       counter.response = await setCount(counter.params)
-      sendResponse(counter.response)
       broadcastFetchToAllTabs()
-      break
+      return counter.response
     }
     default: {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -1,5 +1,6 @@
+import { browser } from 'webextension-polyfill-ts'
 import * as message from './message'
 
-chrome.runtime.onInstalled.addListener(() => {
+browser.runtime.onInstalled.addListener(() => {
   message.addListener()
 })

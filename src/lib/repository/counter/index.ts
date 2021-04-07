@@ -1,48 +1,37 @@
+import { browser } from 'webextension-polyfill-ts'
 import type { backgroundMessageType } from '@/background/message/types'
 import type { StateType } from '@/lib/store/counter/types'
 import type { RepositoryType } from './types'
 
 const repository: RepositoryType = {
-  fetch(): Promise<StateType> {
-    return new Promise((resolve) => {
-      chrome.runtime.sendMessage(
-        {
-          type: 'repository',
-          repository: {
-            type: 'counter',
-            counter: {
-              type: 'fetch',
-              response: {} as StateType
-            }
-          }
-        } as backgroundMessageType,
-        (state: StateType) => {
-          resolve(state)
+  async fetch(): Promise<StateType> {
+    const response = (await browser.runtime.sendMessage({
+      type: 'repository',
+      repository: {
+        type: 'counter',
+        counter: {
+          type: 'fetch',
+          response: {} as StateType
         }
-      )
-    })
+      }
+    } as backgroundMessageType)) as StateType
+    return response
   },
-  setCount(payload: { count: number }): Promise<number> {
-    return new Promise((resolve) => {
-      chrome.runtime.sendMessage(
-        {
-          type: 'repository',
-          repository: {
-            type: 'counter',
-            counter: {
-              type: 'setCount',
-              params: {
-                count: payload.count
-              },
-              response: 0
-            }
-          }
-        } as backgroundMessageType,
-        (count: number) => {
-          resolve(count)
+  async setCount(payload: { count: number }): Promise<number> {
+    const response = (await browser.runtime.sendMessage({
+      type: 'repository',
+      repository: {
+        type: 'counter',
+        counter: {
+          type: 'setCount',
+          params: {
+            count: payload.count
+          },
+          response: 0
         }
-      )
-    })
+      }
+    } as backgroundMessageType)) as number
+    return response
   }
 }
 

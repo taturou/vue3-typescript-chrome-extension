@@ -1,21 +1,16 @@
+import type { Runtime } from 'webextension-polyfill-ts'
 import type { repositoryMessageDataType } from './types'
 import CounterDespatcher from './counter'
 import MemosDespatcher from './memos'
 
-export default function (
-  repository: repositoryMessageDataType,
-  sender: chrome.runtime.MessageSender,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendResponse: (response?: any) => void
-): void {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function (repository: repositoryMessageDataType, sender: Runtime.MessageSender): Promise<any> {
   switch (repository.type) {
     case 'counter': {
-      void CounterDespatcher(repository.counter, sender, sendResponse)
-      break
+      return CounterDespatcher(repository.counter, sender)
     }
     case 'memos': {
-      void MemosDespatcher(repository.memos, sender, sendResponse)
-      break
+      return MemosDespatcher(repository.memos, sender)
     }
     default: {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

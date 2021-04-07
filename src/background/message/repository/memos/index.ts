@@ -1,3 +1,4 @@
+import type { Runtime } from 'webextension-polyfill-ts'
 import type { memosMessageDataType } from './types'
 import type { MemoType, StateType } from '@/lib/store/memos/types'
 import type { tabsMessageType } from '@/lib/tabs/types'
@@ -96,38 +97,30 @@ async function deleteById(payload: { id: number }): Promise<{ state: StateType; 
   }
 }
 
-export default async function (
-  memos: memosMessageDataType,
-  sender: chrome.runtime.MessageSender,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendResponse: (response?: any) => void
-): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function (memos: memosMessageDataType, sender: Runtime.MessageSender): Promise<any> {
   switch (memos.type) {
     case 'fetch': {
       if (sender.tab?.id) {
         tabs.addTabId(sender.tab.id)
       }
       memos.response = await fetch()
-      sendResponse(memos.response)
-      break
+      return memos.response
     }
     case 'add': {
       memos.response = await add(memos.params)
-      sendResponse(memos.response)
       broadcastFetchToAllTabs()
-      break
+      return memos.response
     }
     case 'updateById': {
       memos.response = await updateById(memos.params)
-      sendResponse(memos.response)
       broadcastFetchToAllTabs()
-      break
+      return memos.response
     }
     case 'deleteById': {
       memos.response = await deleteById(memos.params)
-      sendResponse(memos.response)
       broadcastFetchToAllTabs()
-      break
+      return memos.response
     }
     default: {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

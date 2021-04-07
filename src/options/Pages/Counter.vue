@@ -5,6 +5,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
+import { browser } from 'webextension-polyfill-ts'
+import type { Runtime } from 'webextension-polyfill-ts'
 import { useStore } from '@/lib/store'
 import type { tabsMessageType } from '@/lib/tabs/types'
 
@@ -15,11 +17,7 @@ export default defineComponent({
       return store.getters['counter/count']
     })
 
-    const fetchByEventFromBackground = (
-      message: tabsMessageType,
-      _sender: any,
-      sendResponse: (response?: any) => void
-    ): boolean => {
+    const fetchByEventFromBackground = (message: tabsMessageType, _sender: Runtime.MessageSender): void => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'counter') {
           if (message.tabs.counter.type === 'fetch') {
@@ -27,17 +25,15 @@ export default defineComponent({
           }
         }
       }
-      sendResponse()
-      return true
     }
 
     onBeforeMount(() => {
       store.dispatch('counter/fetch')
-      chrome.runtime.onMessage.addListener(fetchByEventFromBackground)
+      browser.runtime.onMessage.addListener(fetchByEventFromBackground)
     })
 
     onBeforeUnmount(() => {
-      chrome.runtime.onMessage.removeListener(fetchByEventFromBackground)
+      browser.runtime.onMessage.removeListener(fetchByEventFromBackground)
     })
 
     return {
