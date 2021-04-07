@@ -1,5 +1,5 @@
-import { messageType, messageDataType } from '@/background/message/_types'
-import { RepositoryType } from '@/lib/repository/counter/types'
+import type { MakeContainerType, MakeMessageType } from 'message-type'
+import type { RepositoryType } from '@/lib/repository/counter/types'
 
-export type counterMessageDataType = messageDataType<RepositoryType>
-export type counterMessageType = messageType<'counter', counterMessageDataType>
+export type counterMessageDataType = MakeMessageType<RepositoryType>
+export type counterMessageType = MakeContainerType<'counter', counterMessageDataType>

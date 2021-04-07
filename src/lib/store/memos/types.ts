@@ -1,5 +1,5 @@
-import { StoreActionsInjecteeType, StoreModuleType } from '@/lib/store/_types'
-import { RootState } from '@/lib/store/types'
+import type { MakeStoreActionsInjecteeType, MakeStoreModuleType } from 'vuex-ts'
+import type { RootState } from '@/lib/store/types'
 
 export interface MemoType {
   id: number
@@ -23,7 +23,7 @@ export interface MutationsType {
   commit(state: StateType, payload: StateType): void
 }
 
-export type ActionsInjecteeType = StoreActionsInjecteeType<RootState, StateType, MutationsType>
+export type ActionsInjecteeType = MakeStoreActionsInjecteeType<RootState, StateType, MutationsType>
 
 export interface ActionsType {
   fetch(injectee: ActionsInjecteeType): Promise<void>
@@ -32,7 +32,7 @@ export interface ActionsType {
   deleteById(injectee: ActionsInjecteeType, payload: { id: number }): Promise<boolean>
 }
 
-export type MemosStoreModuleType<M extends string> = StoreModuleType<
+export type MemosStoreModuleType<M extends string> = MakeStoreModuleType<
   M,
   StateType,
   GettersType,

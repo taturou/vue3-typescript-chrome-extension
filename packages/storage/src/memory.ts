@@ -1,12 +1,16 @@
-import { StorageType } from './types'
+import type { StorageType } from './types'
 
 class Storage implements StorageType {
-  // Required
+  private data: Record<string, unknown>
+
+  constructor() {
+    this.data = {}
+  }
+
   get<T>(key: string): Promise<T | null> {
     return new Promise((resolve) => {
-      const json = localStorage.getItem(key)
-      if (json) {
-        resolve(JSON.parse(json))
+      if (key in this.data) {
+        resolve(this.data[key] as T)
       } else {
         resolve(null)
       }
@@ -15,21 +19,21 @@ class Storage implements StorageType {
 
   set<T>(key: string, value: T): Promise<void> {
     return new Promise((resolve) => {
-      localStorage.setItem(key, JSON.stringify(value))
+      this.data[key] = value
       resolve()
     })
   }
 
   remove(key: string): Promise<void> {
     return new Promise((resolve) => {
-      localStorage.removeItem(key)
+      delete this.data[key]
       resolve()
     })
   }
 
   clear(): Promise<void> {
     return new Promise((resolve) => {
-      localStorage.clear()
+      this.data = {}
       resolve()
     })
   }
