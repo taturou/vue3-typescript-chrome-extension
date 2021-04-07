@@ -76,6 +76,7 @@
   },
   "dependencies": {
     "jquery": "^3.6.0",
+    "message-type": "file:packages/message-type",
     "storage": "file:packages/storage",
     "vuex-ts": "file:packages/vuex-ts"
   }
