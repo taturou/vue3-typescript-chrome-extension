@@ -5,8 +5,8 @@
   "description": "Chrome extension template with Vue 3 + Vuex 4 + Vue Router 4 + Typescript 4.2 + SCSS + Webpack 5.",
   "scripts": {
     "build": "cross-env NODE_ENV=\"production\" webpack",
-    "debug": "cross-env NODE_ENV=\"development\" webpack",
-    "debug:mock": "cross-env REPO_ENV=\"mock\" npm run debug",
+    "build:dev": "cross-env NODE_ENV=\"development\" webpack",
+    "build:dev:mock": "cross-env REPO_ENV=\"mock\" npm run build:dev",
     "watch": "cross-env NODE_ENV=\"development\" webpack --watch",
     "watch:mock": "cross-env REPO_ENV=\"mock\" npm run watch",
     "zip": "node scripts/zip_dist.js",
