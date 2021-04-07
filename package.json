@@ -77,6 +77,6 @@
   "dependencies": {
     "jquery": "^3.6.0",
     "storage": "file:packages/storage",
-    "vue": "^3.0.7"
+    "vuex-ts": "file:packages/vuex-ts"
   }
 }
