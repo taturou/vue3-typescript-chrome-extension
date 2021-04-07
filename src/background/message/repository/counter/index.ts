@@ -1,7 +1,7 @@
 import type { counterMessageDataType } from './types'
 import type { StateType } from '@/lib/store/counter/types'
 import type { tabsMessageType } from '@/lib/tabs/types'
-import { Storage } from '@/lib/storage'
+import { StorageFactory } from 'storage'
 import { TabsManager } from '@/lib/tabs'
 import { migrate as objectMigrate } from '@/util/object'
 
@@ -13,7 +13,13 @@ const defaultState: StateType = {
   min: 0
 }
 
-const storage = Storage()
+const storage = (() => {
+  if (process.env.REPO_ENV === 'mock') {
+    return StorageFactory('memory')
+  } else {
+    return StorageFactory('localStorage')
+  }
+})()
 const tabs = new TabsManager()
 
 function broadcastFetchToAllTabs() {

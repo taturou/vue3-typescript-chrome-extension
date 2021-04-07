@@ -1,10 +1,10 @@
-// See the following links to understand the variables.
-// * https://www.typescriptlang.org/tsconfig
-// * https://www.typescriptlang.org/ja/tsconfig
 {
-  "include": ["./src/**/*.ts", "./src/**/*.vue", "./src/@types/**/*.ts"],
+  "files": ["src/index.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "outDir": "./dist",
+
     // Project Options
     "allowJs": false,
     "declaration": false,
