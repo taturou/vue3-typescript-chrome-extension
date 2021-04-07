@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { CollapseExpandType } from './types'
+import type { CollapseExpandType } from './types'
 
 export default defineComponent({
   props: {

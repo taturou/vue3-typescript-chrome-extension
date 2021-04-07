@@ -1,4 +1,4 @@
-import { RepositoriesType } from './types'
+import type { RepositoriesType } from './types'
 import CounterRepository from './counter'
 import MemosRepository from './memos'
 

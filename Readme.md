@@ -4,23 +4,24 @@
 
 Chrome extension template for vue-cli with Vue 3 + Vuex 4 + Vue Router 4 + Typescript 4.2 + Webpack 5.
 
-| Product name | npm package name | npm package version |
-| :----------- | :--------------- | :------------------ |
-| Vue.js       | vue              | 3.0.7               |
-| Vuex         | vuex             | 4.0.0               |
-| Vue Router   | vue-router       | 4.0.5               |
-| Typescript   | typescript       | 4.2.3               |
-| Pug          | pug              | 3.0.2               |
-| SASS/SCSS    | sass-loader      | 11.0.1              |
-| Webpack      | webpack          | 5.26.0              |
-| ESLint       | eslint           | 7.23.0              |
-| Prettier     | prettier         | 2.2.1               |
-| jQuery       | jquery           | 3.6.0               |
+| Product name                      | npm package name         | npm package version |
+| :-------------------------------- | :----------------------- | :------------------ |
+| Vue.js                            | vue                      | 3.0.7               |
+| Vuex                              | vuex                     | 4.0.0               |
+| Vue Router                        | vue-router               | 4.0.5               |
+| Typescript                        | typescript               | 4.2.3               |
+| Pug                               | pug                      | 3.0.2               |
+| SASS/SCSS                         | sass-loader              | 11.0.1              |
+| Webpack                           | webpack                  | 5.26.0              |
+| ESLint                            | eslint                   | 7.23.0              |
+| Prettier                          | prettier                 | 2.2.1               |
+| WebExtension browser API Polyfill | webextension-polyfill-ts | 0.25.0              |
+| jQuery                            | jquery                   | 3.6.0               |
 
 Notes: \
 This sample is checked with `node v15.11.0`, `npm v7.8.0`, `@vue/cli 4.5.12`, and `Chrome 89.0.4389.90 (64-bit)`. \
 This sample does not use any Vue libraries and any CSS frameworks. \
-The chrome-extension manifest version is v2 (MV2).
+The chrome-extension manifest version of this brunch is v2 (MV2), but you can choose MV2 and MV3 when you create a project by this template.
 
 ---
 
@@ -129,7 +130,7 @@ $ npm run build
 -   Build chrome-extension with debug information to './dist'.
 
     ```
-    $ npm run debug
+    $ npm run build:dev
     ```
 
 -   Build chrome-extension with debug information and watch mode.
@@ -258,7 +259,7 @@ If 'v3', it uses 'chrome.storage.local' by default. \
 In both versions, you can use 'Mock' by using the commands below.
 
 ```bash
-$ npm run debug:mock
+$ npm run build:dev:mock
 or
 $ npm run watch:mock
 ```
@@ -295,10 +296,6 @@ $ npm run watch:mock
 
 -   Supports 'Vue.js devtools' chrome-extension.
     -   I don't understand why the chrome-extension does not recognize this project...
--   Supports the chrome extension manifest v3 (MV3).
-    -   MV3 supports only a service worker instead of a background script. \
-        But a service worker can not access the LocalStorage, as far as I know. \
-        This extension must use the LocalStorage to save data of the Vuex store.
 
 ---
 

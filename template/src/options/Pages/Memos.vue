@@ -22,10 +22,12 @@
 
 <script lang="ts">
 import { defineComponent, computed, onBeforeMount, onBeforeUnmount } from 'vue'
+import { browser } from 'webextension-polyfill-ts'
+import type { Runtime } from 'webextension-polyfill-ts'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'vue-router'
 import * as dateUtil from '@/util/Date'
-import { tabsMessageType } from '@/lib/tabs/types'
+import type { tabsMessageType } from '@/lib/tabs/types'
 
 export default defineComponent({
   setup() {
@@ -52,11 +54,7 @@ export default defineComponent({
       return dateUtil.printDate(date) + ' ' + dateUtil.printTime(date)
     }
 
-    const fetchByEventFromBackground = (
-      message: tabsMessageType,
-      _sender: any,
-      sendResponse: (response?: any) => void
-    ): boolean => {
+    const fetchByEventFromBackground = (message: tabsMessageType, _sender: Runtime.MessageSender): void => {
       if (message.type === 'tabs') {
         if (message.tabs.type === 'memos') {
           if (message.tabs.memos.type === 'fetch') {
@@ -64,17 +62,15 @@ export default defineComponent({
           }
         }
       }
-      sendResponse()
-      return true
     }
 
     onBeforeMount(() => {
       store.dispatch('memos/fetch')
-      chrome.runtime.onMessage.addListener(fetchByEventFromBackground)
+      browser.runtime.onMessage.addListener(fetchByEventFromBackground)
     })
 
     onBeforeUnmount(() => {
-      chrome.runtime.onMessage.removeListener(fetchByEventFromBackground)
+      browser.runtime.onMessage.removeListener(fetchByEventFromBackground)
     })
 
     return {
